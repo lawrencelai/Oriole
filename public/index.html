@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="http://www.datatables.net/release-datatables/extensions/TableTools/css/dataTables.tableTools.css">
+	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/sqlCIGroup.css">  
+    <link rel="stylesheet" type="text/css" href="css/popup-div.css"> 
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="plugin/codemirror/lib/codemirror.css" />
+   	<link rel="stylesheet" href="plugin/codemirror/addon/hint/show-hint.css" />
+	<link rel="stylesheet" href="plugin/bootstrap/css/bootstrap-switch.css" >
+   	
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+
+ 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/sqlCI.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/sqlCIGroup.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/createGroupDiv.js"></script>  
+
+	<script src="plugin/codemirror/lib/codemirror.js"></script>
+	<script src="plugin/codemirror/addon/wrap/hardwrap.js"></script>
+	<script src="plugin/codemirror/addon/display/autorefresh.js"></script>
+	<script src="plugin/codemirror/addon/hint/show-hint.js"></script>
+	<script src="plugin/codemirror/addon/hint/sql-hint.js"></script>
+	<script src="plugin/bootstrap/js/bootstrap-switch.js"></script>
+	<script src="js/codemirror_sql.js"></script>
+	
+
+    
+    <title>SQL RESOURCE</title>
+</head>
+
+<body>
+	<div id="sql-ci-group-view">
+		<div><a class="create-SQLCI-Group" data-popup-open="createSQLCIGroup" href="#">Create Group</a></div>
+		<div id="data-table">
+			<table id="sqlCIGroup" class="order-column" cellspacing="0" width="100%">
+			    <thead>
+				    <tr>
+				    	<th></th>
+				        <th class="all">id</th>
+				        <th class="all">manitsNo</th>
+				        <th class="all">description</th>
+				        <th class="all">targetVersion</th>
+				        <th class="all">dependent</th>		        
+				        <th class="all">createdBy</th>
+				        <th class="all">createdTs</th>
+				        <th class="all">Action</th>
+				        <th class="all">Deploy Group</th>
+				    </tr>
+			    </thead>
+			    <tfoot>
+				    <tr>
+				    	<th></th>
+				        <th>id</th>
+				        <th>manitsNo</th>
+				        <th>description</th>
+				        <th>targetVersion</th>
+				        <th>dependent</th>		      
+				        <th>createdBy</th>
+				        <th>createdTs</th>
+				        <th>Action</th>
+				        <th>Deploy Group</th>
+				    </tr>
+			    </tfoot>
+			    <tbody>
+			    </tbody>
+			</table>
+		</div>
+		<div class="popup" data-popup="createSQLCIGroup">
+		    <div class="popup-inner">
+				 <h2>New SQL Configuration Item Group</h2>
+				
+				<div-table>
+					<div-row>
+						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell>SQL CI Group Number :</div-cell>
+						<div-cell>Mantis Number</div-cell>
+						<div-cell><input type="text" data-role="createSQLCIGroup" id="id" disabled/></div-cell>
+						<div-cell><input type="text" data-role="createSQLCIGroup" id="referenceNumber"/></div-cell>
+						
+					</div-row>
+					<div-row>
+						<div-cell>Target Version</div-cell>
+						<div-cell>Owner</div-cell>	
+						<div-cell><input type="text" data-role="createSQLCIGroup" id="targetVersion"/></div-cell>
+						<div-cell><input type="text" data-role="createSQLCIGroup" id="owner"/></div-cell>			
+					</div-row>
+					<br/><br/><br/>
+					<div-row>
+						<div-cell>
+							<div-table>
+								<div-row>
+									<div-cell>description</div-cell>
+									<div-cell-3><textarea data-role="createSQLCIGroup" id="description" rows="3" cols="50" style="resize: none" ></textarea></div-cell>
+								</div-row>
+							</div-table>
+						</div-cell>	
+					</div-row>
+					<br/><br/><br/>
+					<div-row>
+						<div-cell>
+							<div-table>
+								<div-row>
+									<div-cell>createdBy</div-cell>
+									<div-cell>createdTs</div-cell>
+									<div-cell>updatedBy</div-cell>
+									<div-cell>updatedTs</div-cell>							
+								</div-row>
+								<div-row>
+									<div-cell><input type="text" data-role="createSQLCIGroup" id="createdBy" disabled/></div-cell>
+									<div-cell><input type="text" data-role="createSQLCIGroup" id="createdTs"/></div-cell>
+									<div-cell><input type="text" data-role="createSQLCIGroup" id="updatedBy"/></div-cell>
+									<div-cell><input type="text" data-role="createSQLCIGroup" id="updatedTs"/></div-cell>
+								</div-row>
+							</div-table>
+						</div-cell>
+					</div-row>
+				</div-table>
+				<a sql-ci-ws="createSQLCIGroup" href="#">Create</a>	
+		        <p><a data-popup-close="createSQLCIGroup" href="#">Close</a></p>
+		        <a class="popup-close" data-popup-close="createSQLCIGroup" href="#">x</a>
+		    </div>
+		</div>
+				
+		<div class="popup" data-popup="editSQLCIGroup">
+		    <div class="popup-inner">	   
+				<h2>Edit SQL Configuration Item</h2>
+				<div-table>
+					<div-row>
+						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell>SQL CI Group Number : </div-cell>
+						<div-cell>Mantis Number</div-cell>
+						<div-cell>Target Version</div-cell>
+					</div-row>
+					<div-row>
+						<div-cell><input type="text" data-role="editSQLCIGroup" id="id" disabled/></div-cell>					
+						<div-cell><input type="text" data-role="editSQLCIGroup" id="referenceNumber"/></div-cell>
+						<div-cell><input type="text" data-role="editSQLCIGroup" id="targetVersion"/></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell><br/></div-cell>					
+					</div-row>
+					<div-row>
+						<div-cell>description</div-cell>
+						<div-cell-2>
+							<textarea data-role="editSQLCIGroup" id="description" rows="3" cols="50" style="resize: none;width:70%" ></textarea>
+						</div-cell-2>
+					</div-row>
+					<div-row>
+						<div-cell><br/></div-cell>					
+					</div-row>
+					<div-row>
+						<div-cell>SQL Owner:</div-cell>
+						<div-cell colspan="2"><input type="text" data-role="editSQLCIGroup" id="owner"/> </div-cell>
+					</div-row>
+					<div-row>
+						<div-cell><br/></div-cell>					
+					</div-row>
+					<div-row>
+						<div-cell>createdBy:</div-cell>
+						<div-cell><input type="text" data-role="editSQLCIGroup" id="createdBy"/></div-cell>
+						<div-cell>createdTs:</div-cell>
+						<div-cell><input type="text" data-role="editSQLCIGroup" id="createdTs" class="datepick"/></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell><a sql-ci-ws="editSQLCIGroup" href="#">Edit</a></div-cell>
+					</div-row>				
+				</div-table>
+		        <p><a data-popup-close="editSQLCIGroup" href="#">Close</a></p>
+		        <a class="popup-close" data-popup-close="editSQLCIGroup" href="#">x</a>
+		    </div>
+		</div>	
+		<div class="popup" data-popup="createSQLCI">
+		    <div class="SqlCI-Inner">
+				 <h2>New SQL Configuration Item</h2>
+				<div-table>
+					<div-row>
+						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell>SQL CI Group ID :</div-cell>
+						<div-cell>Category*</div-cell>									
+					</div-row>		
+					<div-row>
+						<div-cell><input type="text" data-role="createSQLCI" id="sqlCIGroupId"/> </div-cell>
+						<div-cell><select class="combobox" data-role="createSQLCI" id="sqlCategory"></select></div-cell>
+					</div-row>
+					<div-row><div-cell><br/></div-cell></div-row>
+					<div-row>
+						<div-cell>description</div-cell>
+						<div-cell><textarea rows="4" cols="50" style="resize: none" data-role="createSQLCI" id="description"></textarea></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell><textarea data-role="createSQLCI" id="statement"></textarea></div-cell>
+					</div-row>
+					<div-row>
+						<div-cell>createdBy</div-cell>
+						<div-cell>createdTs</div-cell>
+						<div-cell>updatedBy</div-cell>
+						<div-cell>updatedTs</div-cell>							
+					</div-row>
+					<div-row>
+						<div-cell><input type="text" data-role="createSQLCI" id="createdBy"/></div-cell>
+						<div-cell><input type="text" data-role="createSQLCI" id="createdTs"/></div-cell>
+					</div-row>	
+					<div-row>
+						<div-cell><a sql-ci-ws="createSQLCI" href="#">Create</a></div-cell>
+					</div-row>				
+				</div-table>
+		        <p><a data-popup-close="createSQLCI" href="#">Close</a></p>
+		        <a class="popup-close" data-popup-close="createSQLCI" href="#">x</a>
+		    </div>
+		</div>
+		
+		<div class="popup" data-popup="editSQLCI">
+		    <div class="popup-inner">			
+				<div><h2>Edit SQL Configuration Item</h2></div>			  
+				<div-table>
+					<div-row>
+						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+					</div-row>
+					<div-row>				  		
+						<div-cell>Sequence :<input type="text" name="sequence"/></div-cell>
+						<div-cell>sqlCIType:<input type="text" name="sqlCIType"/></div-cell>
+						<div-cell>owner    :<input type="text" name="owner"/></div-cell>
+					</div-row>
+					  <br/><br/><br/>
+					  <div-row>
+					        <div-cell>description :<textarea rows="4" cols="50" style="resize: none" name="description"></textarea></div-cell>	
+					  </div-row>
+					  <br/>
+					  <div-row>
+						  	<div-cell>
+							  		<div-table>
+							  			<div-row>
+									        <div-cell>createdBy :<input type="text" name="createdBy"/></div-cell>
+									        <div-cell>createdTs :<input type="text" name="createdTs" class="datepick"/></div-cell>
+									      	<div-cell>updatedBy :<input type="text" name="updatedBy"/></div-cell>
+									        <div-cell>updatedTs :<input type="text" name="updatedTs" class="datepick"/></div-cell>
+										</div-row>
+							  		</div-table>
+						   	</div-cell>
+					   </div-row>
+					   <br/><br/><br/>
+					   <div-row>
+					        <div-cell><button>Edit</button></div-cell>			        
+					   </div-row>			
+	 			</div-table>
+		    <p><a data-popup-close="editSQLCI" href="#">Close</a></p>
+		    <a class="popup-close" data-popup-close="editSQLCI" href="#">x</a>
+		  
+		</div>
+	</div>
+	</div>
+</body>
+</html>
