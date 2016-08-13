@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface MantisInfoRepository extends MongoRepository<MantisInfo, String> {
  
-    public MantisInfo findBySqlCIGroupID(long sqlCIGroupID);
+    public MantisInfo findByGroupId(long groupId);
 }

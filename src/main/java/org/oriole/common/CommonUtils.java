@@ -1,5 +1,11 @@
 package org.oriole.common;
 
-public class CommonUtils {
-	
+import org.oriole.exception.InputDataException;
+
+public class CommonUtils {	
+	public static void validateNullObj(Object obj, String message){
+		if(obj == null){
+			throw new InputDataException(message);   
+		}
+	}
 }

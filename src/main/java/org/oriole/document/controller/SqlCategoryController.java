@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.oriole.common.CommonUtils;
 import org.oriole.common.JsonObject;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.document.SqlCategory;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,30 +59,21 @@ public class SqlCategoryController {
 	 
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/sqlCategory/searchById")
-    public @ResponseBody SqlCategory getSqlCategoryById(Long id) { 
-    	logger.debug("getSQLCIGroup - Parameter :" + id);
-    	
-    	if(id == null){
-    		throw new InputDataException("No SqL Category ID");
-    	}
+    public @ResponseBody SqlCategory getSqlCategoryById(
+    		@RequestParam Long id) { 
+
     	return sqlCategoryRepository.findById(id);
     }
     
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/sqlCategory/create")
-    public @ResponseBody SqlCategory createSqlCategory(String name,String description, String createdBy) {
+    public @ResponseBody SqlCategory createSqlCategory(
+    		@RequestParam String name,
+    		@RequestParam String description, 
+    		@RequestParam String createdBy) {
    
     	logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s ", name, createdBy, description));
-    	if(name == null){
-    		throw new InputDataException("No SQL Category Name");
-    	}
-    	if(createdBy == null){
-    		throw new InputDataException("No created By");
-    	}
-    	if(description == null){
-    		throw new InputDataException("No Description");
-    	}    	
-    	
+    	    	
     	SqlCategory sqlCategory = new SqlCategory(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CATEGORY.name()),name,description,createdBy);
 
     	return sqlCategoryRepository.insert(sqlCategory);
@@ -92,15 +85,9 @@ public class SqlCategoryController {
    
     	logger.debug(String.format("[updateSqlCategory] [Parameter: %s %s %s %s %s %s]", id, description, updatedBy, description));
     	
-    	if(id == null){
-    		throw new InputDataException("No SQL Category ID");
-    	}
-    	
     	SqlCategory sqlCategory = sqlCategoryRepository.findById(id);
     	
-    	if(sqlCategory == null){
-    		throw new InputDataException("No SQL Category Exists");
-    	}
+    	CommonUtils.validateNullObj(sqlCategory,"No SQL Category Exists");
     
     	sqlCategory.setName(name);
     	sqlCategory.setDescription(description);

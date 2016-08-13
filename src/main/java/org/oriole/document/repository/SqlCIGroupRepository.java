@@ -1,4 +1,4 @@
-package org.oriole.document.repository;
+ package org.oriole.document.repository;
 
 import java.util.List;
 

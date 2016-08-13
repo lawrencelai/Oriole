@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.oriole.common.CommonUtils;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.document.SqlCI;
 import org.oriole.document.SqlCIGroup;
@@ -31,6 +32,8 @@ public class SqlCIController {
 	@Autowired
 	private SqlCIRepository sqlCIRepository;
 	
+	
+	
 	@Autowired
 	private SequenceDao sequenceDao;
 	
@@ -47,7 +50,7 @@ public class SqlCIController {
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping(value="/sqlCI/searchByGroupId")
     public @ResponseBody List<SqlCI> getSqlCIListByGroupId(@RequestParam Long sqlCIGroupId) { 
-    	return sqlCIRepository.findBySqlCIGroupID(sqlCIGroupId);
+    	return sqlCIRepository.findByGroupID(sqlCIGroupId);
     }
     
     @CrossOrigin(origins = "http://localhost")
@@ -60,12 +63,10 @@ public class SqlCIController {
     		String description) {   
     
     	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+    	    	
+    	CommonUtils.validateNullObj(sqlCIGroup,"SQL CI Group ID not found");
     	
-    	if(sqlCIGroup == null){
-    		throw new InputDataException("SQL CI Group ID not found");
-    	}
-    	
-    	List<SqlCI> sqlCIList = sqlCIRepository.findBySqlCIGroupID(sqlCIGroup.getId());
+    	List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(sqlCIGroup.getId());
 		SqlCI sqlCI = new SqlCI(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI.name()),sqlCIGroup.getId());
 		if(sqlCIList==null){
     		sqlCI.setSequence(1);    		
@@ -73,7 +74,7 @@ public class SqlCIController {
     		sqlCI.setSequence(sqlCIList.size()+1);   		
     	}
 		
-		sqlCI.setSqlCIType(sqlCategory);
+		sqlCI.setType(sqlCategory);
 		sqlCI.setStatement(statement);
 		sqlCI.setDescription(description);
 		sqlCI.setCreatedBy(createdBy);
@@ -101,7 +102,7 @@ public class SqlCIController {
     	sqlCI.setSequence(sequence);
     	sqlCI.setCreatedBy(createdBy);
     	sqlCI.setUpdatedBy(updatedBy);
-    	sqlCI.setSqlCIType(sqlCIType);
+    	sqlCI.setType(sqlCIType);
     	sqlCI.setStatement(createdBy);
     	sqlCI.setDescription(description);
     	sqlCI.setUpdatedTs(new Date());  	
@@ -111,10 +112,10 @@ public class SqlCIController {
     }
     @RequestMapping("/sqlCI/delete")
     public @ResponseBody void deleteById(@RequestParam Long sqlCIId) {
-   
-    	//logger.debug(String.format("[ws:deleteSqlCI] [Parameter: %s]", sqlCIGroupId );
-    	    
+    	
     	SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);
+    	
+    	CommonUtils.validateNullObj(sqlCI,"SQL CI not found");
     	
     	sqlCIRepository.delete(sqlCI);    	
     }    

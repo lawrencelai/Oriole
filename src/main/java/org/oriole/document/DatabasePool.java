@@ -7,9 +7,10 @@ public class DatabasePool {
 	@Id
 	private long id;
 	
-	private String name; // Database name
-	private String description; // Database name
-
+	private String name; // Database connection name
+	private String description; // Database description
+	private boolean active;
+	
 	private String host;
 	private String port;
 	private String serviceName;
@@ -17,8 +18,6 @@ public class DatabasePool {
 	
 	private String username;
 	private String password;
-	
-	private String tns;	
 	
 	public DatabasePool(long id) {
 		this.id = id;		
@@ -42,6 +41,14 @@ public class DatabasePool {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getHost() {
@@ -91,13 +98,4 @@ public class DatabasePool {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getTns() {
-		return tns;
-	}
-
-	public void setTns(String tns) {
-		this.tns = tns;
-	}
-
 }

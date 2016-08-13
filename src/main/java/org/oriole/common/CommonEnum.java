@@ -62,9 +62,18 @@ public class CommonEnum{
 	}
 	
 	public static enum DeployRequestState {
-		SUCCESS,FAILED,	SCHEDULED,HOLD;
+		SUCCESS,FAIL,SCHEDULE,HOLD;
+		
+		public static DeployRequestState find(String str) {
+		    for (DeployRequestState state : DeployRequestState.values()) {
+		        if (state.name().equalsIgnoreCase(str))
+		            return state;
+		    }
+		    return null;
+		}
 	}
-
+	
+	
 }
 
 

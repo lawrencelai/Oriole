@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.oriole.common.CommonUtils;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.document.DatabasePool;
 import org.oriole.document.dao.SequenceDao;
@@ -47,7 +48,8 @@ public class DatabasePoolController {
 	 
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/database/searchByName")
-    public @ResponseBody DatabasePool getDatabasePoolByName(@RequestParam String databaseName) {
+    public @ResponseBody DatabasePool getDatabasePoolByName(
+    		@RequestParam String databaseName) {
     	return databasePoolRepository.findByName(databaseName);
     }
     
@@ -55,6 +57,7 @@ public class DatabasePoolController {
     @RequestMapping("/database/create")
     public @ResponseBody DatabasePool createDatabasePool(
     		@RequestParam String name,
+    		@RequestParam boolean active,
     		@RequestParam String host,
     		@RequestParam String port,
     		@RequestParam String username,
@@ -67,18 +70,19 @@ public class DatabasePoolController {
     	if(databasePoolRepository.findByName(name)!=null){
     		throw new InputDataException("Database name is defined");
     	}
-    	DatabasePool newDatabasePool = new DatabasePool(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.name()));
-    	newDatabasePool.setName(name);
-    	newDatabasePool.setHost(host);
-    	newDatabasePool.setPort(port);
-    	newDatabasePool.setServiceName(serviceName);
-    	newDatabasePool.setSid(sid);
-    	newDatabasePool.setTns(tns);
-    	newDatabasePool.setUsername(username);
-    	newDatabasePool.setPassword(password);
-    	newDatabasePool.setDescription(description);
     	
-    	return databasePoolRepository.insert(newDatabasePool);
+    	DatabasePool databasePool = new DatabasePool(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.name()));
+    	databasePool.setName(name);  
+    	databasePool.setActive(active);
+    	databasePool.setHost(host);
+    	databasePool.setPort(port);
+    	databasePool.setServiceName(serviceName);
+    	databasePool.setSid(sid);
+    	databasePool.setUsername(username);
+    	databasePool.setPassword(password);
+    	databasePool.setDescription(description);
+    	
+    	return databasePoolRepository.insert(databasePool);
     	
     }
     @CrossOrigin(origins = "http://localhost")    
@@ -96,16 +100,13 @@ public class DatabasePoolController {
    	
     	DatabasePool databasePool = databasePoolRepository.findByName(name);
     	
-    	if(databasePool == null){
-    		throw new InputDataException("Database name is not exist");
-    	}
+    	CommonUtils.validateNullObj(databasePool,"Database name is not exist");        
     
     	databasePool.setName(name);
     	databasePool.setHost(host);
     	databasePool.setPort(port);
     	databasePool.setServiceName(serviceName);
     	databasePool.setSid(sid);
-    	databasePool.setTns(tns);
     	databasePool.setUsername(username);
     	databasePool.setPassword(password);
     	databasePool.setDescription(description);
