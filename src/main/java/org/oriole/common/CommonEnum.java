@@ -7,7 +7,7 @@ public class CommonEnum{
 		id(1),
 		referenceNumber(2),
 		targetVersion(4),
-		dependent(5),
+		dependentGroupId(5),
 		description (3),
 		owner(0),
 		approved(0),

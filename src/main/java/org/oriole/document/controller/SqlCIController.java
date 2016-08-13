@@ -31,9 +31,7 @@ public class SqlCIController {
 	
 	@Autowired
 	private SqlCIRepository sqlCIRepository;
-	
-	
-	
+		
 	@Autowired
 	private SequenceDao sequenceDao;
 	
