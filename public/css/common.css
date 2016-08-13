@@ -1,3 +1,11 @@
 .CodeMirror {
 	    border: 1px solid black;
 }
+
+.oriole-menu{
+	padding: 80px 0px 80px 0px;
+}
+
+.oriole-menuitem{
+	padding: 50px 30px 20px 30px;
+}

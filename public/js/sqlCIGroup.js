@@ -2,8 +2,19 @@ $(document).ready(function () {
 	var dttable;
 	initSqlCIGroupDataTable();
 	initSqlCategory();	
-	$("[name='sqlci-group-active-checkbox']").bootstrapSwitch();
+	initMenu();
+	$('[page]').fadeOut(0); 
+	$("[name='sqlci-group-active-checkbox']").bootstrapSwitch();	
 });
+
+function initMenu(){	
+	$(".oriole-menuitem").mouseover(function() {
+		 $(this).animate({ backgroundColor:'##aff1ff'},1000);
+	}).mouseout(function() {
+		$(this).animate({ backgroundColor:'#ffffff'},1000);
+	}); 
+}
+
 function initSqlCategory(){		
 	    $.ajax(
 	    {
@@ -38,7 +49,7 @@ function initSqlCIGroupDataTable(){
 		            { "data": "mantisInfo.id"},
 		            { "data": "description" },
 		            { "data": "mantisInfo.targetVersion"},
-		            { "data": "dependent" },		            
+		            { "data": "dependentGroupId" },		            
 		            { "data": "createdBy" },
 		            { "data": "createdTs" },
 					{   "className": 'sqlCIGroup-edit',	

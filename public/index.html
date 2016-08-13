@@ -31,14 +31,23 @@
 	<script src="plugin/codemirror/addon/hint/sql-hint.js"></script>
 	<script src="plugin/bootstrap/js/bootstrap-switch.js"></script>
 	<script src="js/codemirror_sql.js"></script>
-	
-
-    
-    <title>SQL RESOURCE</title>
+	    
+    <title>Oriole - SQL CI Management and Deployment Tool</title>
 </head>
 
 <body>
-	<div id="sql-ci-group-view">
+	<div-table class="oriole-menu">
+			<div-row>
+				<div-cell class="oriole-menuitem"><a menu-item="overview-view" href="#">Overview</a></div-cell>
+				<div-cell class="oriole-menuitem"><a menu-item="deployment-view" href="#">Deploy History</a></div-cell>
+				<div-cell class="oriole-menuitem"><a menu-item="sql-ci-view" href="#">SQL CI</a></div-cell>
+				<div-cell class="oriole-menuitem"><a menu-item="admin-view" href="#">Admin</a></div-cell>
+			</div-row>
+	</div-table>
+	<div page="overview-view">overview-view</div>
+	<div page="deployment-view">deployment-view</div>	
+	
+	<div page="sql-ci-view">
 		<div><a class="create-SQLCI-Group" data-popup-open="createSQLCIGroup" href="#">Create Group</a></div>
 		<div id="data-table">
 			<table id="sqlCIGroup" class="order-column" cellspacing="0" width="100%">
@@ -263,6 +272,6 @@
 		  
 		</div>
 	</div>
-	</div>
+	<div page="admin-view">admin-view</div>
 </body>
 </html>

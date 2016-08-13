@@ -1,4 +1,10 @@
 $(function() {
+    $('[menu-item]').on('click', function(e)  {  
+    	var menuitem = $(this).attr('menu-item');
+    	$('[page]').fadeOut(350); 
+        $('[page="' + menuitem + '"]').fadeIn(350); 
+        e.preventDefault();
+    });
     //----- OPEN
     $('[data-popup-open]').on('click', function(e)  {
         var targeted_popup_class = jQuery(this).attr('data-popup-open');
