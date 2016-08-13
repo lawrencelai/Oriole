@@ -15,11 +15,10 @@ public class SqlCategory {
 	private String      description;
 		
 	private String      createdBy;
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date   		createdTs;
-	
 	private String      updatedBy;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date   		createdTs;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date   		updatedTs;
 

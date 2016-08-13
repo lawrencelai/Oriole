@@ -5,16 +5,16 @@ import org.springframework.data.annotation.Id;
 public class MantisInfo {
 	@Id	
 	private long 		id;	
-	private long 		sqlCIGroupID;
+	private long 		groupId;
 	
-	private String      summany;	
+	private String      summany;
 	private String		description;
 	private String		targetVersion;
 	private String     	targetBranch;
 
-	public MantisInfo(long id, long sqlCIGroupID) {
+	public MantisInfo(long id, long groupId) {
 		this.id = id;
-		this.sqlCIGroupID = sqlCIGroupID;
+		this.groupId = groupId;
 	}
 
 	public MantisInfo() {
@@ -25,8 +25,12 @@ public class MantisInfo {
 		return id;
 	}
 
-	public long getSqlCIGroupID() {
-		return sqlCIGroupID;
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getSummany() {
@@ -60,6 +64,5 @@ public class MantisInfo {
 	public void setTargetBranch(String targetBranch) {
 		this.targetBranch = targetBranch;
 	}
-	
-	
+
 }

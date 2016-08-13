@@ -9,5 +9,5 @@ public interface SqlCIRepository extends MongoRepository<SqlCI, String> {
 
     public SqlCI findById(long id);
  
-    public List<SqlCI> findBySqlCIGroupID(long sqlCIGroupID);
+    public List<SqlCI> findByGroupID(long groupID);
 }

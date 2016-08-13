@@ -7,14 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.oriole.common.JQueryDataTableObject;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.MongoDbSqlCIGroup;
+import org.oriole.common.CommonUtils;
+import org.oriole.common.JQueryDataTableObject;
 import org.oriole.document.MantisInfo;
 import org.oriole.document.SqlCIGroup;
 import org.oriole.document.dao.SequenceDao;
 import org.oriole.document.exception.ErrorDetail;
 import org.oriole.document.repository.SqlCIGroupRepository;
+import org.oriole.document.repository.SqlCategoryRepository;
 import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,9 @@ public class SqlCIGroupController {
 	private SqlCIGroupRepository sqlCIGroupRepository;
 	
 	@Autowired
+	private SqlCategoryRepository sqlCategoryRepository;
+	
+	@Autowired
 	private SequenceDao sequenceDao;
 	
 	//Exception
@@ -49,6 +54,7 @@ public class SqlCIGroupController {
 	    		request.getRequestURL().append("/error").toString());
 	    return error;
 	}
+	
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping(value= "/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT (
@@ -85,47 +91,35 @@ public class SqlCIGroupController {
     
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/sqlCIGroup/searchByOwner")
-    public List<SqlCIGroup> getSqlCIGroupByOwner(String owner) { 
+    public List<SqlCIGroup> getSqlCIGroupByOwner(
+    		@RequestParam String owner) { 
     	logger.debug("getSQLCIGroup - Parameter :" + owner);
-    	
-    	if(owner == null){
-    		return sqlCIGroupRepository.findAll();
-    	}else{
-    		return sqlCIGroupRepository.findByOwner(owner);
-    	}
-
+    	return sqlCIGroupRepository.findByOwner(owner);
     }
     
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/sqlCIGroup/searchById")
-    public @ResponseBody SqlCIGroup getSqlCIGroupById(Long sqlCIGroupId) { 
-    	logger.debug("getSQLCIGroup - Parameter :" + sqlCIGroupId);
-    	
-    	if(sqlCIGroupId == null){
-    		throw new InputDataException("No SQL CI Group ID");
-    	}
-    	return sqlCIGroupRepository.findById(sqlCIGroupId);
+    public @ResponseBody SqlCIGroup getSqlCIGroupById(
+    		@RequestParam Long groupId) { 
+    	logger.debug("getSQLCIGroup - Parameter :" + groupId);
+    
+    	return sqlCIGroupRepository.findById(groupId);
     }
     
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping("/sqlCIGroup/create")
     public @ResponseBody SqlCIGroup createSqlCIGroup(
-    		String owner, String createdBy, String description,String dependent,
-    		long referenceNumber, String targetVersion) {
+    		@RequestParam String owner, 
+    		@RequestParam String createdBy, 
+    		@RequestParam String description,
+    		long dependent,
+    		long referenceNumber, 
+    		String targetVersion) {
    
     	logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description, dependent));
-    	if(owner == null){
-    		throw new InputDataException("No owner");
-    	}
-    	if(createdBy == null){
-    		throw new InputDataException("No created By");
-    	}
-    	if(description == null){
-    		throw new InputDataException("No Description");
-    	}    	
-    	
+
     	SqlCIGroup sqlCIGroup = new SqlCIGroup(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.name()));
-    	sqlCIGroup.setDependent(dependent);
+    	sqlCIGroup.setDependentGroupId(dependent);
     	sqlCIGroup.setDescription(description);
     	sqlCIGroup.setOwner(owner);
     	sqlCIGroup.setCreatedBy(createdBy);
@@ -140,22 +134,23 @@ public class SqlCIGroupController {
     }
     @CrossOrigin(origins = "http://localhost")    
     @RequestMapping("/sqlCIGroup/change")
-    public @ResponseBody void updateSqlCIGroup(Long id, String createdBy , String updatedBy,
-    		String description,  String dependent, long referenceNumber, String targetVersion) {
+    public @ResponseBody void updateSqlCIGroup(
+    		@RequestParam Long id, 
+    		String createdBy , 
+    		String updatedBy,
+    		String description, 
+    		Long dependentGroupId, 
+    		long referenceNumber,
+    		String targetVersion) {
    
     	logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]", id, description, updatedBy, description, referenceNumber, targetVersion));
-    	
-    	if(id == null){
-    		throw new InputDataException("No SQL CI Group ID");
-    	}
-    	
+    	    	
     	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(id);
     	
-    	if(sqlCIGroup == null){
-    		throw new InputDataException("No SQL CI Group Exists");
-    	}
+    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
+
     
-    	sqlCIGroup.setDependent(dependent);
+    	sqlCIGroup.setDependentGroupId(dependentGroupId);
     	sqlCIGroup.setDescription(description);
     	
     	if(sqlCIGroup.getMantisInfo() == null){
@@ -175,15 +170,15 @@ public class SqlCIGroupController {
     }
     @CrossOrigin(origins = "http://localhost")  
     @RequestMapping("/sqlCIGroup/active")
-    public @ResponseBody void setSqlGroupActive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
+    public @ResponseBody void setSqlGroupActive(
+    		@RequestParam Long sqlCIGroupId, 
+    		@RequestParam String updatedBy) {
    
     	logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
     	
     	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
     	
-    	if(sqlCIGroup == null){
-    		throw new InputDataException("No SQL CI Group Exists");
-    	}
+    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
     	 	
     	sqlCIGroup.setActive(Boolean.TRUE);
     	
@@ -191,11 +186,15 @@ public class SqlCIGroupController {
     }
     @CrossOrigin(origins = "http://localhost")  
     @RequestMapping("/sqlCIGroup/deactive")
-    public @ResponseBody void setSqlGroupDeactive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
+    public @ResponseBody void setSqlGroupDeactive(
+    		@RequestParam Long sqlCIGroupId, 
+    		@RequestParam String updatedBy) {
    
     	logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
     	
     	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+    	
+    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
   
     	sqlCIGroup.setActive(Boolean.FALSE);
     	

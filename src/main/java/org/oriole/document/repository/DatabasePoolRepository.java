@@ -8,5 +8,7 @@ public interface DatabasePoolRepository extends MongoRepository<DatabasePool, St
     public DatabasePool findById(String id);
     
     public DatabasePool findByName(String name);
+    
+    public DatabasePool findByActive(boolean active);
 
 }
