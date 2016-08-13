@@ -107,7 +107,7 @@ public class DeployRequestController {
     }
     
     @CrossOrigin(origins = "http://localhost")
-    @RequestMapping("/deployRequest/create")
+    @RequestMapping("/deployRequest/createBySqlCIGroup")
     public @ResponseBody List<DeployRequest> createDeploymentRequestByGroup(
     		@RequestParam Long groupId,
     		@RequestParam String targetDatabase,
