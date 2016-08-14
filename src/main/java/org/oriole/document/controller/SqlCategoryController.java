@@ -74,7 +74,7 @@ public class SqlCategoryController {
    
     	logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s ", name, createdBy, description));
     	    	
-    	SqlCategory sqlCategory = new SqlCategory(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CATEGORY.name()),name,description,createdBy);
+    	SqlCategory sqlCategory = new SqlCategory(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CATEGORY.getSequenceName()),name,description,createdBy);
 
     	return sqlCategoryRepository.insert(sqlCategory);
     	

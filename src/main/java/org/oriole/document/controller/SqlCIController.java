@@ -65,7 +65,7 @@ public class SqlCIController {
     	CommonUtils.validateNullObj(sqlCIGroup,"SQL CI Group ID not found");
     	
     	List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(sqlCIGroup.getId());
-		SqlCI sqlCI = new SqlCI(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI.name()),sqlCIGroup.getId());
+		SqlCI sqlCI = new SqlCI(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI.getSequenceName()),sqlCIGroup.getId());
 		if(sqlCIList==null){
     		sqlCI.setSequence(1);    		
     	}else{

@@ -96,7 +96,7 @@ public class DeployRequestController {
     	CommonUtils.validateNullObj(sqlCI,"SqlCI is not existed");        
     	
     	DeployRequest deploymentRequest = new DeployRequest(
-    			sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.name()));
+    			sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
     	deploymentRequest.setSqlCiId(sqlCI.getId());
     	deploymentRequest.setTargetDatabase(targetDatabase);
     	deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
@@ -119,7 +119,7 @@ public class DeployRequestController {
     	CommonUtils.validateNullObj(groupId,"SqlCI Group is not existed");        
     	
     	for(SqlCI sqlCI: sqlCIList){
-	    	DeployRequest deploymentRequest = new DeployRequest(sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.name()));
+	    	DeployRequest deploymentRequest = new DeployRequest(sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
 	    	
 	    	deploymentRequest.setSqlCiId(sqlCI.getId());
 	    	deploymentRequest.setTargetDatabase(targetDatabase);

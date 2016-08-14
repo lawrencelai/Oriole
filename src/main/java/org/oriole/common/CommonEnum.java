@@ -48,9 +48,18 @@ public class CommonEnum{
 		private DatabaseSequence(final String seqname) {
 	        this.sequenceName = seqname;
 	    }
+		
+	    public String getSequenceName() {
+			return sequenceName;
+		}
 
-	    
-	    public static String find(final String seqname) {
+		public void setSequenceName(String sequenceName) {
+			this.sequenceName = sequenceName;
+		}
+
+
+
+		public static String find(final String seqname) {
 	    	for(DatabaseSequence e: DatabaseSequence.values()) {
 	    		if(e.sequenceName == seqname) {
 	    		    return e.name();

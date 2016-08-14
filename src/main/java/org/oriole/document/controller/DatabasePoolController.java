@@ -71,7 +71,7 @@ public class DatabasePoolController {
     		throw new InputDataException("Database name is defined");
     	}
     	
-    	DatabasePool databasePool = new DatabasePool(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.name()));
+    	DatabasePool databasePool = new DatabasePool(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
     	databasePool.setName(name);  
     	databasePool.setActive(active);
     	databasePool.setHost(host);

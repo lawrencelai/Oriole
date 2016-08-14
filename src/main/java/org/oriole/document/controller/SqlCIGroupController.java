@@ -16,7 +16,6 @@ import org.oriole.document.SqlCIGroup;
 import org.oriole.document.dao.SequenceDao;
 import org.oriole.document.exception.ErrorDetail;
 import org.oriole.document.repository.SqlCIGroupRepository;
-import org.oriole.document.repository.SqlCategoryRepository;
 import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,9 +37,6 @@ public class SqlCIGroupController {
 		
 	@Autowired
 	private SqlCIGroupRepository sqlCIGroupRepository;
-	
-	@Autowired
-	private SqlCategoryRepository sqlCategoryRepository;
 	
 	@Autowired
 	private SequenceDao sequenceDao;
@@ -118,7 +114,7 @@ public class SqlCIGroupController {
    
     	logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description, dependent));
 
-    	SqlCIGroup sqlCIGroup = new SqlCIGroup(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.name()));
+    	SqlCIGroup sqlCIGroup = new SqlCIGroup(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
     	sqlCIGroup.setDependentGroupId(dependent);
     	sqlCIGroup.setDescription(description);
     	sqlCIGroup.setOwner(owner);
