@@ -22,7 +22,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,171 +31,143 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SqlCIGroupController {
-	
+
 	private static final Logger logger = Logger.getLogger(SqlCIGroupController.class);
-		
+
 	@Autowired
 	private SqlCIGroupRepository sqlCIGroupRepository;
-	
+
 	@Autowired
 	private SequenceDao sequenceDao;
-	
-	//Exception
-	
+
+	// Exception
+
 	@ExceptionHandler(InputDataException.class)
 	public ErrorDetail sqlCIError(HttpServletRequest request, Exception exception) {
-	    ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(),
-	    		exception.getLocalizedMessage(), 
-	    		request.getRequestURL().append("/error").toString());
-	    return error;
+		ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(), exception.getLocalizedMessage(),
+				request.getRequestURL().append("/error").toString());
+		return error;
 	}
-	
-    @CrossOrigin(origins = "http://localhost")
-    @RequestMapping(value= "/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT (
-            @RequestParam int iDisplayStart,
-            @RequestParam int iDisplayLength,
-            @RequestParam int sEcho,// for datatables draw count
-            @RequestParam int iSortCol_0,
-            @RequestParam String sSortDir_0,
-            @RequestParam int iSortingCols,
-            @RequestParam String sSearch
-          ) throws IOException {
-    	
-    	int pageNumber = (iDisplayStart + 1) / iDisplayLength;
-        String sortingField = MongoDbSqlCIGroup.findMongoFieldNameByColumnNum(iSortCol_0);        
-        Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0),sortingField);
-        PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);        
-        Page<SqlCIGroup> page = null;
-        int iTotalRecords;
-        int iTotalDisplayRecords;
 
+	@RequestMapping(value = "/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT(@RequestParam int iDisplayStart,
+			@RequestParam int iDisplayLength, @RequestParam int sEcho, // for
+																		// datatables
+																		// draw
+																		// count
+			@RequestParam int iSortCol_0, @RequestParam String sSortDir_0, @RequestParam int iSortingCols,
+			@RequestParam String sSearch) throws IOException {
 
-        page = sqlCIGroupRepository.findAll(pageable);
-    	    	
-    	iTotalRecords = (int) page.getTotalElements();
-        iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;      
-        
-    	JQueryDataTableObject<SqlCIGroup> dtPage = new JQueryDataTableObject<>(
-                page.getContent(), iTotalRecords, iTotalDisplayRecords,
-                Integer.toString(sEcho));
-    	
-    	return dtPage;
+		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
+		String sortingField = MongoDbSqlCIGroup.findMongoFieldNameByColumnNum(iSortCol_0);
+		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
+		PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
+		Page<SqlCIGroup> page = null;
+		int iTotalRecords;
+		int iTotalDisplayRecords;
 
-    }
-    
-    @CrossOrigin(origins = "http://localhost")
-    @RequestMapping("/sqlCIGroup/searchByOwner")
-    public List<SqlCIGroup> getSqlCIGroupByOwner(
-    		@RequestParam String owner) { 
-    	logger.debug("getSQLCIGroup - Parameter :" + owner);
-    	return sqlCIGroupRepository.findByOwner(owner);
-    }
-    
-    @CrossOrigin(origins = "http://localhost")
-    @RequestMapping("/sqlCIGroup/searchById")
-    public @ResponseBody SqlCIGroup getSqlCIGroupById(
-    		@RequestParam Long groupId) { 
-    	logger.debug("getSQLCIGroup - Parameter :" + groupId);
-    
-    	return sqlCIGroupRepository.findById(groupId);
-    }
-    
-    @CrossOrigin(origins = "http://localhost")
-    @RequestMapping("/sqlCIGroup/create")
-    public @ResponseBody SqlCIGroup createSqlCIGroup(
-    		@RequestParam String owner, 
-    		@RequestParam String createdBy, 
-    		@RequestParam String description,   
-    		long dependent,
-    		long referenceNumber, 
-    		String targetVersion) {
-   
-    	logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description, dependent));
+		page = sqlCIGroupRepository.findAll(pageable);
 
-    	SqlCIGroup sqlCIGroup = new SqlCIGroup(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
-    	sqlCIGroup.setDependentGroupId(dependent);
-    	sqlCIGroup.setDescription(description);
-    	sqlCIGroup.setOwner(owner);
-    	sqlCIGroup.setCreatedBy(createdBy);
-    	sqlCIGroup.setCreatedTs(new Date());
-    	
-    	MantisInfo mantisInfo = new MantisInfo(referenceNumber,sqlCIGroup.getId());    	
-    	mantisInfo.setTargetVersion(targetVersion);
-    	sqlCIGroup.setMantisInfo(mantisInfo);
-    	
-    	return sqlCIGroupRepository.insert(sqlCIGroup);
-    	
-    }
-    @CrossOrigin(origins = "http://localhost")    
-    @RequestMapping("/sqlCIGroup/change")
-    public @ResponseBody void updateSqlCIGroup(
-    		@RequestParam Long id, 
-    		String createdBy , 
-    		String updatedBy,
-    		String description, 
-    		Long dependentGroupId, 
-    		long referenceNumber,
-    		String targetVersion) {
-   
-    	logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]", id, description, updatedBy, description, referenceNumber, targetVersion));
-    	    	
-    	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(id);
-    	
-    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
+		iTotalRecords = (int) page.getTotalElements();
+		iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
 
-    
-    	sqlCIGroup.setDependentGroupId(dependentGroupId);
-    	sqlCIGroup.setDescription(description);
-    	
-    	if(sqlCIGroup.getMantisInfo() == null){
-    		MantisInfo mantisInfo = new MantisInfo(referenceNumber, id);
-        	mantisInfo.setTargetVersion(targetVersion);
-        	sqlCIGroup.setMantisInfo(mantisInfo);
-    	}else{
-	    	sqlCIGroup.getMantisInfo().setTargetVersion(targetVersion);
-    	}
-    	
-    	sqlCIGroup.setCreatedBy(createdBy);
-    	sqlCIGroup.setUpdatedBy(updatedBy);
-    	sqlCIGroup.setUpdatedTs(new Date());
-    	
-    	sqlCIGroupRepository.save(sqlCIGroup);
-    	
-    }
-    @CrossOrigin(origins = "http://localhost")  
-    @RequestMapping("/sqlCIGroup/active")
-    public @ResponseBody void setSqlGroupActive(
-    		@RequestParam Long sqlCIGroupId, 
-    		@RequestParam String updatedBy) {
-   
-    	logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
-    	
-    	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
-    	
-    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
-    	 	
-    	sqlCIGroup.setActive(Boolean.TRUE);
-    	
-    	sqlCIGroupRepository.save(sqlCIGroup);    	
-    }
-    @CrossOrigin(origins = "http://localhost")  
-    @RequestMapping("/sqlCIGroup/deactive")
-    public @ResponseBody void setSqlGroupDeactive(
-    		@RequestParam Long sqlCIGroupId, 
-    		@RequestParam String updatedBy) {
-   
-    	logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
-    	
-    	SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
-    	
-    	CommonUtils.validateNullObj(sqlCIGroup,"No SQL CI Group Exists");
-  
-    	sqlCIGroup.setActive(Boolean.FALSE);
-    	
-    	sqlCIGroupRepository.save(sqlCIGroup);    	
-    }
-    
-  
-    
+		JQueryDataTableObject<SqlCIGroup> dtPage = new JQueryDataTableObject<>(page.getContent(), iTotalRecords,
+				iTotalDisplayRecords, Integer.toString(sEcho));
+
+		return dtPage;
+	}
+
+	@RequestMapping("/sqlCIGroup/searchByOwner")
+	public List<SqlCIGroup> getSqlCIGroupByOwner(@RequestParam String owner) {
+		logger.debug("getSQLCIGroup - Parameter :" + owner);
+		return sqlCIGroupRepository.findByOwner(owner);
+	}
+
+	@RequestMapping("/sqlCIGroup/searchById")
+	public @ResponseBody SqlCIGroup getSqlCIGroupById(@RequestParam Long groupId) {
+		logger.debug("getSQLCIGroup - Parameter :" + groupId);
+
+		return sqlCIGroupRepository.findById(groupId);
+	}
+
+	@RequestMapping("/sqlCIGroup/create")
+	public @ResponseBody SqlCIGroup createSqlCIGroup(@RequestParam String owner, @RequestParam String createdBy,
+			@RequestParam String description, long dependent, long referenceNumber, String targetVersion) {
+
+		logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description,
+				dependent));
+
+		SqlCIGroup sqlCIGroup = new SqlCIGroup(
+				sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
+		sqlCIGroup.setDependentGroupId(dependent);
+		sqlCIGroup.setDescription(description);
+		sqlCIGroup.setOwner(owner);
+		sqlCIGroup.setCreatedBy(createdBy);
+		sqlCIGroup.setCreatedTs(new Date());
+
+		MantisInfo mantisInfo = new MantisInfo(referenceNumber, sqlCIGroup.getId());
+		mantisInfo.setTargetVersion(targetVersion);
+		sqlCIGroup.setMantisInfo(mantisInfo);
+
+		return sqlCIGroupRepository.insert(sqlCIGroup);
+
+	}
+
+	@RequestMapping("/sqlCIGroup/change")
+	public @ResponseBody void updateSqlCIGroup(@RequestParam Long id, String createdBy, String updatedBy,
+			String description, Long dependentGroupId, long referenceNumber, String targetVersion) {
+
+		logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]", id, description, updatedBy,
+				description, referenceNumber, targetVersion));
+
+		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(id);
+
+		CommonUtils.validateNullObj(sqlCIGroup, "No SQL CI Group Exists");
+
+		sqlCIGroup.setDependentGroupId(dependentGroupId);
+		sqlCIGroup.setDescription(description);
+
+		if (sqlCIGroup.getMantisInfo() == null) {
+			MantisInfo mantisInfo = new MantisInfo(referenceNumber, id);
+			mantisInfo.setTargetVersion(targetVersion);
+			sqlCIGroup.setMantisInfo(mantisInfo);
+		} else {
+			sqlCIGroup.getMantisInfo().setTargetVersion(targetVersion);
+		}
+
+		sqlCIGroup.setCreatedBy(createdBy);
+		sqlCIGroup.setUpdatedBy(updatedBy);
+		sqlCIGroup.setUpdatedTs(new Date());
+
+		sqlCIGroupRepository.save(sqlCIGroup);
+
+	}
+
+	@RequestMapping("/sqlCIGroup/active")
+	public @ResponseBody void setSqlGroupActive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
+
+		logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
+
+		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+
+		CommonUtils.validateNullObj(sqlCIGroup, "No SQL CI Group Exists");
+
+		sqlCIGroup.setActive(Boolean.TRUE);
+
+		sqlCIGroupRepository.save(sqlCIGroup);
+	}
+
+	@RequestMapping("/sqlCIGroup/deactive")
+	public @ResponseBody void setSqlGroupDeactive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
+
+		logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
+
+		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+
+		CommonUtils.validateNullObj(sqlCIGroup, "No SQL CI Group Exists");
+
+		sqlCIGroup.setActive(Boolean.FALSE);
+
+		sqlCIGroupRepository.save(sqlCIGroup);
+	}
 }
