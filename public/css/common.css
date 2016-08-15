@@ -2,6 +2,10 @@
 	    border: 1px solid black;
 }
 
+.sqlci-group-common{
+	margin: 40px 5px 30px 5px;
+}
+
 .active-logo{
 	cursor:help;
 	font-size:12px;

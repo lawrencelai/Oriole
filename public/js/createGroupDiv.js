@@ -5,6 +5,10 @@ $(function() {
         $('[page="' + menuitem + '"]').fadeIn(350); 
         e.preventDefault();
     });
+    
+    $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {      	
+    	$('#sqlCIGroup').DataTable().ajax.reload();
+    });
     //----- OPEN
     $('[data-popup-open]').on('click', function(e)  {
         var targeted_popup_class = jQuery(this).attr('data-popup-open');

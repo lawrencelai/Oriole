@@ -48,7 +48,10 @@
 	<div page="overview-view">overview-view</div>
 	<div page="deployment-view">deployment-view</div>	
 	<div page="sql-ci-view">
-		<div><a class="button-group" data-popup-open="createSQLCIGroup" href="#">Create Group</a></div>
+		<div class="sqlci-group-common">
+			<a class="button-group" data-popup-open="createSQLCIGroup" href="#">Create Group</a>
+			<a class="button-group" data-role="refresh-SqlCI-Group-dt" href="#">Refresh</a>
+		</div>
 		<div id="data-table">
 			<table id="sqlCIGroup" class="order-column" cellspacing="0" width="100%">
 			    <thead>
