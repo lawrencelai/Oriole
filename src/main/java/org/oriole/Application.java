@@ -16,13 +16,13 @@ public class Application {
 	    parentBuilder.child(Application.class).properties("server.port:8080").run(args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/sqlci-javaconfig").allowedOrigins("http://localhost");
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurerAdapter() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/sqlci-javaconfig").allowedOrigins("http://localhost");
+//			}
+//		};
+//	}
 }
