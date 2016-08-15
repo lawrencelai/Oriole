@@ -18,7 +18,7 @@ function initMenu(){
 function initSqlCategory(){		
 	    $.ajax(
 	    {
-	        url: "http://localhost:8080/sqlCategory/searchAll",
+	        url: "http://localhost:8080/api/sqlCategory/searchAll",
 	        success: function (json) {
 	        	var HTML = ""; 
 	             $.each(json, function(i, value) { 	                
@@ -38,7 +38,7 @@ function initSqlCIGroupDataTable(){
 	//sqlCIGroup
 	dttable = $('#sqlCIGroup').DataTable({
 		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"sAjaxSource": "http://localhost:8080/sqlCIGroup/dt/search",
+		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
 		"columns": [{
 		             "className":      'details-control',
 		             "orderable":      false,
@@ -116,7 +116,7 @@ function createSqlCIGroupRequest(){
     
     $.ajax(
     {
-        url: "http://localhost:8080/sqlCIGroup/create",
+        url: "http://localhost:8080/api/sqlCIGroup/create",
         data: data,
         success: function (msg) {
         	 $('[data-popup="createSQLCIGroup"]').fadeOut(350);
@@ -141,7 +141,7 @@ function editSqlCIGroupRequest(){
 
     $.ajax(
     {
-        url: "http://localhost:8080/sqlCIGroup/change",
+        url: "http://localhost:8080/api/sqlCIGroup/change",
         data: data,
         success: function (msg) {
         	 $('[data-popup="editSQLCIGroup"]').fadeOut(350);

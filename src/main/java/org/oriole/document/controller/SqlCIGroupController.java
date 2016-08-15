@@ -49,7 +49,7 @@ public class SqlCIGroupController {
 		return error;
 	}
 
-	@RequestMapping(value = "/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT(@RequestParam int iDisplayStart,
 			@RequestParam int iDisplayLength, @RequestParam int sEcho, // for
 																		// datatables
@@ -77,20 +77,20 @@ public class SqlCIGroupController {
 		return dtPage;
 	}
 
-	@RequestMapping("/sqlCIGroup/searchByOwner")
+	@RequestMapping("/api/sqlCIGroup/searchByOwner")
 	public List<SqlCIGroup> getSqlCIGroupByOwner(@RequestParam String owner) {
 		logger.debug("getSQLCIGroup - Parameter :" + owner);
 		return sqlCIGroupRepository.findByOwner(owner);
 	}
 
-	@RequestMapping("/sqlCIGroup/searchById")
+	@RequestMapping("/api/sqlCIGroup/searchById")
 	public @ResponseBody SqlCIGroup getSqlCIGroupById(@RequestParam Long groupId) {
 		logger.debug("getSQLCIGroup - Parameter :" + groupId);
 
 		return sqlCIGroupRepository.findById(groupId);
 	}
 
-	@RequestMapping("/sqlCIGroup/create")
+	@RequestMapping("/api/sqlCIGroup/create")
 	public @ResponseBody SqlCIGroup createSqlCIGroup(@RequestParam String owner, @RequestParam String createdBy,
 			@RequestParam String description, long dependent, long referenceNumber, String targetVersion) {
 
@@ -113,7 +113,7 @@ public class SqlCIGroupController {
 
 	}
 
-	@RequestMapping("/sqlCIGroup/change")
+	@RequestMapping("/api/sqlCIGroup/change")
 	public @ResponseBody void updateSqlCIGroup(@RequestParam Long id, String createdBy, String updatedBy,
 			String description, Long dependentGroupId, long referenceNumber, String targetVersion) {
 
@@ -143,7 +143,7 @@ public class SqlCIGroupController {
 
 	}
 
-	@RequestMapping("/sqlCIGroup/active")
+	@RequestMapping("/api/sqlCIGroup/active")
 	public @ResponseBody void setSqlGroupActive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
 
 		logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));
@@ -157,7 +157,7 @@ public class SqlCIGroupController {
 		sqlCIGroupRepository.save(sqlCIGroup);
 	}
 
-	@RequestMapping("/sqlCIGroup/deactive")
+	@RequestMapping("/api/sqlCIGroup/deactive")
 	public @ResponseBody void setSqlGroupDeactive(@RequestParam Long sqlCIGroupId, @RequestParam String updatedBy) {
 
 		logger.debug(String.format("[ws:setSqlGroupActive] [Parameter: %s %s]", sqlCIGroupId, updatedBy));

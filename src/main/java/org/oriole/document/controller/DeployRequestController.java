@@ -53,12 +53,12 @@ public class DeployRequestController {
 		return error;
 	}
 
-	@RequestMapping("/deployRequest/searchAll")
+	@RequestMapping("/api/deployRequest/searchAll")
 	public @ResponseBody List<DeployRequest> getFullList() {
 		return deployRequestRepository.findAll();
 	}
 
-	@RequestMapping("/deployRequest/searchBySqlCiId")
+	@RequestMapping("/api/deployRequest/searchBySqlCiId")
 	public @ResponseBody List<DeployRequest> getListByStatus(@RequestParam String state) {
 		DeployRequestState deployRequestState = DeployRequestState.find(state);
 
@@ -66,7 +66,7 @@ public class DeployRequestController {
 		return deployRequestRepository.findByStatus(deployRequestState.name());
 	}
 
-	@RequestMapping("/deployRequest/searchByDatabase")
+	@RequestMapping("/api/deployRequest/searchByDatabase")
 	public @ResponseBody List<DeployRequest> searchByDatabase(@RequestParam String targetDatabase) {
 
 		DatabasePool databasePool = databasePoolRepository.findByName(targetDatabase);
@@ -76,7 +76,7 @@ public class DeployRequestController {
 		return deployRequestRepository.findByTargetDatabase(databasePool.getName());
 	}
 
-	@RequestMapping("/deployRequest/create")
+	@RequestMapping("/api/deployRequest/create")
 	public @ResponseBody DeployRequest createDeploymentRequest(@RequestParam Long ciId,
 			@RequestParam String targetDatabase, @RequestParam String requestBy) {
 
@@ -95,7 +95,7 @@ public class DeployRequestController {
 
 	}
 
-	@RequestMapping("/deployRequest/createBySqlCIGroup")
+	@RequestMapping("/api/deployRequest/createBySqlCIGroup")
 	public @ResponseBody List<DeployRequest> createDeploymentRequestByGroup(@RequestParam Long groupId,
 			@RequestParam String targetDatabase, @RequestParam String requestBy) {
 

@@ -19,7 +19,7 @@
 
 function searchSqlCIRequest(row){	
 	$.ajax({
-		url: "http://localhost:8080/sqlCI/searchByGroupId?sqlCIGroupId="+row.data().id,
+		url: "http://localhost:8080/api/sqlCI/searchByGroupId?sqlCIGroupId="+row.data().id,
 		success:function(response){ 
 			var datachildrow = formatSQLCI (row.data().id,response);
 			row.child(datachildrow).show();
@@ -45,7 +45,7 @@ function createSqlCIRequest(){
 	    
 	$.ajax(
 	{
-		url: "http://localhost:8080/sqlCI/create",
+		url: "http://localhost:8080/api/sqlCI/create",
 		data: data,
 	    success: function (msg) {
 	    	$('[data-popup="createSQLCI"]').fadeOut(350);	    
@@ -67,7 +67,7 @@ function editSqlCIRequest(){
 
 	    $.ajax(
 	    {
-	        url: "http://localhost:8080/sqlCIGroup/change",
+	        url: "http://localhost:8080/api/sqlCIGroup/change",
 	        data: data,
 	        success: function (msg) {
 	        	 $('[data-popup="editSQLCI"]').fadeOut(350);

@@ -43,12 +43,12 @@ public class SqlCIController {
 		return error;
 	}
 
-	@RequestMapping(value = "/sqlCI/searchByGroupId")
+	@RequestMapping("/api/sqlCI/searchByGroupId")
 	public @ResponseBody List<SqlCI> getSqlCIListByGroupId(@RequestParam Long sqlCIGroupId) {
 		return sqlCIRepository.findByGroupID(sqlCIGroupId);
 	}
 
-	@RequestMapping("/sqlCI/create")
+	@RequestMapping("/api/sqlCI/create")
 	public @ResponseBody SqlCI createSqlCI(@RequestParam Long sqlCIGroupId, @RequestParam String createdBy,
 			@RequestParam String sqlCategory, @RequestParam String statement, String description) {
 
@@ -77,7 +77,7 @@ public class SqlCIController {
 
 	}
 
-	@RequestMapping("/sqlCI/change")
+	@RequestMapping("/api/sqlCI/change")
 	public @ResponseBody void updateSqlCI(@RequestParam Long sqlCIId, @RequestParam int sequence,
 			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String sqlCIType,
 			@RequestParam String statement, @RequestParam Boolean active, String description) {
@@ -96,7 +96,7 @@ public class SqlCIController {
 
 	}
 
-	@RequestMapping("/sqlCI/delete")
+	@RequestMapping("/api/sqlCI/delete")
 	public @ResponseBody void deleteById(@RequestParam Long sqlCIId) {
 
 		SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);

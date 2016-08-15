@@ -43,7 +43,7 @@ public class SqlCategoryController {
 		return error;
 	}
 
-	@RequestMapping("/sqlCategory/searchAll")
+	@RequestMapping("/api/sqlCategory/searchAll")
 	public @ResponseBody List<JsonObject> getSqlCategory() {
 		List<SqlCategory> sqlCategories = sqlCategoryRepository.findAll();
 		List<JsonObject> sqlCategoryJObject = new ArrayList<JsonObject>();
@@ -55,13 +55,13 @@ public class SqlCategoryController {
 		return sqlCategoryJObject;
 	}
 
-	@RequestMapping("/sqlCategory/searchById")
+	@RequestMapping("/api/sqlCategory/searchById")
 	public @ResponseBody SqlCategory getSqlCategoryById(@RequestParam Long id) {
 
 		return sqlCategoryRepository.findById(id);
 	}
 
-	@RequestMapping("/sqlCategory/create")
+	@RequestMapping("/api/sqlCategory/create")
 	public @ResponseBody SqlCategory createSqlCategory(@RequestParam String name, @RequestParam String description,
 			@RequestParam String createdBy) {
 
@@ -75,7 +75,7 @@ public class SqlCategoryController {
 
 	}
 
-	@RequestMapping("/sqlCategory/change")
+	@RequestMapping("/api/sqlCategory/change")
 	public @ResponseBody void updateSqlCategory(Long id, String name, String description, String createdBy,
 			String updatedBy) {
 

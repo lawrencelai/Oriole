@@ -40,17 +40,17 @@ public class DatabasePoolController {
 		return error;
 	}
 
-	@RequestMapping("/database/searchAll")
+	@RequestMapping("/api/database/searchAll")
 	public @ResponseBody List<DatabasePool> getDatabasePoolList() {
 		return databasePoolRepository.findAll();
 	}
 
-	@RequestMapping("/database/searchByName")
+	@RequestMapping("/api/database/searchByName")
 	public @ResponseBody DatabasePool getDatabasePoolByName(@RequestParam String databaseName) {
 		return databasePoolRepository.findByName(databaseName);
 	}
 
-	@RequestMapping("/database/create")
+	@RequestMapping("/api/database/create")
 	public @ResponseBody DatabasePool createDatabasePool(@RequestParam String name, @RequestParam boolean active,
 			@RequestParam String host, @RequestParam String port, @RequestParam String username,
 			@RequestParam String password, String description, String serviceName, String sid, String tns) {
@@ -75,7 +75,7 @@ public class DatabasePoolController {
 
 	}
 
-	@RequestMapping("/database/change")
+	@RequestMapping("/api/database/change")
 	public @ResponseBody DatabasePool updateDatabasePool(@RequestParam String name, @RequestParam String host,
 			@RequestParam String port, @RequestParam String username, @RequestParam String password, String description,
 			String serviceName, String sid, String tns) {
