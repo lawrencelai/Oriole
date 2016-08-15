@@ -107,7 +107,7 @@ public class SqlCIGroupController {
     public @ResponseBody SqlCIGroup createSqlCIGroup(
     		@RequestParam String owner, 
     		@RequestParam String createdBy, 
-    		@RequestParam String description,
+    		@RequestParam String description,   
     		long dependent,
     		long referenceNumber, 
     		String targetVersion) {

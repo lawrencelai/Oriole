@@ -8,11 +8,12 @@ tr.shown td.details-control {
 
 td.data {font-size:9px}
 
+a{text-decoration: none;}
 
 .create-SQLCI-Group {
 	font-size:12px;
-    padding: 10px 15px;
-    background: #4479BA;
+    padding: 5px 15px;
+    background: #4479BA;    
     color: #FFF;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -40,12 +41,12 @@ td.data {font-size:9px}
     -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     background: #2E5481;
-    border: solid 1px #203E5F;
+    border: solid 1px #203E5F;    
 }
 
-.edit-SQLCI-Group {
+.button-group {
 	font-size:10px;
-    padding: 10px 15px;
+    padding: 5px 15px;
     background: #4479BA;
     color: #FFF;
     -webkit-border-radius: 4px;
@@ -75,3 +76,4 @@ td.data {font-size:9px}
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     background: #2E5481;
     border: solid 1px #203E5F;
+}

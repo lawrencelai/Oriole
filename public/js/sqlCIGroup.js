@@ -49,18 +49,18 @@ function initSqlCIGroupDataTable(){
 		            { "data": "mantisInfo.id"},
 		            { "data": "description" },
 		            { "data": "mantisInfo.targetVersion"},
-		            { "data": "dependentGroupId" },		            
+		            { "data": "dependentGroupId" },
 		            { "data": "createdBy" },
 		            { "data": "createdTs" },
 					{   "className": 'sqlCIGroup-edit',	
 						"orderable": false,					
 						"data":null,
-						"defaultContent": '<a class="edit-SQLCI-Group" data-popup-open="editSQLCIGroup" href="#">Edit</a>'
+						"defaultContent": '<a class="button-group" data-popup-open="editSQLCIGroup" href="#">Edit</a>'
 					},
 					{   "className": 'sqlCIGroup-edit',	
 						"orderable": false,					
 						"data":null,
-						"defaultContent": '<a class="deploy-SQLCI-Group-1" href="#">P4DEV</a><a class="deploy-SQLCI-Group-2" href="#">P4SIT</a>'
+						"defaultContent": '<a class="button-group" href="#">P4DEV</a><a class="button-group" href="#">P4SIT</a>'
 					}
 		           ],
 		"order": [[1, 'desc']],
@@ -75,27 +75,31 @@ function formatSQLCI (groupid,data) {
 	var childrow ;//= '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';	
 	if(data){
 		for (val of data){
+			if(val.active){
+				activeFlag = '<a class="active-logo"  href="#"><span class="tooltiptext">Active</span></a>';
+			}else{
+				activeFlag = '<a class="inactive-logo"href="#"> <span class="tooltiptext">Inactive</span></a>';
+			}
+			
 			childrow +=
 				'<tr>'+					
-					'<td>'+val.sequence+'</td>'+    	
-	            	'<td>'+val.sqlCIType+'</td>'+	          
-	            	'<td>'+val.statement+'</td>'+	           
+					'<td>'+val.sequence+'</td>'+
+					'<td>'+activeFlag+'</td>'+    	
+	            	'<td>'+val.type+'</td>'+
 		        	'<td>'+val.description+'</td>'+		     
-		        	'<td>'+val.createdBy+'</td>'+		        
-		        	'<td>'+val.createdTs+'</td>'+
-		        	'<td>'+val.updatedBy+'</td>'+		        
-		        	'<td>'+val.updateddTs+'</td>'+
-		        	'<td class="sqlCI-edit"><a class="edit-SQLCI" data-popup-open="editSQLCI" href="#">Edit</a></td>'+	
-					'<td><a class="deploy-SQLCI-1" href="#">P4DEV</a><a class="deploy-SQLCI-2" href="#">P4SIT</a></td>'
+		        	'<td>'+val.updatedBy+'</td>'+        
+		        	'<td>'+val.updatedTs+'</td>'+
+		        	'<td class="sqlCI-edit"><a class="button-group" data-popup-open="editSQLCI" href="#">Edit</a></td>'+	
+					'<td><a class="button-group" href="#">P4DEV</a><a class="button-group" href="#">P4SIT</a></td>'
 		        '</tr>'
 	            ;
 		}
 		childrow += '<tr>'+
-    		'<td class="sqlCI-add"><a class="edit-SQLCI-Group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
+    		'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
     	'</tr>';
 	}else{
 		childrow += '<tr>'+
-        	'<td class="sqlCI-add"><a class="edit-SQLCI-Group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
+        	'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
         '</tr>';
 	}
 	

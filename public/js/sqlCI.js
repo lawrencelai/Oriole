@@ -1,20 +1,20 @@
  $(document).ready(function () {
-			  var mime = 'text/x-sql';		 
-			  window.editor = CodeMirror.fromTextArea(document.getElementById('statement'), {
-			    mode: mime,
-			    autoRefresh:true,
-			    indentWithTabs: true,
-			    smartIndent: true,
-			    lineNumbers: true,
-			    matchBrackets : true,
-			    autofocus: true,
-			    extraKeys: {"Ctrl-Space": "autocomplete",},
-			    hintOptions: {tables: {
-							      users: {name: null, score: null, birthDate: null},
-							      countries: {name: null, population: null, size: null}
-							 }
-			    }
-			  })
+	var mime = 'text/x-sql';		 
+	sqleditor = CodeMirror.fromTextArea(document.getElementById('statement'), {
+		mode: mime,
+		autoRefresh:true,
+		indentWithTabs: true,
+		smartIndent: true,
+		lineNumbers: true,
+		matchBrackets : true,
+		autofocus: true,
+		extraKeys: {"Ctrl-Space": "autocomplete",},
+		hintOptions: {tables: {
+						users: {name: null, score: null, birthDate: null},
+						countries: {name: null, population: null, size: null}
+						}
+			    	}
+	})
 });
 
 function searchSqlCIRequest(row){	
@@ -36,7 +36,11 @@ function createSqlCIRequest(){
 	var data = {};
 	    		
 	$('[data-role="createSQLCI"]').each(function () {
-		data[$(this).attr('id')] = $(this).val();
+		if($(this).attr('id')=="statement"){
+			data[$(this).attr('id')] = sqleditor.getValue();
+		}else{
+			data[$(this).attr('id')] = $(this).val();
+		}
 	});
 	    
 	$.ajax(
@@ -44,7 +48,7 @@ function createSqlCIRequest(){
 		url: "http://localhost:8080/sqlCI/create",
 		data: data,
 	    success: function (msg) {
-	    	$('[data-popup="createSQLCIGroup"]').fadeOut(350);	    
+	    	$('[data-popup="createSQLCI"]').fadeOut(350);	    
 	        	dttable.ajax.reload();
 	    },
 	    error:function(xhr, ajaxOptions, thrownError){ 
@@ -54,7 +58,7 @@ function createSqlCIRequest(){
 	});
 }
 
-	function editSqlCIRequest(){
+function editSqlCIRequest(){
 	    var data = {};
 	    		
 	    $('[data-role="editSQLCI"]').each(function () {
@@ -66,7 +70,7 @@ function createSqlCIRequest(){
 	        url: "http://localhost:8080/sqlCIGroup/change",
 	        data: data,
 	        success: function (msg) {
-	        	 $('[data-popup="editSQLCIGroup"]').fadeOut(350);
+	        	 $('[data-popup="editSQLCI"]').fadeOut(350);
 	        	 dttable.ajax.reload();
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){ 

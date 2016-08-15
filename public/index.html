@@ -38,7 +38,7 @@
 </head>
 
 <body>	
-	<nav id="nav-3">
+	<nav id="nav-2">
 	  <a class="link-2" menu-item="overview-view" href="#">Overview</a>
 	  <a class="link-2" menu-item="deployment-view" href="#">Deploy History</a>
 	  <a class="link-2" menu-item="sql-ci-view" href="#">SQL CI - BOM</a>
@@ -48,7 +48,7 @@
 	<div page="overview-view">overview-view</div>
 	<div page="deployment-view">deployment-view</div>	
 	<div page="sql-ci-view">
-		<div><a class="create-SQLCI-Group" data-popup-open="createSQLCIGroup" href="#">Create Group</a></div>
+		<div><a class="button-group" data-popup-open="createSQLCIGroup" href="#">Create Group</a></div>
 		<div id="data-table">
 			<table id="sqlCIGroup" class="order-column" cellspacing="0" width="100%">
 			    <thead>
@@ -135,8 +135,8 @@
 						</div-cell>
 					</div-row>
 				</div-table>
-				<a sql-ci-ws="createSQLCIGroup" href="#">Create</a>	
-		        <p><a data-popup-close="createSQLCIGroup" href="#">Close</a></p>
+				<a class="button-group" sql-ci-ws="createSQLCIGroup" href="#">Create</a>	
+		        <p><a  class="button-group" data-popup-close="createSQLCIGroup" href="#">Close</a></p>
 		        <a class="popup-close" data-popup-close="createSQLCIGroup" href="#">x</a>
 		    </div>
 		</div>
@@ -183,10 +183,10 @@
 						<div-cell><input type="text" data-role="editSQLCIGroup" id="createdTs" class="datepick"/></div-cell>
 					</div-row>
 					<div-row>
-						<div-cell><a sql-ci-ws="editSQLCIGroup" href="#">Edit</a></div-cell>
+						<div-cell><a  class="button-group" sql-ci-ws="editSQLCIGroup" href="#">Edit</a></div-cell>
 					</div-row>				
 				</div-table>
-		        <p><a data-popup-close="editSQLCIGroup" href="#">Close</a></p>
+		        <p><a class="button-group" data-popup-close="editSQLCIGroup" href="#">Close</a></p>
 		        <a class="popup-close" data-popup-close="editSQLCIGroup" href="#">x</a>
 		    </div>
 		</div>	
@@ -224,10 +224,10 @@
 						<div-cell><input type="text" data-role="createSQLCI" id="createdTs"/></div-cell>
 					</div-row>	
 					<div-row>
-						<div-cell><a sql-ci-ws="createSQLCI" href="#">Create</a></div-cell>
+						<div-cell><a class="button-group" sql-ci-ws="createSQLCI" href="#">Create</a></div-cell>
 					</div-row>				
 				</div-table>
-		        <p><a data-popup-close="createSQLCI" href="#">Close</a></p>
+		        <p><a  class="button-group" data-popup-close="createSQLCI" href="#">Close</a></p>
 		        <a class="popup-close" data-popup-close="createSQLCI" href="#">x</a>
 		    </div>
 		</div>		
@@ -265,7 +265,7 @@
 					        <div-cell><button>Edit</button></div-cell>			        
 					   </div-row>			
 	 			</div-table>
-		    <p><a data-popup-close="editSQLCI" href="#">Close</a></p>
+		    <p><a  class="button-group" data-popup-close="editSQLCI" href="#">Close</a></p>
 		    <a class="popup-close" data-popup-close="editSQLCI" href="#">x</a>
 		  
 		</div>
