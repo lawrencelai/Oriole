@@ -1,6 +1,10 @@
 package org.oriole.document;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DatabasePool {
 	
@@ -18,6 +22,14 @@ public class DatabasePool {
 	
 	private String username;
 	private String password;
+	
+	private String      createdBy;
+	private String      updatedBy;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date   		createdTs;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date   		updatedTs;	
 	
 	public DatabasePool(long id) {
 		this.id = id;		
@@ -98,4 +110,37 @@ public class DatabasePool {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+	this.updatedBy = updatedBy;
+	}
+
+	public Date getCreatedTs() {
+		return createdTs;
+	}
+
+	public void setCreatedTs(Date createdTs) {
+		this.createdTs = createdTs;
+	}
+
+	public Date getUpdatedTs() {
+		return updatedTs;
+	}
+
+	public void setUpdatedTs(Date updatedTs) {
+		this.updatedTs = updatedTs;
+	}
+	
 }
