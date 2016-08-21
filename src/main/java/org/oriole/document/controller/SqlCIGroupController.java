@@ -50,12 +50,13 @@ public class SqlCIGroupController {
 	}
 
 	@RequestMapping(value = "/api/sqlCIGroup/dt/search", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT(@RequestParam int iDisplayStart,
-			@RequestParam int iDisplayLength, @RequestParam int sEcho, // for
-																		// datatables
-																		// draw
-																		// count
-			@RequestParam int iSortCol_0, @RequestParam String sSortDir_0, @RequestParam int iSortingCols,
+	public @ResponseBody JQueryDataTableObject<SqlCIGroup> getSqlCIGroupByTypeForDT(
+			@RequestParam int iDisplayStart,
+			@RequestParam int iDisplayLength,
+			@RequestParam int sEcho, 								
+			@RequestParam int iSortCol_0, 
+			@RequestParam String sSortDir_0, 
+			@RequestParam int iSortingCols,
 			@RequestParam String sSearch) throws IOException {
 
 		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
