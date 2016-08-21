@@ -1,12 +1,3 @@
-$(document).ready(function () {
-	var dttable;
-	initSqlCIGroupDataTable();
-	initSqlCategory();	
-	initMenu();
-	$('[page]').fadeOut(0); 
-	$("[name='sqlci-group-active-checkbox']").bootstrapSwitch();	
-});
-
 function initMenu(){	
 	$(".oriole-menuitem").mouseover(function() {
 		 $(this).animate({ backgroundColor:'##aff1ff'},1000);
@@ -15,28 +6,10 @@ function initMenu(){
 	}); 
 }
 
-function initSqlCategory(){		
-	    $.ajax(
-	    {
-	        url: "http://localhost:8080/api/sqlCategory/searchAll",
-	        success: function (json) {
-	        	var HTML = ""; 
-	             $.each(json, function(i, value) { 	                
-	                HTML = HTML+"<option id='"+value.id+"'>"+value.name+"</option>"; 
-	             });
-	             $('#sqlCategory').append(HTML); 
-	        
-	        },
-	        error:function(xhr, ajaxOptions, thrownError){ 
-	            alert(xhr.status); 
-	            alert(thrownError); 
-	        }	        
-	    });
-}
 
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
-	dttable = $('#sqlCIGroup').DataTable({
+	dttable_ci_grp = $('#sqlCIGroup').DataTable({
 		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
 		"columns": [{
@@ -65,7 +38,7 @@ function initSqlCIGroupDataTable(){
 		           ],
 		"order": [[1, 'desc']],
 		"bProcessing": true,
-		"bServerSide": true,                            
+		"bServerSide": true                           
 
 	});
 }
@@ -83,19 +56,19 @@ function formatSQLCI (groupid,data) {
 			
 			childrow +=
 				'<tr>'+					
-					'<td>'+val.sequence+'</td>'+
+					'<td><span sqlci-id="'+val.id+'">'+val.sequence+'<span></td>'+
 					'<td>'+activeFlag+'</td>'+    	
 	            	'<td>'+val.type+'</td>'+
 		        	'<td>'+val.description+'</td>'+		     
 		        	'<td>'+val.updatedBy+'</td>'+        
 		        	'<td>'+val.updatedTs+'</td>'+
 		        	'<td class="sqlCI-edit"><a class="button-group" data-popup-open="editSQLCI" href="#">Edit</a></td>'+	
-					'<td><a class="button-group" href="#">P4DEV</a><a class="button-group" href="#">P4SIT</a></td>'
+					'<td><a class="button-group" deploy-db-group="P4DEV" href="#">P4DEV</a><a class="button-group" deploy-db-group="P4SIT" href="#">P4SIT</a></td>'
 		        '</tr>'
 	            ;
 		}
 		childrow += '<tr>'+
-    		'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
+    		'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+
     	'</tr>';
 	}else{
 		childrow += '<tr>'+

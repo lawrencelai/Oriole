@@ -31,6 +31,26 @@ function searchSqlCIRequest(row){
 	    }	 
 	});
 }
+
+function searchSqlCIRequestById(id){	
+	$.ajax({
+		url: "http://localhost:8080/api/sqlCI/searchById?sqlCiId="+id,
+		success:function(response){ 
+			
+		    $.each(response, function(index, value) {	    
+		    	$('[data-role="editSQLCI"]').each(function () {
+		    		if($(this).attr('id') == index){$(this).val(value);}
+		    	});  
+		    });	
+		    var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 			    
+		},
+	    error:function(xhr, ajaxOptions, thrownError){ 
+	    	alert(xhr.status); 
+	        alert(thrownError); 
+	    }	 
+	});
+}
  
 function createSqlCIRequest(){
 	var data = {};

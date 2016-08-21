@@ -1,8 +1,15 @@
 $(function() {
     $('[menu-item]').on('click', function(e)  {  
     	var menuitem = $(this).attr('menu-item');
+    	if(menuitem=="admin-view"){
+    		 initDatabasePoolDataTable();
+    	}
+    	if(menuitem=="sql-ci-view"){
+    		 initSqlCIGroupDataTable();
+    	}
     	$('[page]').fadeOut(350); 
         $('[page="' + menuitem + '"]').fadeIn(350); 
+       
         e.preventDefault();
     });
     
@@ -62,7 +69,7 @@ $(function() {
 	} );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCIGroup-edit', function (e) {
-	    var rowData = dttable.row(this).data() 
+	    var rowData = dttable_ci_grp.row(this).data() 
 	    $.each(rowData, function(index, value) {
 	    	//alert(index +":"+ value);	    
 	    	$('[data-role="editSQLCIGroup"]').each(function () {
@@ -75,12 +82,9 @@ $(function() {
 	    e.preventDefault();		
 	} );
 
-	 $('#sqlCIGroup tbody').on('click', 'td.details-control', function () {
+	$('#sqlCIGroup tbody').on('click', 'td.details-control', function () {
 	        var tr = $(this).closest('tr');
-	        var row = dttable.row( tr );  
-	        
-	        
-	        
+	        var row = dttable_ci_grp.row( tr );  
 	        if ( row.child.isShown() ) {
 	            // This row is already open - close it
 	            row.child.hide();
@@ -92,5 +96,20 @@ $(function() {
 	            tr.addClass('shown');
 	        }
 	 } );
+	
+	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {
+		var childRowId = $(this).closest('tr').find('[sqlci-id]').attr('sqlci-id');
+		searchSqlCIRequestById(childRowId);
+//	    $.each(childRows, function(index, value) {
+//    
+//	    	$('[data-role="editSQLCIGroup"]').each(function () {
+//	    		if($(this).attr('id') == index){$(this).val(value);}
+//	    	});  
+//	    });
+//	    
+//		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+//		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
+//	    e.preventDefault();		
+	} );
     
 });
