@@ -44,8 +44,13 @@ public class SqlCIController {
 	}
 
 	@RequestMapping("/api/sqlCI/searchByGroupId")
-	public @ResponseBody List<SqlCI> getSqlCIListByGroupId(@RequestParam Long sqlCIGroupId) {
+	public @ResponseBody List<SqlCI> getSqlCIListByGroupId(@RequestParam long sqlCIGroupId) {
 		return sqlCIRepository.findByGroupID(sqlCIGroupId);
+	}
+	
+	@RequestMapping("/api/sqlCI/searchById")
+	public @ResponseBody SqlCI getSqlCIListById(@RequestParam long sqlCiId) {
+		return sqlCIRepository.findById(sqlCiId);
 	}
 
 	@RequestMapping("/api/sqlCI/create")
