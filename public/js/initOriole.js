@@ -3,6 +3,7 @@ $(document).ready(function () {
 	var dt_dbpool;
 	initSqlCategory();	
 	initMenu();
+	prepareCodeMirror();
 	$('[page]').fadeOut(0); 
 	$("[name='sqlci-group-active-checkbox']").bootstrapSwitch();	
 });

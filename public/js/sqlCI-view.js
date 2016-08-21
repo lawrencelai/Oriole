@@ -100,16 +100,6 @@ $(function() {
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {
 		var childRowId = $(this).closest('tr').find('[sqlci-id]').attr('sqlci-id');
 		searchSqlCIRequestById(childRowId);
-//	    $.each(childRows, function(index, value) {
-//    
-//	    	$('[data-role="editSQLCIGroup"]').each(function () {
-//	    		if($(this).attr('id') == index){$(this).val(value);}
-//	    	});  
-//	    });
-//	    
-//		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
-//		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
-//	    e.preventDefault();		
 	} );
     
 });

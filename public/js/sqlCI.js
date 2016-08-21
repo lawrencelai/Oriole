@@ -1,22 +1,23 @@
- $(document).ready(function () {
-	var mime = 'text/x-sql';		 
-	sqleditor = CodeMirror.fromTextArea(document.getElementById('statement'), {
-		mode: mime,
-		autoRefresh:true,
-		indentWithTabs: true,
-		smartIndent: true,
-		lineNumbers: true,
-		matchBrackets : true,
-		autofocus: true,
-		extraKeys: {"Ctrl-Space": "autocomplete",},
-		hintOptions: {tables: {
-						users: {name: null, score: null, birthDate: null},
-						countries: {name: null, population: null, size: null}
-						}
-			    	}
-	})
-});
-
+function prepareCodeMirror(){
+	var setting =  {
+			mode: 'text/x-sql',
+			autoRefresh:true,
+			indentWithTabs: true,
+			smartIndent: true,
+			lineNumbers: true,
+			matchBrackets : true,
+			autofocus: true,
+			extraKeys: {"Ctrl-Space": "autocomplete",},
+			hintOptions: {tables: {
+							users: {name: null, score: null, birthDate: null},
+							countries: {name: null, population: null, size: null}
+							}
+				    	}
+		};
+	CodeMirror.fromTextArea(document.getElementsByName('cm-create-sqlci')[0], setting);
+	CodeMirror.fromTextArea(document.getElementsByName('cm-edit-sqlci')[0], setting);
+} 
+ 
 function searchSqlCIRequest(row){	
 	$.ajax({
 		url: "http://localhost:8080/api/sqlCI/searchByGroupId?sqlCIGroupId="+row.data().id,
