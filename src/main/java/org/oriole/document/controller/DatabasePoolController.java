@@ -1,20 +1,27 @@
 package org.oriole.document.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.oriole.common.CommonEnum.DatabaseSequence;
+import org.oriole.common.CommonEnum.MongoDbSqlCIGroup;
 import org.oriole.common.CommonUtils;
+import org.oriole.common.JQueryDataTableObject;
 import org.oriole.document.DatabasePool;
 import org.oriole.document.dao.SequenceDao;
 import org.oriole.document.exception.ErrorDetail;
 import org.oriole.document.repository.DatabasePoolRepository;
 import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +47,34 @@ public class DatabasePoolController {
 		return error;
 	}
 
+	@RequestMapping(value = "/api/database/dt/search", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JQueryDataTableObject<DatabasePool> getDatabasePoolForDT(@RequestParam int iDisplayStart,
+			@RequestParam int iDisplayLength,
+			@RequestParam int sEcho, 
+			@RequestParam int iSortCol_0,
+			@RequestParam String sSortDir_0,
+			@RequestParam int iSortingCols,
+			@RequestParam String sSearch) throws IOException {
+
+		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
+		String sortingField = MongoDbSqlCIGroup.findMongoFieldNameByColumnNum(iSortCol_0);
+		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
+		PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
+		Page<DatabasePool> page = null;
+		int iTotalRecords;
+		int iTotalDisplayRecords;
+
+		page = databasePoolRepository.findAll(pageable);
+
+		iTotalRecords = (int) page.getTotalElements();
+		iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
+
+		JQueryDataTableObject<DatabasePool> dtPage = new JQueryDataTableObject<>(page.getContent(), iTotalRecords,
+				iTotalDisplayRecords, Integer.toString(sEcho));
+
+		return dtPage;
+	}
+	
 	@RequestMapping("/api/database/searchAll")
 	public @ResponseBody List<DatabasePool> getDatabasePoolList() {
 		return databasePoolRepository.findAll();
