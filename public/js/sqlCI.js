@@ -33,14 +33,20 @@ function searchSqlCIRequest(row){
 	});
 }
 
-function searchSqlCIRequestById(id){	
+function prepareEditSqlCIRequest(id){	
 	$.ajax({
 		url: "http://localhost:8080/api/sqlCI/searchById?sqlCiId="+id,
 		success:function(response){ 
 			
 		    $.each(response, function(index, value) {	    
 		    	$('[data-role="editSQLCI"]').each(function () {
-		    		if($(this).attr('id') == index){$(this).val(value);}
+		    		if($(this).attr('id') == index){
+		    			if($(this).attr('id')=='active'){
+		    				$(this).bootstrapSwitch('state',value);
+		    			}else{
+		    				$(this).val(value);
+		    			}
+		    		}
 		    	});  
 		    });	
 		    var targeted_popup_class = $(this).find("a").attr('data-popup-open');
@@ -88,18 +94,15 @@ function editSqlCIRequest(){
 
 	    $.ajax(
 	    {
-	        url: "http://localhost:8080/api/sqlCIGroup/change",
+	        url: "http://localhost:8080/api/sqlCI/change",
 	        data: data,
 	        success: function (msg) {
 	        	 $('[data-popup="editSQLCI"]').fadeOut(350);
-	        	 dttable.ajax.reload();
+	        	 dttable_ci_grp.ajax.reload();
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){ 
 	            alert(xhr.status); 
 	            alert(thrownError); 
-	         },
-	    	complete : function (msg) {
-	    		$("#lblForAjax").text(msg);
-	    	}
+	         }	    	
 	    });
 	}

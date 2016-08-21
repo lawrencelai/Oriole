@@ -5,5 +5,5 @@ $(document).ready(function () {
 	initMenu();
 	prepareCodeMirror();
 	$('[page]').fadeOut(0); 
-	$("[name='sqlci-group-active-checkbox']").bootstrapSwitch();	
+	$("[bootstrap-switch]").bootstrapSwitch();	
 });

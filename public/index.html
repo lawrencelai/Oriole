@@ -121,7 +121,7 @@
 				
 		<div-table>
 			<div-row>
-				<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+				<div-cell><input type="checkbox" bootstrap-switch="sqlci-group-create"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
 			</div-row>
 			<div-row>
 				<div-cell>SQL CI Group Number :</div-cell>
@@ -176,7 +176,7 @@
 				<h2>Edit SQL Configuration Item</h2>
 				<div-table>
 					<div-row>
-						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+						<div-cell><input type="checkbox" bootstrap-switch="sqlci-group-edit"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
 					</div-row>
 					<div-row>
 						<div-cell>SQL CI Group Number : </div-cell>
@@ -226,7 +226,7 @@
 				 <h2>New SQL Configuration Item</h2>
 				<div-table>
 					<div-row>
-						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+						<div-cell><input type="checkbox" bootstrap-switch=="sqlci-create"  data-size="mini" data-role="createSQLCIGroup" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
 					</div-row>
 					<div-row>
 						<div-cell>SQL CI Group ID :</div-cell>
@@ -267,9 +267,10 @@
 				<div><h2>Edit SQL Configuration Item</h2></div>			  
 				<div-table>
 					<div-row>
-						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox" id="active"  data-size="mini" data-role="editSQLCI" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+						<div-cell><input type="checkbox" bootstrap-switch="sqlci-edit" id="active"  data-size="mini" data-role="editSQLCI" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
 					</div-row>
-					<div-row>				  		
+					<div-row>		
+						<div-cell>SQL CI ID :<input type="text" data-role="editSQLCI" id="id"/></div-cell>		  		
 						<div-cell>Sequence :<input type="text" data-role="editSQLCI" id="sequence"/></div-cell>
 						<div-cell>sqlCIType:<input type="text" data-role="editSQLCI" id="type"/></div-cell>
 						<div-cell>CI Group ID   :<input type="text" data-role="editSQLCI" id="groupID"/></div-cell>
@@ -296,10 +297,10 @@
 					   </div-row>
 					   <br/><br/><br/>
 					   <div-row>
-					        <div-cell><button>Edit</button></div-cell>			        
+					        <div-cell><a class="button-group" sql-ci-ws="editSQLCI" href="#">Edit</a></div-cell>			        
 					   </div-row>			
 	 			</div-table>
-		    <p><a  class="button-group" data-popup-close="editSQLCI" href="#">Close</a></p>
+		    <p><a class="button-group" data-popup-close="editSQLCI" href="#">Close</a></p>
 		    <a class="popup-close" data-popup-close="editSQLCI" href="#">x</a>
 		  
 		</div>

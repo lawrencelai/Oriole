@@ -99,7 +99,7 @@ $(function() {
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {
 		var childRowId = $(this).closest('tr').find('[sqlci-id]').attr('sqlci-id');
-		searchSqlCIRequestById(childRowId);
+		prepareEditSqlCIRequest(childRowId);
 	} );
     
 });

@@ -83,16 +83,16 @@ public class SqlCIController {
 	}
 
 	@RequestMapping("/api/sqlCI/change")
-	public @ResponseBody void updateSqlCI(@RequestParam Long sqlCIId, @RequestParam int sequence,
-			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String sqlCIType,
+	public @ResponseBody void updateSqlCI(@RequestParam long id, @RequestParam int sequence,
+			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String type,
 			@RequestParam String statement, @RequestParam Boolean active, String description) {
 
-		SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);
+		SqlCI sqlCI = sqlCIRepository.findById(id);
 		sqlCI.setActive(active);
 		sqlCI.setSequence(sequence);
 		sqlCI.setCreatedBy(createdBy);
 		sqlCI.setUpdatedBy(updatedBy);
-		sqlCI.setType(sqlCIType);
+		sqlCI.setType(type);
 		sqlCI.setStatement(createdBy);
 		sqlCI.setDescription(description);
 		sqlCI.setUpdatedTs(new Date());
