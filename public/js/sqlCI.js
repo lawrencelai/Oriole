@@ -1,4 +1,4 @@
-function prepareCodeMirror(){
+function prepareCodeMirror(elementName){
 	var setting =  {
 			mode: 'text/x-sql',
 			autoRefresh:true,
@@ -14,8 +14,11 @@ function prepareCodeMirror(){
 							}
 				    	}
 		};
-	CodeMirror.fromTextArea(document.getElementsByName('cm-create-sqlci')[0], setting);
-	CodeMirror.fromTextArea(document.getElementsByName('cm-edit-sqlci')[0], setting);
+	CodeMirror.fromTextArea(document.getElementsByName(elementName)[0], setting).on('change',function(cMirror){
+		  // get value right from instance
+		document.getElementsByName(elementName)[0].value = cMirror.getValue();
+	});
+	
 } 
  
 function searchSqlCIRequest(row){	
@@ -62,12 +65,8 @@ function prepareEditSqlCIRequest(id){
 function createSqlCIRequest(){
 	var data = {};
 	    		
-	$('[data-role="createSQLCI"]').each(function () {
-		if($(this).attr('id')=="statement"){
-			data[$(this).attr('id')] = sqleditor.getValue();
-		}else{
-			data[$(this).attr('id')] = $(this).val();
-		}
+	$('[data-role="createSQLCI"]').each(function (i, el) {		
+		data[$(this).attr('id')] = $(this).val();	
 	});
 	    
 	$.ajax(
@@ -98,7 +97,7 @@ function editSqlCIRequest(){
 	        data: data,
 	        success: function (msg) {
 	        	 $('[data-popup="editSQLCI"]').fadeOut(350);
-	        	 dttable_ci_grp.ajax.reload();
+	        	 dt_sqlci_grp.ajax.reload();
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){ 
 	            alert(xhr.status); 

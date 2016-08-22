@@ -1,15 +1,7 @@
-function initMenu(){	
-	$(".oriole-menuitem").mouseover(function() {
-		 $(this).animate({ backgroundColor:'##aff1ff'},1000);
-	}).mouseout(function() {
-		$(this).animate({ backgroundColor:'#ffffff'},1000);
-	}); 
-}
-
 
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
-	dttable_ci_grp = $('#sqlCIGroup').DataTable({
+	dt_sqlci_grp = $('#sqlCIGroup').DataTable({
 		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
 		"columns": [{

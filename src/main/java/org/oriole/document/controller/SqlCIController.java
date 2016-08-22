@@ -54,8 +54,13 @@ public class SqlCIController {
 	}
 
 	@RequestMapping("/api/sqlCI/create")
-	public @ResponseBody SqlCI createSqlCI(@RequestParam Long sqlCIGroupId, @RequestParam String createdBy,
-			@RequestParam String sqlCategory, @RequestParam String statement, String description) {
+	public @ResponseBody SqlCI createSqlCI(
+			@RequestParam Long sqlCIGroupId, 
+			@RequestParam String createdBy,
+			@RequestParam String sqlCategory,
+			@RequestParam String statement,
+			@RequestParam Boolean active ,
+			String description) {
 
 		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
 
@@ -84,7 +89,7 @@ public class SqlCIController {
 
 	@RequestMapping("/api/sqlCI/change")
 	public @ResponseBody void updateSqlCI(@RequestParam long id, @RequestParam int sequence,
-			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String type,
+			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String sqlCategory,
 			@RequestParam String statement, @RequestParam Boolean active, String description) {
 
 		SqlCI sqlCI = sqlCIRepository.findById(id);
@@ -92,7 +97,7 @@ public class SqlCIController {
 		sqlCI.setSequence(sequence);
 		sqlCI.setCreatedBy(createdBy);
 		sqlCI.setUpdatedBy(updatedBy);
-		sqlCI.setType(type);
+		sqlCI.setType(sqlCategory);
 		sqlCI.setStatement(createdBy);
 		sqlCI.setDescription(description);
 		sqlCI.setUpdatedTs(new Date());

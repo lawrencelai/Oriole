@@ -1,17 +1,4 @@
 $(function() {
-    $('[menu-item]').on('click', function(e)  {  
-    	var menuitem = $(this).attr('menu-item');
-    	if(menuitem=="admin-view"){
-    		 initDatabasePoolDataTable();
-    	}
-    	if(menuitem=="sql-ci-view"){
-    		 initSqlCIGroupDataTable();
-    	}
-    	$('[page]').fadeOut(350); 
-        $('[page="' + menuitem + '"]').fadeIn(350); 
-       
-        e.preventDefault();
-    });
     
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {      	
     	$('#sqlCIGroup').DataTable().ajax.reload();
@@ -69,7 +56,7 @@ $(function() {
 	} );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCIGroup-edit', function (e) {
-	    var rowData = dttable_ci_grp.row(this).data() 
+	    var rowData = dt_sqlci_grp.row(this).data() 
 	    $.each(rowData, function(index, value) {
 	    	//alert(index +":"+ value);	    
 	    	$('[data-role="editSQLCIGroup"]').each(function () {
@@ -84,7 +71,7 @@ $(function() {
 
 	$('#sqlCIGroup tbody').on('click', 'td.details-control', function () {
 	        var tr = $(this).closest('tr');
-	        var row = dttable_ci_grp.row( tr );  
+	        var row = dt_sqlci_grp.row( tr );  
 	        if ( row.child.isShown() ) {
 	            // This row is already open - close it
 	            row.child.hide();
