@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	var dt_sqlci_grp;
 	var dt_dbpool;
-	initSqlCategory();	
+	initSqlCategory();
 	initMenu();
 	prepareCodeMirror('cm-create-sqlci');
 	prepareCodeMirror('cm-edit-sqlci');
@@ -39,6 +39,7 @@ function initMenu(){
 	
 	$('[menu-item]').on('click', function(e)  {  
 		var menuitem = $(this).attr('menu-item');
+		
 		if(menuitem=="admin-view"){
 			 initDatabasePoolDataTable();
 		}

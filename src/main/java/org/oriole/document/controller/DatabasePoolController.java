@@ -1,6 +1,7 @@
 package org.oriole.document.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,8 +88,13 @@ public class DatabasePoolController {
 
 	@RequestMapping("/api/database/create")
 	public @ResponseBody DatabasePool createDatabasePool(@RequestParam String name, @RequestParam boolean active,
-			@RequestParam String host, @RequestParam String port, @RequestParam String username,
-			@RequestParam String password, String description, String serviceName, String sid, String tns) {
+			@RequestParam String host,
+			@RequestParam String port, 
+			@RequestParam String username,	
+			@RequestParam String password,
+			@RequestParam String createdBy,
+			String serviceName, 
+			String sid) {
 
 		if (databasePoolRepository.findByName(name) != null) {
 			throw new InputDataException("Database name is defined");
@@ -104,15 +110,24 @@ public class DatabasePoolController {
 		databasePool.setSid(sid);
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
+		databasePool.setCreatedBy(createdBy);
+		databasePool.setCreatedTs(new Date());
 
 		return databasePoolRepository.insert(databasePool);
 
 	}
 
 	@RequestMapping("/api/database/change")
-	public @ResponseBody DatabasePool updateDatabasePool(@RequestParam String name, @RequestParam String host,
-			@RequestParam String port, @RequestParam String username, @RequestParam String password, String description,
-			String serviceName, String sid, String tns) {
+	public @ResponseBody DatabasePool updateDatabasePool(
+			@RequestParam String name,
+			@RequestParam String host,
+			@RequestParam String port,
+			@RequestParam String username, 
+			@RequestParam String password,
+			@RequestParam String updatedBy,
+			String description,
+			String serviceName,
+			String sid) {
 
 		DatabasePool databasePool = databasePoolRepository.findByName(name);
 
@@ -125,6 +140,8 @@ public class DatabasePoolController {
 		databasePool.setSid(sid);
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
+		databasePool.setUpdatedBy(updatedBy);
+		databasePool.setUpdatedTs(new Date());
 
 
 		return databasePoolRepository.save(databasePool);

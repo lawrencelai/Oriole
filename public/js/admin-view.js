@@ -1,7 +1,7 @@
 $(function() {
     
     $('[data-role="refresh-database-pool-dt"]').on('click', function(e)  {      	
-    	dt_dbpool.DataTable().ajax.reload();
+    	$('#databasePool').DataTable().ajax.reload();
     });
 
     $('[database-pool-ws]').on('click', function(e)  {
@@ -49,7 +49,8 @@ function initDatabasePoolDataTable(){
 		}          ,
 		"order": [[0, 'desc']],
 		"bProcessing": true,
-		"bServerSide": true                         
+		"bServerSide": true,
+		"bDestroy": true
 
 	});
 	
@@ -68,7 +69,7 @@ function createDatabasePoolRequest(){
 		data: data,
 	    success: function (msg) {
 	    	$('[data-popup="createDatabasePool"]').fadeOut(350);	    
-	    	$('#databasePool').ajax.reload();
+	    	dt_dbpool.ajax.reload();
 	    },
 	    error:function(xhr, ajaxOptions, thrownError){ 
 	    	alert(xhr.status); 
@@ -90,7 +91,7 @@ function editDatabasePoolRequest(){
 	        data: data,
 	        success: function (msg) {
 	        	 $('[data-popup="editDatabasePool"]').fadeOut(350);
-	        	 $('#databasePool').ajax.reload();
+	        	 dt_dbpool.ajax.reload();
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){ 
 	            alert(xhr.status); 
