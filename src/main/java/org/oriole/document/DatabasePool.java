@@ -12,7 +12,6 @@ public class DatabasePool {
 	private long id;
 	
 	private String name; // Database connection name
-	private String description; // Database description
 	private boolean active;
 	
 	private String host;
@@ -46,15 +45,7 @@ public class DatabasePool {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
+	
 	public boolean isActive() {
 		return active;
 	}

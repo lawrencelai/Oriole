@@ -104,7 +104,6 @@ public class DatabasePoolController {
 		databasePool.setSid(sid);
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
-		databasePool.setDescription(description);
 
 		return databasePoolRepository.insert(databasePool);
 
@@ -126,7 +125,7 @@ public class DatabasePoolController {
 		databasePool.setSid(sid);
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
-		databasePool.setDescription(description);
+
 
 		return databasePoolRepository.save(databasePool);
 	}

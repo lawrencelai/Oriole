@@ -94,20 +94,24 @@
 		</div>
 	</div>
 	<div page="admin-view">
+		<div class="admin-group-common">
+			<a class="button-group" data-popup-open="createDatabasePool" href="#">Create Database Pool</a>
+			<a class="button-group" data-role="refresh-database-pool-dt" href="#">Refresh</a>
+		</div>
 		<div id="data-table">
-			<table id="dbPool" class="order-column" cellspacing="0" width="100%">
+			<table id="databasePool" class="order-column" cellspacing="0" width="100%">
 			    <thead>
 				    <tr>
-				        <th class="all">name</th>
-				        <th class="all">description</th>
+				        <th class="all">name</th>						
 				        <th class="all">active</th>
+				        <th class="all">Action</th>
 				    </tr>
 			    </thead>
 			    <tfoot>
 				    <tr>
-				        <th>name</th>
-				        <th>description</th>
-				        <th>active</th>	      
+				        <th>name</th>				  
+				        <th>active</th>	   
+				        <th>Action</th>   
 					</tr>
 			    </tfoot>
 			    <tbody>
@@ -307,39 +311,46 @@
 	</div>
 	<div class="popup" data-popup="createDatabasePool">
 		<div class="SqlCI-Inner">
-		<h2>New SQL Configuration Item</h2>
+		<h2>New Database Pool Item</h2>
 				<div-table>
 					<div-row>
-						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="createDatabasePool" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
-					</div-row>
-					<div-row>
-						<div-cell>SQL CI Group ID :</div-cell>
-						<div-cell>Category*</div-cell>									
+						<div-cell><input type="checkbox" id="active" bootstrap-switch="databasePool-create"  data-size="mini" data-role="createDatabasePool" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
 					</div-row>		
 					<div-row>
-						<div-cell><input type="text" data-role="createDatabasePool" id="sqlCIGroupId"/> </div-cell>
-						<div-cell><select class="combobox" data-role="createDatabasePool" id="sqlCategory"></select></div-cell>
-					</div-row>
-					<div-row><div-cell><br/></div-cell></div-row>
-					<div-row>
-						<div-cell>description</div-cell>
-						<div-cell><textarea rows="4" cols="50" style="resize: none" data-role="createDatabasePool" id="description"></textarea></div-cell>
+						<div-cell>Database Name:</div-cell>
+						<div-cell><input type="text" data-role="createDatabasePool" id="name"/> </div-cell>				
 					</div-row>
 					<div-row>
-						<div-cell><textarea data-role="createDatabasePool" id="statement"></textarea></div-cell>
+						<div-cell>host</div-cell>
+						<div-cell>port</div-cell>
+						<div-cell>serviceName</div-cell>
+						<div-cell>sid</div-cell>
+					
+					</div-row>
+					<div-row>
+						<div-cell><input type="text" data-role="createDatabasePool" id="host"/></div-cell>	
+						<div-cell><input type="text" data-role="createDatabasePool" id="port"/></div-cell>	
+						<div-cell><input type="text" data-role="createDatabasePool" id="serviceName"/></div-cell>
+						<div-cell><input type="text" data-role="createDatabasePool" id="sid"/></div-cell>	
+					</div-row>					
+					<div-row>
+						<div-cell>username</div-cell>
+						<div-cell>password</div-cell>
+					</div-row>
+					<div-row>		
+						<div-cell><input type="text" data-role="createDatabasePool" id="username"/></div-cell>	
+						<div-cell><input type="text" data-role="createDatabasePool" id="password"/></div-cell>	
 					</div-row>
 					<div-row>
 						<div-cell>createdBy</div-cell>
-						<div-cell>createdTs</div-cell>
-						<div-cell>updatedBy</div-cell>
-						<div-cell>updatedTs</div-cell>							
+						<div-cell>createdTs</div-cell>									
 					</div-row>
 					<div-row>
 						<div-cell><input type="text" data-role="createDatabasePool" id="createdBy"/></div-cell>
 						<div-cell><input type="text" data-role="createDatabasePool" id="createdTs"/></div-cell>
 					</div-row>	
 					<div-row>
-						<div-cell><a class="button-group" sql-ci-ws="createDatabasePool" href="#">Create</a></div-cell>
+						<div-cell><a class="button-group" database-pool-ws="createDatabasePool" href="#">Create</a></div-cell>
 					</div-row>				
 				</div-table>
 		        <p><a  class="button-group" data-popup-close="createDatabasePool" href="#">Close</a></p>
@@ -347,43 +358,52 @@
 		    </div>
 		</div>		
 	<div class="popup" data-popup="editDatabasePool">
-		    <div class="popup-inner">			
-				<div><h2>Edit SQL Configuration Item</h2></div>			  
+		  <div class="SqlCI-Inner">
+		<h2>Edit Database Pool Item</h2>
 				<div-table>
 					<div-row>
-						<div-cell><input type="checkbox" name="sqlci-group-active-checkbox"  data-size="mini" data-role="editDatabasePool" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+						<div-cell><input type="checkbox" id="active" bootstrap-switch="databasePool-edit"  data-size="mini" data-role="createDatabasePool" data-on-Text="Active" data-off-Text="Deactive" data-on-color="success"  data-off-color="warning"checked></div-cell>
+					</div-row>		
+					<div-row>
+						<div-cell>Database Name:</div-cell>
+						<div-cell><input type="text" data-role="editDatabasePool" id="name"/> </div-cell>				
 					</div-row>
-					<div-row>				  		
-						<div-cell>Sequence :<input type="text" name="sequence"/></div-cell>
-						<div-cell>sqlCIType:<input type="text" name="sqlCIType"/></div-cell>
-						<div-cell>owner    :<input type="text" name="owner"/></div-cell>
+					<div-row>
+						<div-cell>host</div-cell>
+						<div-cell>port</div-cell>
+						<div-cell>serviceName</div-cell>
+						<div-cell>sid</div-cell>
+					
 					</div-row>
-					  <br/><br/><br/>
-					  <div-row>
-					        <div-cell>description :<textarea rows="4" cols="50" style="resize: none" name="description"></textarea></div-cell>	
-					  </div-row>
-					  <br/>
-					  <div-row>
-						  	<div-cell>
-							  		<div-table>
-							  			<div-row>
-									        <div-cell>createdBy :<input type="text" name="createdBy"/></div-cell>
-									        <div-cell>createdTs :<input type="text" name="createdTs" class="datepick"/></div-cell>
-									      	<div-cell>updatedBy :<input type="text" name="updatedBy"/></div-cell>
-									        <div-cell>updatedTs :<input type="text" name="updatedTs" class="datepick"/></div-cell>
-										</div-row>
-							  		</div-table>
-						   	</div-cell>
-					   </div-row>
-					   <br/><br/><br/>
-					   <div-row>
-					        <div-cell><button>Edit</button></div-cell>			        
-					   </div-row>			
-	 			</div-table>
-		    <p><a  class="button-group" data-popup-close="editSQLCI" href="#">Close</a></p>
-		    <a class="popup-close" data-popup-close="editSQLCI" href="#">x</a>
-		  
-		</div>
+					<div-row>
+						<div-cell><input type="text" data-role="editDatabasePool" id="host"/></div-cell>	
+						<div-cell><input type="text" data-role="editDatabasePool" id="port"/></div-cell>	
+						<div-cell><input type="text" data-role="editDatabasePool" id="serviceName"/></div-cell>
+						<div-cell><input type="text" data-role="editDatabasePool" id="sid"/></div-cell>	
+					</div-row>					
+					<div-row>
+						<div-cell>username</div-cell>
+						<div-cell>password</div-cell>
+					</div-row>
+					<div-row>		
+						<div-cell><input type="text" data-role="editDatabasePool" id="username"/></div-cell>	
+						<div-cell><input type="text" data-role="editDatabasePool" id="password"/></div-cell>	
+					</div-row>
+					<div-row>
+						<div-cell>createdBy</div-cell>
+						<div-cell>createdTs</div-cell>									
+					</div-row>
+					<div-row>
+						<div-cell><input type="text" data-role="editDatabasePool" id="createdBy"/></div-cell>
+						<div-cell><input type="text" data-role="editDatabasePool" id="createdTs"/></div-cell>
+					</div-row>	
+					<div-row>
+						<div-cell><a class="button-group" database-pool-ws="editDatabasePool" href="#">Edit</a></div-cell>
+					</div-row>				
+				</div-table>
+		        <p><a  class="button-group" data-popup-close="editDatabasePool" href="#">Close</a></p>
+		        <a class="popup-close" data-popup-close="editDatabasePool" href="#">x</a>
+		    </div>
 	</div>
 	
 </body>

@@ -1,22 +1,46 @@
+$(function() {
+    
+    $('[data-role="refresh-database-pool-dt"]').on('click', function(e)  {      	
+    	dt_dbpool.DataTable().ajax.reload();
+    });
+
+    $('[database-pool-ws]').on('click', function(e)  {
+        var target_ws = $(this).attr('database-pool-ws');
+        if(target_ws == "createDatabasePool"){
+        	createDatabasePoolRequest();
+        }
+         if(target_ws == "editDatabasePool"){
+        	editDatabasePoolRequest();
+        }
+    });
+
+	$('#databasePool tbody').on( 'click', '.database-pool-edit', function (e) {
+	    var rowData = dt_dbpool.row(this).data() 
+	    $.each(rowData, function(index, value) {
+	    	//alert(index +":"+ value);	    
+	    	$('[data-role="editDatabasePool"]').each(function () {
+	    		if($(this).attr('id') == index){$(this).val(value);}
+	    	});  
+	    });
+	    
+		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
+	    e.preventDefault();		
+	} );
+	
+});
+
 function initDatabasePoolDataTable(){
-	$('#dbPool').DataTable({
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+	dt_dbpool = $('#databasePool').DataTable({
+		"lengthMenu": [[10, 25, 50], [10, 25, 50]],
 		"sAjaxSource": "http://localhost:8080/api/database/dt/search",
-		 "columnDefs": [
-		                {  "render": function ( data, type, row ) {
-		                        return '<a class="button-group" data-popup-open="edit-DB-Pool" href="#">Edit</a>';
-		                    },
-		                    "targets": 3
-		                },
-		                { "visible": false,  "targets": [ 3 ] }
-		            ],
-		"columns": [{ "data": "name"},
-		            { "data": "description" },
+		
+		"columns": [{ "data": "name"},		           
 		            { "data": "active"} ,
-		            {   "className": 'sqlCIGroup-edit',	
+		            {   "className": 'database-pool-edit',	
 						"orderable": false,					
 						"data":null,
-						"defaultContent": '<a class="button-group" data-popup-open="editSQLCIGroup" href="#">Edit</a>'
+						"defaultContent": '<a class="button-group" data-popup-open="editDatabasePool" href="#">Edit</a>'
 					}
 		          			
 		           ],
@@ -30,3 +54,47 @@ function initDatabasePoolDataTable(){
 	});
 	
 }
+
+function createDatabasePoolRequest(){
+	var data = {};
+	    		
+	$('[data-role="createDatabasePool"]').each(function (i, el) {		
+		data[$(this).attr('id')] = $(this).val();	
+	});
+	    
+	$.ajax(
+	{
+		url: "http://localhost:8080/api/database/create",
+		data: data,
+	    success: function (msg) {
+	    	$('[data-popup="createDatabasePool"]').fadeOut(350);	    
+	    	$('#databasePool').ajax.reload();
+	    },
+	    error:function(xhr, ajaxOptions, thrownError){ 
+	    	alert(xhr.status); 
+	        alert(thrownError); 
+	    }
+	});
+}
+
+function editDatabasePoolRequest(){
+	    var data = {};
+	    		
+	    $('[data-role="editDatabasePool"]').each(function () {
+	    	data[$(this).attr('id')] = $(this).val();
+	    });
+
+	    $.ajax(
+	    {
+	        url: "http://localhost:8080/api/database/change",
+	        data: data,
+	        success: function (msg) {
+	        	 $('[data-popup="editDatabasePool"]').fadeOut(350);
+	        	 $('#databasePool').ajax.reload();
+	        },
+	        error:function(xhr, ajaxOptions, thrownError){ 
+	            alert(xhr.status); 
+	            alert(thrownError); 
+	         }	    	
+	    });
+	}

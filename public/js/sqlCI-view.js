@@ -3,22 +3,7 @@ $(function() {
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {      	
     	$('#sqlCIGroup').DataTable().ajax.reload();
     });
-    //----- OPEN
-    $('[data-popup-open]').on('click', function(e)  {
-        var targeted_popup_class = jQuery(this).attr('data-popup-open');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
-        e.preventDefault();
-    });
- 
-    //----- CLOSE
-    $('[data-popup-close]').on('click', function(e)  {
-        var targeted_popup_class = jQuery(this).attr('data-popup-close');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
- 
-        e.preventDefault();
-    });
-    
-    //----- CLOSE
+
     $('[sql-ci-ws]').on('click', function(e)  {
         var target_ws = $(this).attr('sql-ci-ws');
         if(target_ws == "createSQLCIGroup"){
@@ -36,10 +21,6 @@ $(function() {
         
     });
   
-    $('.datepick').each(function(){
-        $(this).datepicker();
-    });
-    
 
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-add', function (e) {	
 		var id = $(this).find("a").attr('sql-ci-group');
