@@ -9,10 +9,9 @@ public class DeployRequest {
 	private long    id; //Per SQL CI Request
 	private String  status; // SUCCESS , FAIL, SCHEDULE, HOLD
 
-	private long  sqlCiId;	
-	
-	private String  targetDatabase;
-		
+	private long   sqlCiId;	
+	private String description;
+	private String targetDatabase;		
 	private String  requestBy;
 	private Date 	requestTs;	
 	private Date 	executedTs;
@@ -42,6 +41,13 @@ public class DeployRequest {
 		this.sqlCiId = sqlCiId;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getTargetDatabase() {
 		return targetDatabase;

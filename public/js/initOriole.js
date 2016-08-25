@@ -39,7 +39,7 @@ function initMenu(){
 	
 	$('[menu-item]').on('click', function(e)  {  
 		var menuitem = $(this).attr('menu-item');
-		if(menuitem=="deployment-view"){
+		if(menuitem=="deployrequest-view"){
 			initDeployRequestDataTable();
 		}
 		if(menuitem=="admin-view"){
