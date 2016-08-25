@@ -1,6 +1,7 @@
 package org.oriole.document.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.MongoDbSqlCIGroup;
 import org.oriole.common.CommonUtils;
 import org.oriole.common.JQueryDataTableObject;
+import org.oriole.common.JsonObject;
 import org.oriole.document.DatabasePool;
 import org.oriole.document.dao.SequenceDao;
 import org.oriole.document.exception.ErrorDetail;
@@ -74,6 +76,18 @@ public class DatabasePoolController {
 				iTotalDisplayRecords, Integer.toString(sEcho));
 
 		return dtPage;
+	}
+	
+	@RequestMapping("/api/database/activeList")
+	public @ResponseBody List<JsonObject> getActiveDatabasePools() {
+		List<DatabasePool> databasePools = databasePoolRepository.findByActive(true);
+		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
+
+		for (DatabasePool databasePool : databasePools) {
+			databasePoolJObject.add(new JsonObject(String.valueOf(databasePool.getId()), databasePool.getName()));
+		}
+
+		return databasePoolJObject;
 	}
 	
 	@RequestMapping("/api/database/searchAll")

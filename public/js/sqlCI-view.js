@@ -1,7 +1,8 @@
 $(function() {
-    
-    $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {      	
+	activeDatabasePool();
+    $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {     	
     	$('#sqlCIGroup').DataTable().ajax.reload();
+    	activeDatabasePool();
     });
 
     $('[sql-ci-ws]').on('click', function(e)  {

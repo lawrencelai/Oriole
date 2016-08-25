@@ -25,7 +25,7 @@ function initSqlCIGroupDataTable(){
 					{   "className": 'sqlCIGroup-edit',	
 						"orderable": false,					
 						"data":null,
-						"defaultContent": '<a class="button-group" href="#">P4DEV</a><a class="button-group" href="#">P4SIT</a>'
+						"defaultContent": '<div id="deploy-target"></div>'
 					}
 		           ],
 		"order": [[1, 'desc']],
@@ -34,6 +34,7 @@ function initSqlCIGroupDataTable(){
 		"bDestroy": true
 
 	});
+	activeDatabasePool();
 }
 
 function formatSQLCI (groupid,data) {
