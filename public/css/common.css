@@ -6,6 +6,26 @@
 	margin: 40px 5px 30px 5px;
 }
 
+.admin-group-common{
+	margin: 40px 5px 30px 5px;
+}
+
+.deploy-group-common{
+	margin: 40px 5px 30px 5px;
+}
+
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:40px;   /* Height of the footer */
+   background:#5175C0;
+   text-align: center;
+   color: #ffffff;
+   font-size: 20px;
+   padding: 20px 8px 0 10px;
+   margin: 0 10px;
+}
 .active-logo{
 	cursor:help;
 	font-size:12px;
