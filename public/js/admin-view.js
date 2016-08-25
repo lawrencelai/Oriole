@@ -17,7 +17,7 @@ $(function() {
 	$('#databasePool tbody').on('click', '.database-pool-edit', function(e) {
 		var rowData = dt_dbpool.row(this).data()
 		$.each(rowData, function(index, value) {
-			//alert(index +":"+ value);	    
+			// alert(index +":"+ value);
 			$('[data-role="editDatabasePool"]').each(function() {
 				if ($(this).attr('id') == index) {
 					$(this).val(value);
@@ -40,12 +40,8 @@ function initDatabasePoolDataTable() {
 						"sAjaxSource" : "http://localhost:8080/api/database/dt/search",
 
 						"columns" : [
-								{
-									"data" : "name"
-								},
-								{
-									"data" : "active"
-								},
+								{"data" : "name"},
+								{"data" : "active"},
 								{
 									"className" : 'database-pool-edit',
 									"orderable" : false,
@@ -107,22 +103,43 @@ function editDatabasePoolRequest() {
 		}
 	});
 }
-function activeDatabasePool() {
+function activeDatabasePoolForCiGroup() {
 	var data = {};
 	$.ajax({
 		url : "http://localhost:8080/api/database/activeList",
 		data : data,
 		success : function(json) {
-			var HTML = ""; 
-            $.each(json, function(i, value) { 	                
-               HTML = HTML+"<a class='button-group' href='#'>"+value.name+"</a>"; 
-            });
-            $('#deploy-target').append(HTML); 
-            
+			var HTML = "";
+			$.each(json, function(i, value) {
+				HTML = HTML + "<a class='button-group' deploy-ci-group='"+value.id+"' href='#'>" + value.name
+						+ "</a>";
+			});
+			$('.deploy-ci-group').append(HTML);		
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
 			alert(thrownError);
 		}
+	});
+}
+
+function activeDatabasePoolForCi() {
+	var data = {};
+	$.ajax({
+		url : "http://localhost:8080/api/database/activeList",
+		data : data,	
+		success : function(json) {
+			var HTML = "";
+			$.each(json, function(i, value) {
+				HTML = HTML + "<a class='button-group' deploy-ci-group='"+value.id+"' href='#'>" + value.name
+						+ "</a>";
+			});
+			$('.deploy-ci').append(HTML);
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+			alert(xhr.status);
+			alert(thrownError);
+		}
+		
 	});
 }

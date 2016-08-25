@@ -21,21 +21,58 @@ function prepareCodeMirror(elementName){
 	
 } 
  
-function searchSqlCIRequest(row){	
+function searchSqlCIRequest(row){
+	var dataChildrow;
 	$.ajax({
 		url: "http://localhost:8080/api/sqlCI/searchByGroupId?sqlCIGroupId="+row.data().id,
 		success:function(response){ 
-			var datachildrow = formatSQLCI (row.data().id,response);
-			row.child(datachildrow).show();
-			    
+			dataChildrow = formatSQLCI (row.data().id,response);
+			row.child(dataChildrow).show();
 		},
 	    error:function(xhr, ajaxOptions, thrownError){ 
 	    	alert(xhr.status); 
 	        alert(thrownError); 
-	    }	 
-	});
+	    }
+	}).done(activeDatabasePoolForCi());
+
 }
 
+function formatSQLCI (groupid,data,buttonHtml) {
+    // `d` is the original data object for the row		
+	var childrow ;
+	if(data){
+		for (val of data){
+			if(val.active){
+				activeFlag = '<a class="active-logo"  href="#"><span class="tooltiptext">Active</span></a>';
+			}else{
+				activeFlag = '<a class="inactive-logo"href="#"> <span class="tooltiptext">Inactive</span></a>';
+			}
+			
+			childrow +=
+				'<tr>'+					
+					'<td><span sqlci-id="'+val.id+'">'+val.sequence+'<span></td>'+
+					'<td>'+activeFlag+'</td>'+    	
+	            	'<td>'+val.type+'</td>'+
+		        	'<td>'+val.description+'</td>'+		     
+		        	'<td>'+val.updatedBy+'</td>'+        
+		        	'<td>'+val.updatedTs+'</td>'+
+		        	'<td class="sqlCI-edit"><a class="button-group" data-popup-open="editSQLCI" href="#">Edit</a></td>'+	
+					'<td class="deploy-ci"></td>'+
+		        '</tr>'
+	            ;
+		}
+		childrow += '<tr>'+
+    		'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+
+    	'</tr>';
+	}else{
+		childrow += '<tr>'+
+        	'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+        	
+        '</tr>';
+	}
+	
+	childrow += '</table>';
+    return childrow;
+}
 function prepareEditSqlCIRequest(id){	
 	$.ajax({
 		url: "http://localhost:8080/api/sqlCI/searchById?sqlCiId="+id,

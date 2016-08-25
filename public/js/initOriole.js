@@ -39,12 +39,16 @@ function initMenu(){
 	
 	$('[menu-item]').on('click', function(e)  {  
 		var menuitem = $(this).attr('menu-item');
-		
+		if(menuitem=="deployment-view"){
+			initDeployRequestDataTable();
+		}
 		if(menuitem=="admin-view"){
 			 initDatabasePoolDataTable();
+			 
 		}
 		if(menuitem=="sql-ci-view"){
 			 initSqlCIGroupDataTable();
+			 activeDatabasePoolForCiGroup();
 		}
 		$('[page]').fadeOut(350); 
 	    $('[page="' + menuitem + '"]').fadeIn(350); 

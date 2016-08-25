@@ -1,8 +1,9 @@
 $(function() {
-	activeDatabasePool();
+	activeDatabasePoolForCiGroup();
+	
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {     	
     	$('#sqlCIGroup').DataTable().ajax.reload();
-    	activeDatabasePool();
+    	activeDatabasePoolForCiGroup();
     });
 
     $('[sql-ci-ws]').on('click', function(e)  {
@@ -61,9 +62,11 @@ $(function() {
 	        }
 	        else {
 	            // Open this row
+	        	
 	        	searchSqlCIRequest(row);
-	            tr.addClass('shown');
-	        }
+	        	
+	        	tr.addClass('shown');       	
+	        }	    
 	 } );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {
