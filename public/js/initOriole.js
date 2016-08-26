@@ -39,6 +39,7 @@ function initMenu(){
 	
 	$('[menu-item]').on('click', function(e)  {  
 		var menuitem = $(this).attr('menu-item');
+		
 		if(menuitem=="deployrequest-view"){
 			initDeployRequestDataTable();
 		}
@@ -50,8 +51,8 @@ function initMenu(){
 			 initSqlCIGroupDataTable();
 			 activeDatabasePoolForCiGroup();
 		}
-		$('[page]').fadeOut(350); 
-	    $('[page="' + menuitem + '"]').fadeIn(350); 
+		$('[page]').fadeOut(0); 
+	    $('[page="' + menuitem + '"]').fadeIn(150); 
 	   
 	    e.preventDefault();
 	});

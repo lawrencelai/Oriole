@@ -22,8 +22,9 @@ public class DatabasePool {
 	private String username;
 	private String password;
 	
-	private String      createdBy;
-	private String      updatedBy;
+	private String createdBy;
+	private String updatedBy;
+
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date   		createdTs;

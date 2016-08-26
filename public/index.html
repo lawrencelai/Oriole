@@ -39,10 +39,6 @@
     <script type="text/javascript" charset="utf8" src="js/codemirror_sql.js"></script>
     <script type="text/javascript" charset="utf8" src="js/deploy-request.js"></script>
 
-	    
-
-
-
     <title>Oriole - SQL CI Management and Deployment Tool</title>
 </head>
 
@@ -55,11 +51,11 @@
 	</nav>
 	
 	<div page="overview-view">overview-view</div>
-	<div page="deployrequest-view">
+	<div page="deployrequest-view">		
+		<div id="deployrequest-dt">
 		<div class="deploy-group-common">
 			<a class="button-group" data-role="refresh-deploy-request-dt" href="#">Refresh</a>
 		</div>
-		<div id="data-table">
 			<table id="deployRequest" class="order-column" cellspacing="0" width="100%">
 			    <thead>
 				    <tr>
@@ -91,11 +87,12 @@
 		</div>
 	</div>	
 	<div page="sql-ci-view">
+		
+		<div id="sqlci-dt">
 		<div class="sqlci-group-common">
 			<a class="button-group" data-popup-open="createSQLCIGroup" href="#">Create Group</a>
 			<a class="button-group" data-role="refresh-SqlCI-Group-dt" href="#">Refresh</a>
 		</div>
-		<div id="data-table">
 			<table id="sqlCIGroup" class="order-column" cellspacing="0" width="100%">
 			    <thead>
 				    <tr>
@@ -130,12 +127,12 @@
 			</table>
 		</div>
 	</div>
-	<div page="admin-view">
-		<div class="admin-group-common">
-			<a class="button-group" data-popup-open="createDatabasePool" href="#">Create Database Pool</a>
-			<a class="button-group" data-role="refresh-database-pool-dt" href="#">Refresh</a>
-		</div>
-		<div id="data-table">
+	<div page="admin-view">		
+		<div id="databasepool-dt">
+			<div class="admin-group-common">
+				<a class="button-group" data-popup-open="createDatabasePool" href="#">Create Database Pool</a>
+				<a class="button-group" data-role="refresh-database-pool-dt" href="#">Refresh</a>
+			</div>
 			<table id="databasePool" class="order-column" cellspacing="0" width="100%">
 			    <thead>
 				    <tr>

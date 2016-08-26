@@ -14,6 +14,25 @@
 	margin: 40px 5px 30px 5px;
 }
 
+#databasepool-dt{
+	margin: 40px 40px;
+	padding: 10px 10px;
+	width:800px;
+	border: 1px solid #C0C5CE;
+}
+
+#deployrequest-dt{
+	margin:  40px 40px;
+	padding: 10px 10px;
+	border: 1px solid #C0C5CE;
+}
+
+#sqlci-dt{
+	margin: 50px 50px;
+	padding: 20px 20px;	
+	border: 1px solid #C0C5CE;
+}
+
 #footer {
    position:absolute;
    bottom:0;
