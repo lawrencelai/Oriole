@@ -5,14 +5,16 @@ function initDeployRequestDataTable() {
 		"columns" : [{"data" : "sqlCiId"},
 					 {"data" : "description"},
 					 {"data" : "targetDatabase"},
+					 {"data" : "status"},
 					 {"data" : "requestBy"},
 					 {"data" : "requestTs"},
 					 {"data" : "executedTs"},
-					 {"data" : "completedTs"}],
+					 {"data" : "completedTs"}
+					 ],
 		"oLanguage" : {
 			"sEmptyTable" : "Your deploy Request for empty table"
 		},
-		"order" : [ [ 0, 'desc' ] ],
+		"order" : [ [ 5, 'asc' ] ],
 		"bProcessing" : true,
 		"bServerSide" : true,
 		"bDestroy" : true

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class DeployRequest {
 	@Id
 	private long    id; //Per SQL CI Request
@@ -13,8 +15,10 @@ public class DeployRequest {
 	private String description;
 	private String targetDatabase;		
 	private String  requestBy;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date 	requestTs;	
 	private Date 	executedTs;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date    completedTs;
 
 	public DeployRequest(long id) {		

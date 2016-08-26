@@ -35,6 +35,34 @@ public class CommonEnum{
 	    }
 	}
 	
+	public static enum MongoDeployRequest {
+		sqlCiId(1),
+		description(2),
+		targetDatabase(3),
+		status(4),	
+		requestBy(5),
+		requestTs(6),
+		executedTs(7),
+		completedTs(8);		
+		
+		private int dtColNumber;
+		
+		private MongoDeployRequest(final int dtColumnNum) {
+	        this.dtColNumber = dtColumnNum;
+	    }
+
+	    
+	    public static String findMongoFieldNameByColumnNum(final int dtColumnNumber) {
+	    	for(MongoDbSqlCIGroup e: MongoDbSqlCIGroup.values()) {
+	    		if(e.dtColNumber == dtColumnNumber) {
+	    		    return e.name();
+	    		}
+	    	}
+	    	return null;// not found
+	    	
+	    }
+	}
+	
 	public static enum DatabaseSequence {
 		SQL_CI_GROUP("SqlCIGroup"),
 		SQL_CI("SqlCI"),

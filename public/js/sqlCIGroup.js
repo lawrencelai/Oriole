@@ -22,7 +22,7 @@ function initSqlCIGroupDataTable(){
 						"data":null,
 						"defaultContent": '<a class="button-group" data-popup-open="editSQLCIGroup" href="#">Edit</a>'
 					},
-					{   "className":"sqlCIGroup-edit",	
+					{   "className":"sqlCIGroup-deploy",	
 						"orderable": false,					
 						"data":null,
 						"defaultContent": '<div class="deploy-ci-group"></div>'

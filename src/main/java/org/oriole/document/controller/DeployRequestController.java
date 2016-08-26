@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.DeployRequestState;
-import org.oriole.common.CommonEnum.MongoDbSqlCIGroup;
+import org.oriole.common.CommonEnum.MongoDeployRequest;
 import org.oriole.common.CommonUtils;
 import org.oriole.common.JQueryDataTableObject;
 import org.oriole.document.DatabasePool;
@@ -70,7 +70,7 @@ public class DeployRequestController {
 			@RequestParam String sSearch) throws IOException {
 
 		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
-		String sortingField = MongoDbSqlCIGroup.findMongoFieldNameByColumnNum(iSortCol_0);
+		String sortingField = MongoDeployRequest.findMongoFieldNameByColumnNum(iSortCol_0);
 		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
 		PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
 		Page<DeployRequest> page = null;
@@ -136,14 +136,14 @@ public class DeployRequestController {
 
 	@RequestMapping("/api/deployRequest/createBySqlCIGroup")
 	public @ResponseBody List<DeployRequest> createDeploymentRequestByGroup(			
-			@RequestParam Long groupId,
+			@RequestParam Long id,
 			@RequestParam String description,
 			@RequestParam String targetDatabase, 
 			@RequestParam String requestBy) {
 
-		List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(groupId);
+		List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(id);
 		List<DeployRequest> deploymentRequestList = new ArrayList<DeployRequest>();
-		CommonUtils.validateNullObj(groupId, "SqlCI Group is not existed");
+		CommonUtils.validateNullObj(id, "SqlCI Group is not existed");
 
 		for (SqlCI sqlCI : sqlCIList) {
 			DeployRequest deploymentRequest = new DeployRequest(

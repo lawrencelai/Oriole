@@ -111,7 +111,7 @@ function activeDatabasePoolForCiGroup() {
 		success : function(json) {
 			var HTML = "";
 			$.each(json, function(i, value) {
-				HTML = HTML + "<a class='button-group' deploy-ci-group='"+value.id+"' href='#'>" + value.name
+				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest' deploy-target='"+value.name+"' href='#'>" + value.name
 						+ "</a>";
 			});
 			$('.deploy-ci-group').append(HTML);		
@@ -131,7 +131,7 @@ function activeDatabasePoolForCi() {
 		success : function(json) {
 			var HTML = "";
 			$.each(json, function(i, value) {
-				HTML = HTML + "<a class='button-group' deploy-ci-group='"+value.id+"' href='#'>" + value.name
+				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest'  href='#'>" + value.name
 						+ "</a>";
 			});
 			$('.deploy-ci').append(HTML);
