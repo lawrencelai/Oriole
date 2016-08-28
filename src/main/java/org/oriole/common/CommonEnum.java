@@ -67,7 +67,7 @@ public class CommonEnum{
 		SQL_CI_GROUP("SqlCIGroup"),
 		SQL_CI("SqlCI"),
 		SQL_CATEGORY("SqlCategory"),
-		DATABASE_POOL("DatabasePool"),
+		RESOURCE_POOL("ResourcePool"),
 		DEPOLYMENT_REQUEST("DeploymentRequest"),
 		MANTIS_INFO("MantisInfo");		
 		
@@ -109,7 +109,17 @@ public class CommonEnum{
 		    return null;
 		}
 	}
-	
+	public static enum ResourceType {
+		DATABASE,MANTIS;
+		
+		public static ResourceType find(String str) {
+		    for (ResourceType resource : ResourceType.values()) {
+		        if (resource.name().equalsIgnoreCase(str))
+		            return resource;
+		    }
+		    return null;
+		}
+	}
 	
 }
 

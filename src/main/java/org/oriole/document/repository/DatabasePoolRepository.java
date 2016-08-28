@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface DatabasePoolRepository extends MongoRepository<DatabasePool, String> {
 
-    public DatabasePool findById(String id);
+    public DatabasePool findById(long id);
     
     public DatabasePool findByName(String name);
     

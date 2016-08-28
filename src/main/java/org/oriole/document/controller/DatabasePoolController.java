@@ -115,7 +115,7 @@ public class DatabasePoolController {
 		}
 
 		DatabasePool databasePool = new DatabasePool(
-				sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
+				sequenceDao.getNextSequenceId(DatabaseSequence.RESOURCE_POOL.getSequenceName()));
 		databasePool.setName(name);
 		databasePool.setActive(active);
 		databasePool.setHost(host);

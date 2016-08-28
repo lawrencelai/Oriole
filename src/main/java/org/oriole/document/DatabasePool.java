@@ -1,59 +1,25 @@
 package org.oriole.document;
 
-import java.util.Date;
+import org.oriole.common.CommonEnum.ResourceType;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.springframework.data.annotation.Id;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-public class DatabasePool {
-	
-	@Id
-	private long id;
-	
-	private String name; // Database connection name
-	private boolean active;
-	
+@Document(collection = "ResourcePool")
+public class DatabasePool extends ResourcePool{
+			
 	private String host;
 	private String port;
 	private String serviceName;
 	private String sid;
 	
-	private String username;
-	private String password;
-	
-	private String createdBy;
-	private String updatedBy;
-
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date   		createdTs;
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date   		updatedTs;	
 	
 	public DatabasePool(long id) {
-		this.id = id;		
+		super(id,ResourceType.DATABASE.name());	
 	}
+	
 
 	public long getId() {
-		return id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+		return super.getId();
+	}	
 
 	public String getHost() {
 		return host;
@@ -86,53 +52,4 @@ public class DatabasePool {
 	public void setSid(String sid) {
 		this.sid = sid;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-	this.updatedBy = updatedBy;
-	}
-
-	public Date getCreatedTs() {
-		return createdTs;
-	}
-
-	public void setCreatedTs(Date createdTs) {
-		this.createdTs = createdTs;
-	}
-
-	public Date getUpdatedTs() {
-		return updatedTs;
-	}
-
-	public void setUpdatedTs(Date updatedTs) {
-		this.updatedTs = updatedTs;
-	}
-	
 }
