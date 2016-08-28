@@ -39,7 +39,7 @@ $(function() {
 	} );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {	   
-		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
 		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
 	    e.preventDefault();		
 	} );
@@ -53,7 +53,7 @@ $(function() {
 	    	});  
 	    });
 	    
-		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
 		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
 	    e.preventDefault();		
 	} );

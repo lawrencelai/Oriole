@@ -38,7 +38,17 @@ function initDatabasePoolDataTable() {
 					{
 						"lengthMenu" : [ [ 10, 25, 50 ], [ 10, 25, 50 ] ],
 						"sAjaxSource" : "http://localhost:8080/api/database/dt/search",
-
+						 "columnDefs": [
+						                {						                   
+						                    "render": function ( data, type, row ) {
+						                    	if(data)
+						                    		return "<i class='fa fa-circle-o-notch fa-spin' style='font-size:14px;color:green'>";
+						                    	else
+						                    		return "<i class='fa fa-exclamation-circle' style='font-size:16px;color:red'>";
+						                    },
+						                    "targets": 1
+						                }
+						            ],
 						"columns" : [
 								{"data" : "name"},
 								{"data" : "active"},

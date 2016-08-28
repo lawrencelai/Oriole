@@ -43,9 +43,9 @@ function formatSQLCI (groupid,data,buttonHtml) {
 	if(data){
 		for (val of data){
 			if(val.active){
-				activeFlag = '<a class="active-logo"  href="#"><span class="tooltiptext">Active</span></a>';
+				activeFlag = "<i class='fa fa-circle-o-notch fa-spin' style='font-size:14px;color:green'>";
 			}else{
-				activeFlag = '<a class="inactive-logo"href="#"> <span class="tooltiptext">Inactive</span></a>';
+				activeFlag = "<i class='fa fa-exclamation-circle' style='font-size:16px;color:orange'>";
 			}
 			
 			childrow +=
@@ -56,7 +56,7 @@ function formatSQLCI (groupid,data,buttonHtml) {
 		        	'<td>'+val.description+'</td>'+		     
 		        	'<td>'+val.updatedBy+'</td>'+        
 		        	'<td>'+val.updatedTs+'</td>'+
-		        	'<td class="sqlCI-edit"><a class="button-group" data-popup-open="editSQLCI" href="#">Edit</a></td>'+	
+		        	'<td class="sqlCI-edit"><i class="fa fa-edit" style="font-size:24px"  data-popup-open="editSQLCI" href="#"></a></td>'+	
 					'<td class="deploy-ci"></td>'+
 		        '</tr>'
 	            ;
