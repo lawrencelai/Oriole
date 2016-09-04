@@ -17,7 +17,6 @@ function initSqlCIGroupDataTable(){
 		            { "data": "mantisInfo.id"},
 		            { "data": "description" },
 		            { "data": "mantisInfo.targetVersion"},
-		            { "data": "dependentGroupId" },
 		            { "data": "createdBy" },
 		            { "data": "createdTs" },
 					{   "className": "sqlCIGroup-edit",	

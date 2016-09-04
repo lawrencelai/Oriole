@@ -12,8 +12,7 @@ public class SqlCIGroup {
 	@Id	
 	private long 		id;  //Per SQL CI Request
 	private String      owner;	
-	
-	private long 		dependentGroupId;   //dependentGroupId
+
 	private String      description;
 
 	private boolean 	active;	
@@ -43,12 +42,6 @@ public class SqlCIGroup {
 	}
 	public void setOwner(String owner) {
 		this.owner = owner;
-	}
-	public long getDependentGroupId() {
-		return dependentGroupId;
-	}
-	public void setDependentGroupId(long dependentGroupId) {
-		this.dependentGroupId = dependentGroupId;
 	}
 	public String getDescription() {
 		return description;

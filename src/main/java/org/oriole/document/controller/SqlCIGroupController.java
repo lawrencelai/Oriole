@@ -96,16 +96,13 @@ public class SqlCIGroupController {
 			@RequestParam String owner,
 			@RequestParam String createdBy,
 			@RequestParam String description, 
-			long dependent, 
 			long referenceNumber, 
 			String targetVersion) {
 
-		logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description,
-				dependent));
+		logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s", owner, createdBy, description));
 
 		SqlCIGroup sqlCIGroup = new SqlCIGroup(
 				sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI_GROUP.getSequenceName()));
-		sqlCIGroup.setDependentGroupId(dependent);
 		sqlCIGroup.setDescription(description);
 		sqlCIGroup.setOwner(owner);
 		sqlCIGroup.setCreatedBy(createdBy);
@@ -121,16 +118,16 @@ public class SqlCIGroupController {
 
 	@RequestMapping("/api/sqlCIGroup/change")
 	public @ResponseBody void updateSqlCIGroup(@RequestParam Long id, String createdBy, String updatedBy,
-			String description, Long dependentGroupId, long referenceNumber, String targetVersion) {
+			String description, long referenceNumber, String targetVersion) {
 
-		logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]", id, description, updatedBy,
+		logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]",
+				id, description, updatedBy,
 				description, referenceNumber, targetVersion));
 
 		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(id);
 
 		CommonUtils.validateNullObj(sqlCIGroup, "No SQL CI Group Exists");
 
-		sqlCIGroup.setDependentGroupId(dependentGroupId);
 		sqlCIGroup.setDescription(description);
 
 		if (sqlCIGroup.getMantisInfo() == null) {
