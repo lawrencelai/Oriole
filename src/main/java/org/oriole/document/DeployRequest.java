@@ -13,8 +13,9 @@ public class DeployRequest {
 
 	private long   sqlCiId;	
 	private String description;
-	private String targetDatabase;		
-	private String  requestBy;
+	private String targetDatabase;
+	
+	private String requestBy;	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date 	requestTs;	
 	private Date 	executedTs;
