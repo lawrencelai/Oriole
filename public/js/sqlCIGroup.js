@@ -1,9 +1,12 @@
 
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
-	dt_sqlci_grp = $('#sqlCIGroup').DataTable({
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",		
+	dt_sqlci_grp = $('#sqlCIGroup').DataTable({		
+		"scrollY":        "600px",
+        "scrollCollapse": true,
+		"lengthMenu": [[10, 25, 50], [10, 25, 50]],
+		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
+
 		"columns": [{
 		             "className":      'details-control',
 		             "orderable":      false,
@@ -34,7 +37,7 @@ function initSqlCIGroupDataTable(){
 		"bDestroy": true
 
 	});	
-	 activeDatabasePoolForCiGroup();
+	 deployableDBPoolForCiGroup();
 }
 
 
