@@ -33,7 +33,7 @@ function searchSqlCIRequest(row){
 	    	alert(xhr.status); 
 	        alert(thrownError); 
 	    }
-	}).done(activeDatabasePoolForCi());
+	}).done(deployableDBPoolForCi());
 
 }
 
@@ -83,12 +83,14 @@ function prepareEditSqlCIRequest(id){
 		    		if($(this).attr('id') == index){
 		    			if($(this).attr('id')=='active'){
 		    				$(this).bootstrapSwitch('state',value);
+		    			}else if($(this).attr('id')=='type' || $(this).attr('id')=='restrictedDatabase'){		    						
+		    				$(this).find('option[value="' +value + '"]').prop('selected', true);	    	
 		    			}else{
 		    				$(this).val(value);
 		    			}
 		    		}
 		    	});  
-		    });	
+		    });		
 		    var targeted_popup_class = $(this).find("a").attr('data-popup-open');
 			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 			    
 		},

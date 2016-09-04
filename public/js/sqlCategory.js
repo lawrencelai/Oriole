@@ -4,10 +4,14 @@ function initSqlCategory(){
 	        url: "http://localhost:8080/api/sqlCategory/searchAll",
 	        success: function (json) {
 	        	var HTML = ""; 
+	             $('select[id="type"][data-role="createSQLCI"]').text(HTML); 
+	             $('select[id="type"][data-role="editSQLCI"]').append(HTML); 
 	             $.each(json, function(i, value) { 	                
-	                HTML = HTML+"<option id='"+value.id+"'>"+value.name+"</option>"; 
+	                HTML = HTML+"<option value" +
+	                		"='"+value.name+"'>"+value.name+"</option>"; 
 	             });
-	             $('#sqlCategory').append(HTML); 
+	             $('select[id="type"][data-role="createSQLCI"]').append(HTML); 
+	             $('select[id="type"][data-role="editSQLCI"]').append(HTML); 
 	        
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){ 

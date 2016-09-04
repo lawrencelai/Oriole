@@ -1,7 +1,6 @@
 $(document).ready(function () {
 	var dt_sqlci_grp;
 	var dt_dbpool;
-	initSqlCategory();
 	initMenu();
 	prepareCodeMirror('cm-create-sqlci');
 	prepareCodeMirror('cm-edit-sqlci');
@@ -49,7 +48,9 @@ function initMenu(){
 		}
 		if(menuitem=="sql-ci-view"){
 			 initSqlCIGroupDataTable();
-			 activeDatabasePoolForCiGroup();
+			 deployableDBPoolForCiGroup();
+				initSqlCategory();
+				initRestrictedDBPool();
 		}
 		$('[page]').fadeOut(0); 
 	    $('[page="' + menuitem + '"]').fadeIn(150); 

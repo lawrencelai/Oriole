@@ -11,12 +11,14 @@ public class SqlCI {
 	private long 		id;      //SQL CI 	
 	private long 		groupID; //SQL CI Group ID	
 	private int 		sequence;	
-	private String		type;
+	private String		type;    
 	
+	private String      restrictedDatabase;
 	
 	private String      description;
 	private boolean 	active;
-
+	private boolean 	archived;
+	
 	private String		statement;
 	private String		fallbackStatement;	
 	
@@ -52,6 +54,12 @@ public class SqlCI {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}	
+	public String getRestrictedDatabase() {
+		return restrictedDatabase;
+	}
+	public void setRestrictedDatabase(String restrictedDatabase) {
+		this.restrictedDatabase = restrictedDatabase;
 	}
 	public String getDescription() {
 		return description;
@@ -64,6 +72,12 @@ public class SqlCI {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public boolean isArchived() {
+		return archived;
+	}
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 	public String getStatement() {
 		return statement;

@@ -81,7 +81,10 @@ div-row {
 }
 
 div-cell {
-
+  margin:10px;
+  width:250px; 
+  max-width:250px; 
+  display: inline-block;
   vertical-align: top;
   text-align: left;  
   rlex:1; 

@@ -1,5 +1,5 @@
 $(function() {
-	activeDatabasePoolForCiGroup();
+	deployableDBPoolForCiGroup();
 	
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {     	
     	$('#sqlCIGroup').DataTable().ajax.reload();
@@ -79,25 +79,7 @@ $(function() {
 		var childRowId = $(this).closest('tr').find('[sqlci-id]').attr('sqlci-id');
 		prepareEditSqlCIRequest(childRowId);
 	} );
-//	//deploy group
-//	$('#sqlCIGroup tbody').on( 'click', '.sqlCIGroup-deploy', function (e) {
-//	    var rowData = dt_sqlci_grp.row(this).data();
-//	    var targeted_deploy = $(this).find("a").attr('deploy-target');
-//	    	//alert(index +":"+ value);	
-//	    $('[data-role="createGroupDeployRequest"]').each(function (targeted_deploy) {
-//	    	if($(this).attr('id') == "id" ||$(this).attr('id') == "description" )
-//	    	{$(this).val(rowData.id);}
-//	    	if($(this).attr('id') == "targetDatabase" ){
-//	    		$(this).val(targeted_deploy);
-//	    	}
-//	    });  
-//	  
-//	  
-//	    	
-//		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
-//		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
-//	    e.preventDefault();		
-//	} );
+
 	
 	$('#sqlCIGroup tbody').on( 'click', 'tr', function (e) {
 	    $('td div a').on('click', function() {
