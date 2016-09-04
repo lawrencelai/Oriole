@@ -81,6 +81,7 @@ div-row {
 }
 
 div-cell {
+  padding: 0px 10px;
   margin:5px;
   width:150px; 
   max-width:150px; 

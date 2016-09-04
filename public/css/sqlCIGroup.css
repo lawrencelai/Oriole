@@ -10,6 +10,12 @@ td.data {font-size:9px}
 
 a{text-decoration: none;}
 
+textarea[id="description"]{
+	resize: none;
+	width: 40em;
+    height: 4em;
+}
+
 .create-SQLCI-Group {
 	font-size:12px;
     padding: 5px 15px;
