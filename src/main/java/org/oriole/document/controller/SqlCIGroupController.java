@@ -92,8 +92,13 @@ public class SqlCIGroupController {
 	}
 
 	@RequestMapping("/api/sqlCIGroup/create")
-	public @ResponseBody SqlCIGroup createSqlCIGroup(@RequestParam String owner, @RequestParam String createdBy,
-			@RequestParam String description, long dependent, long referenceNumber, String targetVersion) {
+	public @ResponseBody SqlCIGroup createSqlCIGroup(
+			@RequestParam String owner,
+			@RequestParam String createdBy,
+			@RequestParam String description, 
+			long dependent, 
+			long referenceNumber, 
+			String targetVersion) {
 
 		logger.debug(String.format("[ws:createSqlCIGroup] [Parameter] %s %s %s %s", owner, createdBy, description,
 				dependent));
