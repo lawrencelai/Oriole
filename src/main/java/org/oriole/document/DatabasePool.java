@@ -11,6 +11,8 @@ public class DatabasePool extends ResourcePool{
 	private String serviceName;
 	private String sid;
 	
+	private boolean restricted;
+	
 	
 	public DatabasePool(long id) {
 		super(id,ResourceType.DATABASE.name());	
@@ -32,24 +34,32 @@ public class DatabasePool extends ResourcePool{
 	public String getPort() {
 		return port;
 	}
-
+	
 	public void setPort(String port) {
 		this.port = port;
 	}
-
+	
 	public String getServiceName() {
 		return serviceName;
 	}
-
+	
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
-
+	
 	public String getSid() {
 		return sid;
 	}
-
+	
 	public void setSid(String sid) {
 		this.sid = sid;
+	}
+	
+	public boolean isRestricted() {
+		return restricted;
+	}
+	
+	public void setRestricted(boolean restricted) {
+		this.restricted = restricted;
 	}
 }

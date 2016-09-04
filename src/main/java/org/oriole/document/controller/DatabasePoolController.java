@@ -78,15 +78,25 @@ public class DatabasePoolController {
 		return dtPage;
 	}
 	
-	@RequestMapping("/api/database/activeList")
-	public @ResponseBody List<JsonObject> getActiveDatabasePools() {
-		List<DatabasePool> databasePools = databasePoolRepository.findByActive(true);
+	@RequestMapping("/api/database/deployableList")
+	public @ResponseBody List<JsonObject> getDeployableDatabasePools() {
+		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, false);
 		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
 
 		for (DatabasePool databasePool : databasePools) {
 			databasePoolJObject.add(new JsonObject(String.valueOf(databasePool.getId()), databasePool.getName()));
 		}
+		return databasePoolJObject;
+	}
+	
+	@RequestMapping("/api/database/restrictedList")
+	public @ResponseBody List<JsonObject> getRestrictDatabasePoolNameList() {
+		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, true);
+		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
 
+		for (DatabasePool databasePool : databasePools) {
+			databasePoolJObject.add(new JsonObject(String.valueOf(databasePool.getId()), databasePool.getName()));
+		}
 		return databasePoolJObject;
 	}
 	
@@ -101,7 +111,8 @@ public class DatabasePoolController {
 	}
 
 	@RequestMapping("/api/database/create")
-	public @ResponseBody DatabasePool createDatabasePool(@RequestParam String name, @RequestParam boolean active,
+	public @ResponseBody DatabasePool createDatabasePool(@RequestParam String name, 
+			@RequestParam boolean active, @RequestParam boolean restricted,
 			@RequestParam String host,
 			@RequestParam String port, 
 			@RequestParam String username,	
@@ -118,6 +129,7 @@ public class DatabasePoolController {
 				sequenceDao.getNextSequenceId(DatabaseSequence.RESOURCE_POOL.getSequenceName()));
 		databasePool.setName(name);
 		databasePool.setActive(active);
+		databasePool.setRestricted(restricted);
 		databasePool.setHost(host);
 		databasePool.setPort(port);
 		databasePool.setServiceName(serviceName);
@@ -134,6 +146,8 @@ public class DatabasePoolController {
 	@RequestMapping("/api/database/change")
 	public @ResponseBody DatabasePool updateDatabasePool(
 			@RequestParam String name,
+			@RequestParam boolean active, 
+			@RequestParam boolean restricted,			
 			@RequestParam String host,
 			@RequestParam String port,
 			@RequestParam String username, 
@@ -148,6 +162,8 @@ public class DatabasePoolController {
 		CommonUtils.validateNullObj(databasePool, "Database name is not exist");
 
 		databasePool.setName(name);
+		databasePool.setActive(active);
+		databasePool.setRestricted(restricted);
 		databasePool.setHost(host);
 		databasePool.setPort(port);
 		databasePool.setServiceName(serviceName);

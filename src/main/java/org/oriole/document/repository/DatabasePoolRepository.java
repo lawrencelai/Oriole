@@ -11,6 +11,6 @@ public interface DatabasePoolRepository extends MongoRepository<DatabasePool, St
     
     public DatabasePool findByName(String name);
     
-    public List<DatabasePool> findByActive(boolean active);
+    public List<DatabasePool> findByActiveAndRestricted(boolean active,boolean restricted);
 
 }
