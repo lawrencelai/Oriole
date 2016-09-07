@@ -3,7 +3,8 @@ $(function() {
 	
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {     	
     	$('#sqlCIGroup').DataTable().ajax.reload();
-    	activeDatabasePoolForCiGroup();
+    	deployableDBPoolForCiGroup();
+    	deployableDBPoolForCi();
     });
 
     $('[sql-ci-ws]').on('click', function(e)  {
