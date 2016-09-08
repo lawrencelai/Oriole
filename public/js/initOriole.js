@@ -47,10 +47,9 @@ function initMenu(){
 			 
 		}
 		if(menuitem=="sql-ci-view"){
-			 initSqlCIGroupDataTable();
-			 deployableDBPoolForCiGroup();
-				initSqlCategory();
-				initRestrictedDBPool();
+			initSqlCIGroupDataTable();
+			initSqlCategory();
+			initRestrictedDBPool();
 		}
 		$('[page]').fadeOut(0); 
 	    $('[page="' + menuitem + '"]').fadeIn(150); 

@@ -153,6 +153,7 @@ function deployableDBPoolForCiGroup() {
 		data : data,
 		success : function(json) {
 			var HTML = "";
+			$('.deploy-ci-group').text(HTML);
 			$.each(json, function(i, value) {
 				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest' deploy-target='"+value.name+"' href='#'>" + value.name
 						+ "</a>";
@@ -173,6 +174,7 @@ function deployableDBPoolForCi() {
 		data : data,	
 		success : function(json) {
 			var HTML = "";
+			$('.deploy-ci').text(HTML);
 			$.each(json, function(i, value) {
 				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest'  href='#'>" + value.name
 						+ "</a>";

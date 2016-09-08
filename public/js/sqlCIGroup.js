@@ -6,7 +6,12 @@ function initSqlCIGroupDataTable(){
         "scrollCollapse": true,
 		"lengthMenu": [[10, 25, 50], [10, 25, 50]],
 		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
-
+		"columnDefs": [{
+        				 "render": function ( data, type, row ) {
+        					deployableDBPoolForCiGroup();
+        				 },"targets": 8
+        				}
+        			],
 		"columns": [{
 		             "className":      'details-control',
 		             "orderable":      false,
@@ -35,8 +40,7 @@ function initSqlCIGroupDataTable(){
 		"bServerSide": true ,
 		"bDestroy": true
 
-	});	
-	 deployableDBPoolForCiGroup();
+	});
 }
 
 
