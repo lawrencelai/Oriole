@@ -28,13 +28,13 @@ function searchSqlCIRequest(row){
 		success:function(response){ 
 			dataChildrow = formatSQLCI (row.data().id,response);
 			row.child(dataChildrow).show();
+            deployableDBPoolForCi();
 		},
 	    error:function(xhr, ajaxOptions, thrownError){ 
 	    	alert(xhr.status); 
 	        alert(thrownError); 
 	    }
-	}).done(deployableDBPoolForCi());
-
+	});
 }
 
 function formatSQLCI (groupid,data,buttonHtml) {

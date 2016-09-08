@@ -176,7 +176,7 @@ function deployableDBPoolForCi() {
 			var HTML = "";
 			$('.deploy-ci').text(HTML);
 			$.each(json, function(i, value) {
-				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest'  href='#'>" + value.name
+				HTML = HTML + "<a class='button-group' data-popup-open='createDeployRequest'  href='#'>" + value.name
 						+ "</a>";
 			});
 			$('.deploy-ci').append(HTML);

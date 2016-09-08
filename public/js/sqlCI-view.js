@@ -1,10 +1,6 @@
 $(function() {
-	deployableDBPoolForCiGroup();
-	
     $('[data-role="refresh-SqlCI-Group-dt"]').on('click', function(e)  {     	
     	$('#sqlCIGroup').DataTable().ajax.reload();
-    	//deployableDBPoolForCiGroup();
-    	//deployableDBPoolForCi();
     });
 
     $('[sql-ci-ws]').on('click', function(e)  {
@@ -69,13 +65,10 @@ $(function() {
 	        }
 	        else {
 	            // Open this row
-	        	
 	        	searchSqlCIRequest(row);
-	        	
 	        	tr.addClass('shown');       	
-	        }	    
-	 } );
-	
+	        }
+	});
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-edit', function (e) {
 		var childRowId = $(this).closest('tr').find('[sqlci-id]').attr('sqlci-id');
 		prepareEditSqlCIRequest(childRowId);
