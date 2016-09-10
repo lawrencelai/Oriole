@@ -28,7 +28,7 @@ function searchSqlCIRequest(row){
 		success:function(response){ 
 			dataChildrow = formatSQLCI (row.data().id,response);
 			row.child(dataChildrow).show();
-            deployableDBPoolForCi();
+            deployableDBPoolForCi(row.data().id);
 		},
 	    error:function(xhr, ajaxOptions, thrownError){ 
 	    	alert(xhr.status); 
@@ -39,7 +39,17 @@ function searchSqlCIRequest(row){
 
 function formatSQLCI (groupid,data,buttonHtml) {
     // `d` is the original data object for the row		
-	var childrow ;
+	var childrow = '<tr>'+
+        			    '<td>ID</td>'+
+        				'<td>Sequence</td>'+
+        				'<td>Active?</td>'+
+        	            '<td>Type</td>'+
+        		        '<td>Description</td>'+
+        		        '<td>Updated By</td>'+
+        		        '<td>Updated Ts</td>'+
+        		        '<td>Action</td>'+
+        				'<td>Deploy</td>'+
+        		    '</tr>';
 	if(data){
 		for (val of data){
 			if(val.active){
@@ -50,7 +60,8 @@ function formatSQLCI (groupid,data,buttonHtml) {
 			
 			childrow +=
 				'<tr>'+					
-					'<td><span sqlci-id="'+val.id+'">'+val.sequence+'<span></td>'+
+					'<td><span sqlci-id="'+val.id+'">'+val.id+'<span></td>'+
+					'<td>'+val.sequence+'</td>'+
 					'<td>'+activeFlag+'</td>'+    	
 	            	'<td>'+val.type+'</td>'+
 		        	'<td>'+val.description+'</td>'+		     
@@ -58,8 +69,7 @@ function formatSQLCI (groupid,data,buttonHtml) {
 		        	'<td>'+val.updatedTs+'</td>'+
 		        	'<td class="sqlCI-edit"><i class="fa fa-edit" style="font-size:24px"  data-popup-open="editSQLCI" href="#"></a></td>'+	
 					'<td class="deploy-ci"></td>'+
-		        '</tr>'
-	            ;
+		        '</tr>';
 		}
 		childrow += '<tr>'+
     		'<td class="sqlCI-add"><a class="button-group" data-popup-open="createSQLCI" sql-ci-group="'+groupid+'" href="#">New SQL CI</a></td>'+

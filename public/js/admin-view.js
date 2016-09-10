@@ -146,19 +146,23 @@ function editDatabasePoolRequest() {
 		}
 	});
 }
-function deployableDBPoolForCiGroup() {
+function deployableDBPoolForCiGroup(groupid) {
 	var data = {};
 	$.ajax({
 		url : "http://localhost:8080/api/database/deployableList",
 		data : data,
 		success : function(json) {
 			var HTML = "";
-			$('.deploy-ci-group').text(HTML);
+			$('.deploy-ci-group-'+groupid).text(HTML);
 			$.each(json, function(i, value) {
-				HTML = HTML + "<a class='button-group' data-popup-open='createGroupDeployRequest' deploy-target='"+value.name+"' href='#'>" + value.name
-						+ "</a>";
+				HTML = HTML + "<a class='button-group'"+
+				              "data-popup-open='createGroupDeployRequest'" +
+				              "ci-group-id='"+groupid+"'"+
+				              "deploy-target='"+value.name+"' href='#'>" +
+				              value.name + "</a>";
 			});
-			$('.deploy-ci-group').append(HTML);		
+			$('.deploy-ci-group-'+groupid).append(HTML);
+			return HTML;
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
@@ -167,7 +171,7 @@ function deployableDBPoolForCiGroup() {
 	});
 }
 
-function deployableDBPoolForCi() {
+function deployableDBPoolForCi(id) {
 	var data = {};
 	$.ajax({
 		url : "http://localhost:8080/api/database/deployableList",
@@ -176,8 +180,9 @@ function deployableDBPoolForCi() {
 			var HTML = "";
 			$('.deploy-ci').text(HTML);
 			$.each(json, function(i, value) {
-				HTML = HTML + "<a class='button-group' data-popup-open='createDeployRequest' deploy-target='"+value.name+"' href='#'>" + value.name
-						+ "</a>";
+				HTML = HTML + "<a class='button-group' data-popup-open='createDeployRequest'"+
+				              "ci-id='"+id+"'"+
+				              "deploy-target='"+value.name+"' href='#'>" + value.name + "</a>";
 			});
 			$('.deploy-ci').append(HTML);
 		},

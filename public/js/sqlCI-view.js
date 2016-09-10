@@ -76,17 +76,23 @@ $(function() {
 
 	
 	$('#sqlCIGroup tbody').on( 'click', 'tr', function (e) {
-	    $('td div a').on('click', function() {
-	    	var targeted_deploy = $(this).attr('deploy-target');
-	    	var rowData = dt_sqlci_grp.row($(this).closest('tr')).data();	 
-	  	    	
-	  		var targeted_popup_class = $(this).attr('data-popup-open');
-	  		$('[data-popup="' + targeted_popup_class + '"]').find('#id').val(rowData.id);
-	  		$('[data-popup="' + targeted_popup_class + '"]').find('#description').val(rowData.description);
-	  		$('[data-popup="' + targeted_popup_class + '"]').find('#targetDatabase').val(targeted_deploy);
-	  		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
-	  	    e.preventDefault();	
+	    $('[data-popup-open]').on('click', function() {
+	        var targeted_deploy = $(this).attr('deploy-target');
+            var targeted_popup_class = $(this).attr('data-popup-open');
+	        if(targeted_popup_class == "createGroupDeployRequest"){
+	            var rowData = dt_sqlci_grp.row($(this).closest('tr')).data();
+                $('[data-popup="' + targeted_popup_class + '"]').find('#id').val(rowData.id);
+                $('[data-popup="' + targeted_popup_class + '"]').find('#description').val(rowData.description);
+                $('[data-popup="' + targeted_popup_class + '"]').find('#targetDatabase').val(targeted_deploy);
+                $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+	  		}else if(targeted_popup_class == "createDeployRequest"){
+	  			  var id = $(this).attr('ci-id');
+	  		     $('[data-popup="' + targeted_popup_class + '"]').find('#id').val(id);
+                // $('[data-popup="' + targeted_popup_class + '"]').find('#description').val(rowData.description);
+                 $('[data-popup="' + targeted_popup_class + '"]').find('#targetDatabase').val(targeted_deploy);
+                 $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+	  		}
+	  	    e.preventDefault();
 	    });
 	});
-    
 });

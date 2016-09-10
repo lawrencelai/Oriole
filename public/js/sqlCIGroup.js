@@ -8,7 +8,8 @@ function initSqlCIGroupDataTable(){
 		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
 		"columnDefs": [{
         				 "render": function ( data, type, row ) {
-        					deployableDBPoolForCiGroup();
+        				    deployableDBPoolForCiGroup(data.id);
+        				    return '<div class="deploy-ci-group-'+ data.id +'"></div>'
         				 },"targets": 8
         				}
         			],
@@ -31,8 +32,7 @@ function initSqlCIGroupDataTable(){
 					},
 					{   "className":"sqlCIGroup-deploy",	
 						"orderable": false,					
-						"data":null,
-						"defaultContent": '<div class="deploy-ci-group"></div>'
+						"data":null
 					}
 		           ],
 		"order": [[1, 'desc']],
