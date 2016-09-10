@@ -42,13 +42,8 @@ $(function() {
 	} );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCIGroup-edit', function (e) {
-	    var rowData = dt_sqlci_grp.row(this).data() 
-	    $.each(rowData, function(index, value) {
-	    	//alert(index +":"+ value);	    
-	    	$('[data-role="editSQLCIGroup"]').each(function () {
-	    		if($(this).attr('id') == index){$(this).val(value);}
-	    	});  
-	    });
+	    var rowData = dt_sqlci_grp.row(this).data() ;
+	    prepareSqlCIGroup(rowData.id);
 	    
 		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
 		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 

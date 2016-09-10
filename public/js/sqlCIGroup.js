@@ -43,7 +43,39 @@ function initSqlCIGroupDataTable(){
 	});
 }
 
+function prepareSqlCIGroup(groupid){
+	$.ajax({
+		url: "http://localhost:8080/api/sqlCIGroup/searchById?groupId="+groupid,
+		success:function(response){
 
+		    $.each(response, function(index, value) {
+		    	$('[data-role="editSQLCIGroup"]').each(function (index1,value1) {
+		    		if($(this).attr('id') == index){
+		    			if($(this).attr('id')=='active'){
+		    				$(this).bootstrapSwitch('state',value);
+
+		    			}else if($(this).attr('id')=='type' || $(this).attr('id')=='restrictedDatabase'){
+		    				$(this).find('option[value="' +value + '"]').prop('selected', true);
+
+		    			}else{
+		    				$(this).val(value);
+
+		    			}
+		    		}else if (index == "mantisInfo"){
+		    		    $('#mantisInfoId[data-role="editSQLCIGroup"]').val(value.id);
+		    		    $('#mantisInfoTargetVersion[data-role="editSQLCIGroup"]').val(value.targetVersion);
+		    		}
+		    	});
+		    });
+		    var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+			$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+		},
+	    error:function(xhr, ajaxOptions, thrownError){
+	    	alert(xhr.status);
+	        alert(thrownError);
+	    }
+	});
+}
 
 function createSqlCIGroupRequest(){
     var data = {};
