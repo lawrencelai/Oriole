@@ -134,11 +134,11 @@ public class SqlCIGroupController {
 
 	@RequestMapping("/api/sqlCIGroup/change")
 	public @ResponseBody void updateSqlCIGroup(@RequestParam Long id, String createdBy, String updatedBy,
-			String description, long referenceNumber, String targetVersion) {
+											   String description, long mantisInfoId, String mantisInfoTargetVersion) {
 
 		logger.debug(String.format("[ws:updateSqlCI] [Parameter: %s %s %s %s %s %s]",
 				id, description, updatedBy,
-				description, referenceNumber, targetVersion));
+				description, mantisInfoId, mantisInfoTargetVersion));
 
 		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(id);
 
@@ -147,11 +147,11 @@ public class SqlCIGroupController {
 		sqlCIGroup.setDescription(description);
 
 		if (sqlCIGroup.getMantisInfo() == null) {
-			MantisInfo mantisInfo = new MantisInfo(referenceNumber, id);
-			mantisInfo.setTargetVersion(targetVersion);
+			MantisInfo mantisInfo = new MantisInfo(mantisInfoId, id);
+			mantisInfo.setTargetVersion(mantisInfoTargetVersion);
 			sqlCIGroup.setMantisInfo(mantisInfo);
 		} else {
-			sqlCIGroup.getMantisInfo().setTargetVersion(targetVersion);
+			sqlCIGroup.getMantisInfo().setTargetVersion(mantisInfoTargetVersion);
 		}
 
 		sqlCIGroup.setCreatedBy(createdBy);
