@@ -16,10 +16,7 @@
 
 package org.oriole.document;
 
-import org.springframework.data.annotation.Id;
-
 public class MantisInfo {
-	@Id	
 	private long 		id;	
 	private long 		groupId;
 	
@@ -33,10 +30,9 @@ public class MantisInfo {
 		this.groupId = groupId;
 	}
 
-	public MantisInfo() {
-		// TODO Auto-generated constructor stub
+	public void setId(long id) {
+		this.id = id;
 	}
-
 	public long getId() {
 		return id;
 	}

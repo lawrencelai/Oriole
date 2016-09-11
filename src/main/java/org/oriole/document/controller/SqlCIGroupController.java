@@ -151,6 +151,7 @@ public class SqlCIGroupController {
 			mantisInfo.setTargetVersion(mantisInfoTargetVersion);
 			sqlCIGroup.setMantisInfo(mantisInfo);
 		} else {
+			sqlCIGroup.getMantisInfo().setId(mantisInfoId);
 			sqlCIGroup.getMantisInfo().setTargetVersion(mantisInfoTargetVersion);
 		}
 
