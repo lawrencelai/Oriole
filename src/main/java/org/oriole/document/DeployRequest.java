@@ -16,98 +16,96 @@
 
 package org.oriole.document;
 
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
 public class DeployRequest {
-	@Id
-	private long    id; //Per SQL CI Request
-	private String  status; // SUCCESS , FAIL, SCHEDULE, HOLD
+    @Id
+    private long id; //Per SQL CI Request
+    private String status; // SUCCESS , FAIL, SCHEDULE, HOLD
 
-	private long   sqlCiId;	
-	private String description;
-	private String targetDatabase;
-	
-	private String requestBy;	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date 	requestTs;	
-	private Date 	executedTs;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date    completedTs;
+    private long sqlCiId;
+    private String description;
+    private String targetDatabase;
 
-	public DeployRequest(long id) {		
-		this.id = id;	
-	}
+    private String requestBy;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime requestTs;
+    private LocalDateTime executedTs;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime completedTs;
 
-	public long getId() {
-		return id;
-	}
+    public DeployRequest(long id) {
+        this.id = id;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public long getSqlCiId() {
-		return sqlCiId;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setSqlCiId(long sqlCiId) {
-		this.sqlCiId = sqlCiId;
-	}
+    public long getSqlCiId() {
+        return sqlCiId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setSqlCiId(long sqlCiId) {
+        this.sqlCiId = sqlCiId;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getTargetDatabase() {
-		return targetDatabase;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setTargetDatabase(String targetDatabase) {
-		this.targetDatabase = targetDatabase;
-	}
+    public String getTargetDatabase() {
+        return targetDatabase;
+    }
 
-	public String getRequestBy() {
-		return requestBy;
-	}
+    public void setTargetDatabase(String targetDatabase) {
+        this.targetDatabase = targetDatabase;
+    }
 
-	public void setRequestBy(String requestBy) {
-		this.requestBy = requestBy;
-	}
+    public String getRequestBy() {
+        return requestBy;
+    }
 
-	public Date getRequestTs() {
-		return requestTs;
-	}
+    public void setRequestBy(String requestBy) {
+        this.requestBy = requestBy;
+    }
 
-	public void setRequestTs(Date requestTs) {
-		this.requestTs = requestTs;
-	}
-	
-	public Date getExecutedTs() {
-		return executedTs;
-	}
+    public LocalDateTime getRequestTs() {
+        return requestTs;
+    }
 
-	public void setExecutedTs(Date executedTs) {
-		this.executedTs = executedTs;
-	}
+    public void setRequestTs(LocalDateTime requestTs) {
+        this.requestTs = requestTs;
+    }
 
-	public Date getCompletedTs() {
-		return completedTs;
-	}
+    public LocalDateTime getExecutedTs() {
+        return executedTs;
+    }
 
-	public void setCompletedTs(Date completedTs) {
-		this.completedTs = completedTs;
-	}
+    public void setExecutedTs(LocalDateTime executedTs) {
+        this.executedTs = executedTs;
+    }
 
+    public LocalDateTime getCompletedTs() {
+        return completedTs;
+    }
+
+    public void setCompletedTs(LocalDateTime completedTs) {
+        this.completedTs = completedTs;
+    }
 }

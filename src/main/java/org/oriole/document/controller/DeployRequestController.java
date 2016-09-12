@@ -17,6 +17,7 @@
 package org.oriole.document.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,128 +53,140 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DeployRequestController {
 
-	// private static final Logger logger =
-	// Logger.getLogger(DatabasePoolController.class);
+    // private static final Logger logger =
+    // Logger.getLogger(DatabasePoolController.class);
 
-	@Autowired
-	private DeployRequestRepository deployRequestRepository;
+    @Autowired
+    private DeployRequestRepository deployRequestRepository;
 
-	@Autowired
-	private DatabasePoolRepository databasePoolRepository;
+    @Autowired
+    private DatabasePoolRepository databasePoolRepository;
 
-	@Autowired
-	private SqlCIRepository sqlCIRepository;
+    @Autowired
+    private SqlCIRepository sqlCIRepository;
 
-	@Autowired
-	private SequenceDao sequenceDao;
+    @Autowired
+    private SequenceDao sequenceDao;
 
-	// Exception
+    // Exception
 
-	@ExceptionHandler(InputDataException.class)
-	public ErrorDetail sqlCIError(HttpServletRequest request, Exception exception) {
-		ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(), exception.getLocalizedMessage(),
-				request.getRequestURL().append("/error").toString());
-		return error;
-	}
+    @ExceptionHandler(InputDataException.class)
+    public ErrorDetail sqlCIError(HttpServletRequest request, Exception exception) {
+        ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(), exception.getLocalizedMessage(),
+                request.getRequestURL().append("/error").toString());
+        return error;
+    }
 
-	@RequestMapping(value = "/api/deployRequest/dt/search", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody JQueryDataTableObject<DeployRequest> getDatabasePoolForDT(@RequestParam int iDisplayStart,
-			@RequestParam int iDisplayLength,
-			@RequestParam int sEcho, 
-			@RequestParam int iSortCol_0,
-			@RequestParam String sSortDir_0,
-			@RequestParam int iSortingCols,
-			@RequestParam String sSearch) throws IOException {
+    @RequestMapping(value = "/api/deployRequest/dt/search", method = RequestMethod.GET, produces = "application/json")
+    public
+    @ResponseBody
+    JQueryDataTableObject<DeployRequest> getDatabasePoolForDT(@RequestParam int iDisplayStart,
+                                                              @RequestParam int iDisplayLength,
+                                                              @RequestParam int sEcho,
+                                                              @RequestParam int iSortCol_0,
+                                                              @RequestParam String sSortDir_0,
+                                                              @RequestParam int iSortingCols,
+                                                              @RequestParam String sSearch) throws IOException {
 
-		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
-		String sortingField = MongoDeployRequest.findMongoFieldNameByColumnNum(iSortCol_0);
-		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
-		PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
-		Page<DeployRequest> page = null;
-		int iTotalRecords;
-		int iTotalDisplayRecords;
+        int pageNumber = (iDisplayStart + 1) / iDisplayLength;
+        String sortingField = MongoDeployRequest.findMongoFieldNameByColumnNum(iSortCol_0);
+        Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
+        PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
+        Page<DeployRequest> page = null;
+        int iTotalRecords;
+        int iTotalDisplayRecords;
 
-		page = deployRequestRepository.findAll(pageable);
+        page = deployRequestRepository.findAll(pageable);
 
-		iTotalRecords = (int) page.getTotalElements();
-		iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
+        iTotalRecords = (int) page.getTotalElements();
+        iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
 
-		JQueryDataTableObject<DeployRequest> dtPage = new JQueryDataTableObject<>(page.getContent(), iTotalRecords,
-				iTotalDisplayRecords, Integer.toString(sEcho));
+        JQueryDataTableObject<DeployRequest> dtPage = new JQueryDataTableObject<>(page.getContent(), iTotalRecords,
+                iTotalDisplayRecords, Integer.toString(sEcho));
 
-		return dtPage;
-	}
-	
-	@RequestMapping("/api/deployRequest/searchAll")
-	public @ResponseBody List<DeployRequest> getFullList() {
-		return deployRequestRepository.findAll();
-	}
+        return dtPage;
+    }
 
-	@RequestMapping("/api/deployRequest/searchBySqlCiId")
-	public @ResponseBody List<DeployRequest> getListByStatus(@RequestParam String state) {
-		DeployRequestState deployRequestState = DeployRequestState.find(state);
+    @RequestMapping("/api/deployRequest/searchAll")
+    public
+    @ResponseBody
+    List<DeployRequest> getFullList() {
+        return deployRequestRepository.findAll();
+    }
 
-		CommonUtils.validateNullObj(deployRequestState, "state must be SUCCESS , FAIL, SCHEDULE, HOLD");
-		return deployRequestRepository.findByStatus(deployRequestState.name());
-	}
+    @RequestMapping("/api/deployRequest/searchBySqlCiId")
+    public
+    @ResponseBody
+    List<DeployRequest> getListByStatus(@RequestParam String state) {
+        DeployRequestState deployRequestState = DeployRequestState.find(state);
 
-	@RequestMapping("/api/deployRequest/searchByDatabase")
-	public @ResponseBody List<DeployRequest> searchByDatabase(@RequestParam String targetDatabase) {
+        CommonUtils.validateNullObj(deployRequestState, "state must be SUCCESS , FAIL, SCHEDULE, HOLD");
+        return deployRequestRepository.findByStatus(deployRequestState.name());
+    }
 
-		DatabasePool databasePool = databasePoolRepository.findByName(targetDatabase);
+    @RequestMapping("/api/deployRequest/searchByDatabase")
+    public
+    @ResponseBody
+    List<DeployRequest> searchByDatabase(@RequestParam String targetDatabase) {
 
-		CommonUtils.validateNullObj(databasePool, "No Target Database Defined");
+        DatabasePool databasePool = databasePoolRepository.findByName(targetDatabase);
 
-		return deployRequestRepository.findByTargetDatabase(databasePool.getName());
-	}
+        CommonUtils.validateNullObj(databasePool, "No Target Database Defined");
 
-	@RequestMapping("/api/deployRequest/create")
-	public @ResponseBody DeployRequest createDeploymentRequest(
-			@RequestParam Long ciId,
-			@RequestParam String description,
-			@RequestParam String targetDatabase,
-			@RequestParam String requestBy) {
+        return deployRequestRepository.findByTargetDatabase(databasePool.getName());
+    }
 
-		SqlCI sqlCI = sqlCIRepository.findById(ciId);
+    @RequestMapping("/api/deployRequest/create")
+    public
+    @ResponseBody
+    DeployRequest createDeploymentRequest(
+            @RequestParam Long ciId,
+            @RequestParam String description,
+            @RequestParam String targetDatabase,
+            @RequestParam String requestBy) {
 
-		CommonUtils.validateNullObj(sqlCI, "SqlCI is not existed");
+        SqlCI sqlCI = sqlCIRepository.findById(ciId);
 
-		DeployRequest deploymentRequest = new DeployRequest(
-				sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
-		deploymentRequest.setSqlCiId(sqlCI.getId());
-		deploymentRequest.setDescription(description);
-		deploymentRequest.setTargetDatabase(targetDatabase);
-		deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
-		deploymentRequest.setRequestBy(requestBy);
-		deploymentRequest.setRequestTs(new Date());
-		return deployRequestRepository.insert(deploymentRequest);
+        CommonUtils.validateNullObj(sqlCI, "SqlCI is not existed");
 
-	}
+        DeployRequest deploymentRequest = new DeployRequest(
+                sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
+        deploymentRequest.setSqlCiId(sqlCI.getId());
+        deploymentRequest.setDescription(description);
+        deploymentRequest.setTargetDatabase(targetDatabase);
+        deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
+        deploymentRequest.setRequestBy(requestBy);
+        deploymentRequest.setRequestTs(LocalDateTime.now());
+        return deployRequestRepository.insert(deploymentRequest);
 
-	@RequestMapping("/api/deployRequest/createBySqlCIGroup")
-	public @ResponseBody List<DeployRequest> createDeploymentRequestByGroup(			
-			@RequestParam Long id,
-			@RequestParam String description,
-			@RequestParam String targetDatabase, 
-			@RequestParam String requestBy) {
+    }
 
-		List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(id);
-		List<DeployRequest> deploymentRequestList = new ArrayList<DeployRequest>();
-		CommonUtils.validateNullObj(id, "SqlCI Group is not existed");
+    @RequestMapping("/api/deployRequest/createBySqlCIGroup")
+    public
+    @ResponseBody
+    List<DeployRequest> createDeploymentRequestByGroup(
+            @RequestParam Long id,
+            @RequestParam String description,
+            @RequestParam String targetDatabase,
+            @RequestParam String requestBy) {
 
-		for (SqlCI sqlCI : sqlCIList) {
-			DeployRequest deploymentRequest = new DeployRequest(
-					sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
+        List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(id);
+        List<DeployRequest> deploymentRequestList = new ArrayList<DeployRequest>();
+        CommonUtils.validateNullObj(id, "SqlCI Group is not existed");
 
-			deploymentRequest.setSqlCiId(sqlCI.getId());
-			deploymentRequest.setTargetDatabase(targetDatabase);
-			deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
-			deploymentRequest.setRequestBy(requestBy);
-			deploymentRequest.setRequestTs(new Date());
-			deploymentRequestList.add(deployRequestRepository.insert(deploymentRequest));
+        for (SqlCI sqlCI : sqlCIList) {
+            DeployRequest deploymentRequest = new DeployRequest(
+                    sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
 
-		}
-		return deploymentRequestList;
-	}
+            deploymentRequest.setSqlCiId(sqlCI.getId());
+            deploymentRequest.setTargetDatabase(targetDatabase);
+            deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
+            deploymentRequest.setRequestBy(requestBy);
+            deploymentRequest.setRequestTs(LocalDateTime.now());
+            deploymentRequestList.add(deployRequestRepository.insert(deploymentRequest));
+
+        }
+        return deploymentRequestList;
+    }
 
 }

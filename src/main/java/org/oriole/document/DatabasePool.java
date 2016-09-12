@@ -20,62 +20,56 @@ import org.oriole.common.CommonEnum.ResourceType;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ResourcePool")
-public class DatabasePool extends ResourcePool{
-			
-	private String host;
-	private String port;
-	private String serviceName;
-	private String sid;
-	
-	private boolean restricted;
-	
-	
-	public DatabasePool(long id) {
-		super(id,ResourceType.DATABASE.name());	
-	}
-	
+public class DatabasePool extends ResourcePool {
 
-	public long getId() {
-		return super.getId();
-	}	
+    private String host;
+    private String port;
+    private String serviceName;
+    private String sid;
 
-	public String getHost() {
-		return host;
-	}
+    private boolean restricted;
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    public DatabasePool(long id) {
+        super(id, ResourceType.DATABASE.name());
+    }
 
-	public String getPort() {
-		return port;
-	}
-	
-	public void setPort(String port) {
-		this.port = port;
-	}
-	
-	public String getServiceName() {
-		return serviceName;
-	}
-	
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
-	
-	public String getSid() {
-		return sid;
-	}
-	
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
-	
-	public boolean isRestricted() {
-		return restricted;
-	}
-	
-	public void setRestricted(boolean restricted) {
-		this.restricted = restricted;
-	}
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public boolean isRestricted() {
+        return restricted;
+    }
+
+    public void setRestricted(boolean restricted) {
+        this.restricted = restricted;
+    }
 }

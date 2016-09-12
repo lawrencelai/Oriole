@@ -17,12 +17,10 @@
 package org.oriole.document;
 
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
 public class SqlCIGroup {
 
@@ -104,10 +102,6 @@ public class SqlCIGroup {
         this.approvedBy = approvedBy;
     }
 
-    public LocalDateTime getCreatedTs() {
-        return createdTs;
-    }
-
     public String getCreatedBy() {
         return createdBy;
     }
@@ -122,6 +116,10 @@ public class SqlCIGroup {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public LocalDateTime getCreatedTs() {
+        return createdTs;
     }
 
     public void setCreatedTs(LocalDateTime createdTs) {

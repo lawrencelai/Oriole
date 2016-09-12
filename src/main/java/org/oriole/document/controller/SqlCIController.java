@@ -16,7 +16,7 @@
 
 package org.oriole.document.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,94 +41,104 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SqlCIController {
 
-	@Autowired
-	private SqlCIGroupRepository sqlCIGroupRepository;
+    @Autowired
+    private SqlCIGroupRepository sqlCIGroupRepository;
 
-	@Autowired
-	private SqlCIRepository sqlCIRepository;
+    @Autowired
+    private SqlCIRepository sqlCIRepository;
 
-	@Autowired
-	private SequenceDao sequenceDao;
+    @Autowired
+    private SequenceDao sequenceDao;
 
-	// Exception
+    // Exception
 
-	@ExceptionHandler(InputDataException.class)
-	public ErrorDetail sqlCIError(HttpServletRequest request, Exception exception) {
-		ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(), exception.getLocalizedMessage(),
-				request.getRequestURL().append("/error").toString());
-		return error;
-	}
+    @ExceptionHandler(InputDataException.class)
+    public ErrorDetail sqlCIError(HttpServletRequest request, Exception exception) {
+        ErrorDetail error = new ErrorDetail(HttpStatus.BAD_REQUEST.value(), exception.getLocalizedMessage(),
+                request.getRequestURL().append("/error").toString());
+        return error;
+    }
 
-	@RequestMapping("/api/sqlCI/searchByGroupId")
-	public @ResponseBody List<SqlCI> getSqlCIListByGroupId(@RequestParam long sqlCIGroupId) {
-		return sqlCIRepository.findByGroupID(sqlCIGroupId);
-	}
-	
-	@RequestMapping("/api/sqlCI/searchById")
-	public @ResponseBody SqlCI getSqlCIListById(@RequestParam long sqlCiId) {
-		return sqlCIRepository.findById(sqlCiId);
-	}
+    @RequestMapping("/api/sqlCI/searchByGroupId")
+    public
+    @ResponseBody
+    List<SqlCI> getSqlCIListByGroupId(@RequestParam long sqlCIGroupId) {
+        return sqlCIRepository.findByGroupID(sqlCIGroupId);
+    }
 
-	@RequestMapping("/api/sqlCI/create")
-	public @ResponseBody SqlCI createSqlCI(
-			@RequestParam Long sqlCIGroupId, 
-			@RequestParam String createdBy,
-			@RequestParam String type,
-			@RequestParam String statement,
-			@RequestParam Boolean active ,
-			String description) {
+    @RequestMapping("/api/sqlCI/searchById")
+    public
+    @ResponseBody
+    SqlCI getSqlCIListById(@RequestParam long sqlCiId) {
+        return sqlCIRepository.findById(sqlCiId);
+    }
 
-		SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+    @RequestMapping("/api/sqlCI/create")
+    public
+    @ResponseBody
+    SqlCI createSqlCI(
+            @RequestParam Long sqlCIGroupId,
+            @RequestParam String createdBy,
+            @RequestParam String type,
+            @RequestParam String statement,
+            @RequestParam Boolean active,
+            String description) {
 
-		CommonUtils.validateNullObj(sqlCIGroup, "SQL CI Group ID not found");
+        SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
 
-		List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(sqlCIGroup.getId());
-		SqlCI sqlCI = new SqlCI(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI.getSequenceName()),
-				sqlCIGroup.getId());
-		if (sqlCIList == null) {
-			sqlCI.setSequence(1);
-		} else {
-			sqlCI.setSequence(sqlCIList.size() + 1);
-		}
+        CommonUtils.validateNullObj(sqlCIGroup, "SQL CI Group ID not found");
 
-		sqlCI.setType(type);
-		sqlCI.setStatement(statement);
-		sqlCI.setDescription(description);
-		sqlCI.setCreatedBy(createdBy);
-		sqlCI.setCreatedTs(new Date());
-		sqlCI.setUpdatedBy(createdBy);
-		sqlCI.setUpdatedTs(new Date());
+        List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(sqlCIGroup.getId());
+        SqlCI sqlCI = new SqlCI(sequenceDao.getNextSequenceId(DatabaseSequence.SQL_CI.getSequenceName()),
+                sqlCIGroup.getId());
+        if (sqlCIList == null) {
+            sqlCI.setSequence(1);
+        } else {
+            sqlCI.setSequence(sqlCIList.size() + 1);
+        }
 
-		return sqlCIRepository.insert(sqlCI);
+        sqlCI.setType(type);
+        sqlCI.setStatement(statement);
+        sqlCI.setDescription(description);
+        sqlCI.setCreatedBy(createdBy);
+        sqlCI.setCreatedTs(LocalDateTime.now());
+        sqlCI.setUpdatedBy(createdBy);
+        sqlCI.setUpdatedTs(LocalDateTime.now());
 
-	}
+        return sqlCIRepository.insert(sqlCI);
 
-	@RequestMapping("/api/sqlCI/change")
-	public @ResponseBody void updateSqlCI(@RequestParam long id, @RequestParam int sequence,
-			@RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String type,
-			@RequestParam String statement, @RequestParam Boolean active, String description) {
+    }
 
-		SqlCI sqlCI = sqlCIRepository.findById(id);
-		sqlCI.setActive(active);
-		sqlCI.setSequence(sequence);
-		sqlCI.setCreatedBy(createdBy);
-		sqlCI.setUpdatedBy(updatedBy);
-		sqlCI.setType(type);
-		sqlCI.setStatement(createdBy);
-		sqlCI.setDescription(description);
-		sqlCI.setUpdatedTs(new Date());
+    @RequestMapping("/api/sqlCI/change")
+    public
+    @ResponseBody
+    void updateSqlCI(@RequestParam long id, @RequestParam int sequence,
+                     @RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String type,
+                     @RequestParam String statement, @RequestParam Boolean active, String description) {
 
-		sqlCIRepository.save(sqlCI);
+        SqlCI sqlCI = sqlCIRepository.findById(id);
+        sqlCI.setActive(active);
+        sqlCI.setSequence(sequence);
+        sqlCI.setCreatedBy(createdBy);
+        sqlCI.setUpdatedBy(updatedBy);
+        sqlCI.setType(type);
+        sqlCI.setStatement(createdBy);
+        sqlCI.setDescription(description);
+        sqlCI.setUpdatedTs(LocalDateTime.now());
 
-	}
+        sqlCIRepository.save(sqlCI);
 
-	@RequestMapping("/api/sqlCI/delete")
-	public @ResponseBody void deleteById(@RequestParam Long sqlCIId) {
+    }
 
-		SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);
+    @RequestMapping("/api/sqlCI/delete")
+    public
+    @ResponseBody
+    void deleteById(@RequestParam Long sqlCIId) {
 
-		CommonUtils.validateNullObj(sqlCI, "SQL CI not found");
+        SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);
 
-		sqlCIRepository.delete(sqlCI);
-	}
+        CommonUtils.validateNullObj(sqlCI, "SQL CI not found");
+
+        sqlCIRepository.delete(sqlCI);
+    }
 }

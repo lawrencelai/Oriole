@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -152,7 +152,7 @@ public class ResourcePoolController {
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
 		databasePool.setCreatedBy(createdBy);
-		databasePool.setCreatedTs(new Date());
+        databasePool.setCreatedTs(LocalDateTime.now());
 
 		return databasePoolRepository.insert(databasePool);
 
@@ -185,7 +185,7 @@ public class ResourcePoolController {
 		databasePool.setUsername(username);
 		databasePool.setPassword(password);
 		databasePool.setUpdatedBy(updatedBy);
-		databasePool.setUpdatedTs(new Date());
+        databasePool.setUpdatedTs(LocalDateTime.now());
 
 
 		return databasePoolRepository.save(databasePool);
@@ -213,7 +213,7 @@ public class ResourcePoolController {
         mantisPool.setUsername(username);
         mantisPool.setPassword(password);
         mantisPool.setCreatedBy(createdBy);
-        mantisPool.setCreatedTs(new Date());
+        mantisPool.setCreatedTs(LocalDateTime.now());
 
         return mantisPoolRepository.insert(mantisPool);
 
@@ -241,7 +241,7 @@ public class ResourcePoolController {
         mantisPool.setUsername(username);
         mantisPool.setPassword(password);
         mantisPool.setUpdatedBy(updatedBy);
-        mantisPool.setUpdatedTs(new Date());
+        mantisPool.setUpdatedTs(LocalDateTime.now());
 
         return mantisPoolRepository.save(mantisPool);
     }

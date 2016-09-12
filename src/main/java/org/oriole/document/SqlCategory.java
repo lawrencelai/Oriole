@@ -16,92 +16,87 @@
 
 package org.oriole.document;
 
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
 public class SqlCategory {
-	
-	@Id	
-	private long 		id;  //Per SQL CI Request
 
-	private String		name;
-	private String      description;
-		
-	private String      createdBy;
-	private String      updatedBy;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date   		createdTs;
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date   		updatedTs;
+    @Id
+    private long id;  //Per SQL CI Request
 
-	public SqlCategory(long id, String name,String description, String createdBy) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.createdBy = createdBy;
-		this.createdTs = new Date();
-		this.updatedBy = createdBy;
-		this.updatedTs = new Date();
-	}	
+    private String name;
+    private String description;
 
-	public long getId() {
-		return id;
-	}
+    private String createdBy;
+    private String updatedBy;
 
-	public String getName() {
-		return name;
-	}
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime createdTs;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime updatedTs;
 
+    public SqlCategory(long id, String name, String description, String createdBy) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.createdTs = LocalDateTime.now();
+        this.updatedBy = createdBy;
+        this.updatedTs = LocalDateTime.now();
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public long getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
 
-	public Date getCreatedTs() {
-		return createdTs;
-	}
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
-	public void setCreatedTs(Date createdTs) {
-		this.createdTs = createdTs;
-	}
+    public LocalDateTime getCreatedTs() {
+        return createdTs;
+    }
 
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
+    public void setCreatedTs(LocalDateTime createdTs) {
+        this.createdTs = createdTs;
+    }
 
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public LocalDateTime getUpdatedTs() {
+        return updatedTs;
+    }
 
-	public Date getUpdatedTs() {
-		return updatedTs;
-	}
-
-	public void setUpdatedTs(Date updatedTs) {
-		this.updatedTs = updatedTs;
-	}
+    public void setUpdatedTs(LocalDateTime updatedTs) {
+        this.updatedTs = updatedTs;
+    }
 }

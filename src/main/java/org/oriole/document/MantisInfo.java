@@ -17,64 +17,64 @@
 package org.oriole.document;
 
 public class MantisInfo {
-	private long 		id;	
-	private long 		groupId;
-	
-	private String      summany;
-	private String		description;
-	private String		targetVersion;
-	private String     	targetBranch;
+    private long id;
+    private long groupId;
 
-	public MantisInfo(long id, long groupId) {
-		this.id = id;
-		this.groupId = groupId;
-	}
+    private String summany;
+    private String description;
+    private String targetVersion;
+    private String targetBranch;
 
-	public void setId(long id) {
-		this.id = id;
-	}
-	public long getId() {
-		return id;
-	}
+    public MantisInfo(long id, long groupId) {
+        this.id = id;
+        this.groupId = groupId;
+    }
 
-	public long getGroupId() {
-		return groupId;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setGroupId(long groupId) {
-		this.groupId = groupId;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getSummany() {
-		return summany;
-	}
+    public long getGroupId() {
+        return groupId;
+    }
 
-	public void setSummany(String summany) {
-		this.summany = summany;
-	}
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getSummany() {
+        return summany;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setSummany(String summany) {
+        this.summany = summany;
+    }
 
-	public String getTargetVersion() {
-		return targetVersion;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setTargetVersion(String targetVersion) {
-		this.targetVersion = targetVersion;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getTargetBranch() {
-		return targetBranch;
-	}
+    public String getTargetVersion() {
+        return targetVersion;
+    }
 
-	public void setTargetBranch(String targetBranch) {
-		this.targetBranch = targetBranch;
-	}
+    public void setTargetVersion(String targetVersion) {
+        this.targetVersion = targetVersion;
+    }
 
+    public String getTargetBranch() {
+        return targetBranch;
+    }
+
+    public void setTargetBranch(String targetBranch) {
+        this.targetBranch = targetBranch;
+    }
 }

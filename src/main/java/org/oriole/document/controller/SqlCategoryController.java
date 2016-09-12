@@ -16,6 +16,7 @@
 
 package org.oriole.document.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,7 +107,7 @@ public class SqlCategoryController {
 		sqlCategory.setDescription(description);
 		sqlCategory.setCreatedBy(createdBy);
 		sqlCategory.setUpdatedBy(updatedBy);
-		sqlCategory.setUpdatedTs(new Date());
+		sqlCategory.setUpdatedTs(LocalDateTime.now());
 
 		sqlCategoryRepository.save(sqlCategory);
 
