@@ -16,34 +16,30 @@
 
 package org.oriole.document.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.MongoDeployRequest;
 import org.oriole.common.CommonUtils;
 import org.oriole.common.JQueryDataTableObject;
 import org.oriole.common.JsonObject;
 import org.oriole.document.DatabasePool;
+import org.oriole.document.MantisPool;
 import org.oriole.document.dao.SequenceDao;
 import org.oriole.document.exception.ErrorDetail;
 import org.oriole.document.repository.DatabasePoolRepository;
+import org.oriole.document.repository.MantisPoolRepository;
 import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 public class ResourcePoolController {
@@ -55,7 +51,10 @@ public class ResourcePoolController {
 	private DatabasePoolRepository databasePoolRepository;
 
 	@Autowired
-	private SequenceDao sequenceDao;
+    private MantisPoolRepository mantisPoolRepository;
+
+    @Autowired
+    private SequenceDao sequenceDao;
 
 	// Exception
 
@@ -169,7 +168,6 @@ public class ResourcePoolController {
 			@RequestParam String username, 
 			@RequestParam String password,
 			@RequestParam String updatedBy,
-			String description,
 			String serviceName,
 			String sid) {
 
@@ -193,4 +191,58 @@ public class ResourcePoolController {
 		return databasePoolRepository.save(databasePool);
 	}
 
+    @RequestMapping("/api/resource/mantis/create")
+    public
+    @ResponseBody
+    MantisPool createMantisPool(@RequestParam String name,
+                                @RequestParam boolean active,
+                                @RequestParam String username,
+                                @RequestParam String password,
+                                @RequestParam String createdBy,
+                                @RequestParam String url) {
+
+        if (mantisPoolRepository.findByName(name) != null) {
+            throw new InputDataException("Mantis name is defined");
+        }
+
+        MantisPool mantisPool = new MantisPool(
+                sequenceDao.getNextSequenceId(DatabaseSequence.RESOURCE_POOL.getSequenceName()));
+        mantisPool.setName(name);
+        mantisPool.setActive(active);
+        mantisPool.setUrl(url);
+        mantisPool.setUsername(username);
+        mantisPool.setPassword(password);
+        mantisPool.setCreatedBy(createdBy);
+        mantisPool.setCreatedTs(new Date());
+
+        return mantisPoolRepository.insert(mantisPool);
+
+    }
+
+    @RequestMapping("/api/resource/mantis/change")
+    public
+    @ResponseBody
+    MantisPool updateMantisPool(
+            @RequestParam String name,
+            @RequestParam boolean active,
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam String updatedBy,
+            @RequestParam String url) {
+
+        MantisPool mantisPool = mantisPoolRepository.findByName(name);
+
+        CommonUtils.validateNullObj(mantisPool, "Mantis name is not exist");
+
+        mantisPool.setName(name);
+        mantisPool.setActive(active);
+        mantisPool.setUrl(url);
+
+        mantisPool.setUsername(username);
+        mantisPool.setPassword(password);
+        mantisPool.setUpdatedBy(updatedBy);
+        mantisPool.setUpdatedTs(new Date());
+
+        return mantisPoolRepository.save(mantisPool);
+    }
 }
