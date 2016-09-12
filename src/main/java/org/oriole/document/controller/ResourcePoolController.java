@@ -46,7 +46,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DatabasePoolController {
+public class ResourcePoolController {
 
 	// private static final Logger logger =
 	// Logger.getLogger(DatabasePoolController.class);
@@ -66,7 +66,7 @@ public class DatabasePoolController {
 		return error;
 	}
 
-	@RequestMapping(value = "/api/database/dt/search", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/resource/database/dt/search", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody JQueryDataTableObject<DatabasePool> getDatabasePoolForDT(@RequestParam int iDisplayStart,
 			@RequestParam int iDisplayLength,
 			@RequestParam int sEcho, 
@@ -93,8 +93,8 @@ public class DatabasePoolController {
 
 		return dtPage;
 	}
-	
-	@RequestMapping("/api/database/deployableList")
+
+	@RequestMapping("/api/resource/database/deployableList")
 	public @ResponseBody List<JsonObject> getDeployableDatabasePools() {
 		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, false);
 		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
@@ -104,8 +104,8 @@ public class DatabasePoolController {
 		}
 		return databasePoolJObject;
 	}
-	
-	@RequestMapping("/api/database/restrictedList")
+
+	@RequestMapping("/api/resource/database/restrictedList")
 	public @ResponseBody List<JsonObject> getRestrictDatabasePoolNameList() {
 		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, true);
 		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
@@ -115,18 +115,18 @@ public class DatabasePoolController {
 		}
 		return databasePoolJObject;
 	}
-	
-	@RequestMapping("/api/database/searchAll")
+
+	@RequestMapping("/api/resource/database/searchAll")
 	public @ResponseBody List<DatabasePool> getDatabasePoolList() {
 		return databasePoolRepository.findAll();
 	}
 
-	@RequestMapping("/api/database/searchByName")
+	@RequestMapping("/api/resource/database/searchByName")
 	public @ResponseBody DatabasePool getDatabasePoolByName(@RequestParam String databaseName) {
 		return databasePoolRepository.findByName(databaseName);
 	}
 
-	@RequestMapping("/api/database/create")
+	@RequestMapping("/api/resource/database/create")
 	public @ResponseBody DatabasePool createDatabasePool(@RequestParam String name, 
 			@RequestParam boolean active, @RequestParam boolean restricted,
 			@RequestParam String host,
@@ -159,7 +159,7 @@ public class DatabasePoolController {
 
 	}
 
-	@RequestMapping("/api/database/change")
+	@RequestMapping("/api/resource/database/change")
 	public @ResponseBody DatabasePool updateDatabasePool(
 			@RequestParam String name,
 			@RequestParam boolean active, 
@@ -192,4 +192,5 @@ public class DatabasePoolController {
 
 		return databasePoolRepository.save(databasePool);
 	}
+
 }

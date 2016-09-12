@@ -1,7 +1,7 @@
 function initRestrictedDBPool(){		
 	    $.ajax(
 	    {
-	        url: "http://localhost:8080/api/database/restrictedList",
+	        url: "http://localhost:8080/api/resource/database/restrictedList",
 	        success: function (json) {
 	        	var HTML = ""; 
 	             $('select[id="restrictedDatabase"][data-role="createSQLCI"]').text(HTML); 

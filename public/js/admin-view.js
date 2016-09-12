@@ -38,7 +38,7 @@ function initDatabasePoolDataTable() {
 			.DataTable(
 					{
 						"lengthMenu" : [ [ 10, 25, 50 ], [ 10, 25, 50 ] ],
-						"sAjaxSource" : "http://localhost:8080/api/database/dt/search",
+						"sAjaxSource" : "http://localhost:8080/api/resource/database/dt/search",
 						 "columnDefs": [
 						                {						                   
 						                    "render": function ( data, type, row ) {
@@ -113,7 +113,7 @@ function createDatabasePoolRequest() {
 	});
 
 	$.ajax({
-		url : "http://localhost:8080/api/database/create",
+		url : "http://localhost:8080/api/resource/database/create",
 		data : data,
 		success : function(msg) {
 			$('[data-popup="createDatabasePool"]').fadeOut(350);
@@ -134,7 +134,7 @@ function editDatabasePoolRequest() {
 	});
 
 	$.ajax({
-		url : "http://localhost:8080/api/database/change",
+		url : "http://localhost:8080/api/resource/database/change",
 		data : data,
 		success : function(msg) {
 			$('[data-popup="editDatabasePool"]').fadeOut(350);
@@ -149,7 +149,7 @@ function editDatabasePoolRequest() {
 function deployableDBPoolForCiGroup(groupid) {
 	var data = {};
 	$.ajax({
-		url : "http://localhost:8080/api/database/deployableList",
+		url : "http://localhost:8080/api/resource/database/deployableList",
 		data : data,
 		success : function(json) {
 			var HTML = "";
@@ -174,7 +174,7 @@ function deployableDBPoolForCiGroup(groupid) {
 function deployableDBPoolForCi(id) {
 	var data = {};
 	$.ajax({
-		url : "http://localhost:8080/api/database/deployableList",
+		url : "http://localhost:8080/api/resource/database/deployableList",
 		data : data,	
 		success : function(json) {
 			var HTML = "";
