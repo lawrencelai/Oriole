@@ -24,6 +24,14 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("biz.futureware.mantis:mantis-axis-soap-client:1.2.15")
+    compile('com.fasterxml.jackson.core:jackson-core:2.7.3')
+    compile('com.fasterxml.jackson.core:jackson-annotations:2.7.3')
+    compile('com.fasterxml.jackson.core:jackson-databind:2.7.3')
+    compile(
+            [group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-base', version: '2.7.3'],
+            [group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.7.3'],
+            [group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: '2.7.3']
+    )
     compile files("lib/ojdbc6.jar")
     testCompile("junit:junit")    
 }

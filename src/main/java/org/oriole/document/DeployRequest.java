@@ -16,7 +16,10 @@
 
 package org.oriole.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.oriole.common.LocalDateTimeDeserializer;
+import org.oriole.common.LocalDateTimeSerializer;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
@@ -31,10 +34,16 @@ public class DeployRequest {
     private String targetDatabase;
 
     private String requestBy;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime requestTs;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime executedTs;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime completedTs;
 
     public DeployRequest(long id) {

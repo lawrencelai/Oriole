@@ -16,7 +16,10 @@
 
 package org.oriole.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.oriole.common.LocalDateTimeDeserializer;
+import org.oriole.common.LocalDateTimeSerializer;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
@@ -32,9 +35,12 @@ public class SqlCategory {
     private String createdBy;
     private String updatedBy;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdTs;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime updatedTs;
 
     public SqlCategory(long id, String name, String description, String createdBy) {
