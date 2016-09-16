@@ -36,6 +36,6 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     public void serialize(LocalDateTime dateTime, JsonGenerator jg,
                           SerializerProvider sp) throws IOException, JsonProcessingException {
         Instant instant = dateTime.toInstant(ZoneOffset.UTC);
-        jg.writeString(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(instant));
+        jg.writeString(DateTimeFormatter.ISO_INSTANT.format(instant));
     }
 }
