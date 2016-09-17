@@ -230,13 +230,8 @@
                 <div-cell><input type="text" data-role="createSQLCIGroup" id="createdBy"/></div-cell>
             </div-row>
             <div-row>
-                <div-cell>created date</div-cell>
-                <div-cell><input type="text" data-role="createSQLCIGroup" id="createdTs"/></div-cell>
-            </div-row>
-            <div-row>
                 <div-cell>
                     <a class="button-group" sql-ci-ws="createSQLCIGroup" href="#">Create</a>
-                    <a class="button-group" data-popup-close="createSQLCIGroup" href="#">Close</a>
                 </div-cell>
             </div-row>
         </div-table>
@@ -277,12 +272,11 @@
             </div-row>
             <div-row>
                 <div-cell>createdTs:</div-cell>
-                <div-cell><input type="text" data-role="editSQLCIGroup" id="createdTs"/></div-cell>
+                <div-cell><input type="text" data-role="editSQLCIGroup" id="createdTs" disabled/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>
                     <a class="button-group" sql-ci-ws="editSQLCIGroup" href="#">Edit</a>
-                    <a class="button-group" data-popup-close="editSQLCIGroup" href="#">Close</a>
                 </div-cell>
             </div-row>
         </div-table>
@@ -295,7 +289,7 @@
         <div-table>
             <div-row>
                 <div-cell>SQL CI Group ID</div-cell>
-                <div-cell><input type="text" data-role="createSQLCI" id="groupID"/></div-cell>
+                <div-cell><input type="text" data-role="createSQLCI" id="groupID" disabled/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>active</div-cell>
@@ -337,7 +331,6 @@
             <div-row>
                 <div-cell>
                     <a class="button-group" sql-ci-ws="createSQLCI" href="#">Create</a>
-                    <a class="button-group" data-popup-close="createSQLCI" href="#">Close</a>
                 </div-cell>
             </div-row>
         </div-table>
@@ -350,7 +343,7 @@
         <div-table>
             <div-row>
                 <div-cell>SQL CI Group ID</div-cell>
-                <div-cell><input type="text" data-role="editSQLCI" id="groupID"/></div-cell>
+                <div-cell><input type="text" data-role="editSQLCI" id="groupID" disabled/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>SQL CI ID :</div-cell>
@@ -407,7 +400,6 @@
             <div-row>
                 <div-cell>
                     <a class="button-group" sql-ci-ws="editSQLCI" href="#">Edit</a>
-                    <a class="button-group" data-popup-close="editSQLCI" href="#">Close</a>
                 </div-cell>
             </div-row>
         </div-table>
@@ -470,7 +462,6 @@
                 <div-cell><a class="button-group" database-pool-ws="createDatabasePool" href="#">Create</a></div-cell>
             </div-row>
         </div-table>
-        <p><a class="button-group" data-popup-close="createDatabasePool" href="#">Close</a></p>
         <a class="popup-close" data-popup-close="createDatabasePool" href="#">x</a>
     </div>
 </div>
@@ -530,7 +521,6 @@
                 <div-cell><a class="button-group" database-pool-ws="editDatabasePool" href="#">Edit</a></div-cell>
             </div-row>
         </div-table>
-        <p><a class="button-group" data-popup-close="editDatabasePool" href="#">Close</a></p>
         <a class="popup-close" data-popup-close="editDatabasePool" href="#">x</a>
     </div>
 </div>
