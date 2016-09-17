@@ -77,14 +77,14 @@ public class SqlCIController {
     public
     @ResponseBody
     SqlCI createSqlCI(
-            @RequestParam Long sqlCIGroupId,
+            @RequestParam Long groupId,
             @RequestParam String createdBy,
             @RequestParam String type,
             @RequestParam String statement,
             @RequestParam Boolean active,
             String description) {
 
-        SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(sqlCIGroupId);
+        SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(groupId);
 
         CommonUtils.validateNullObj(sqlCIGroup, "SQL CI Group ID not found");
 
@@ -112,9 +112,14 @@ public class SqlCIController {
     @RequestMapping("/api/sqlCI/change")
     public
     @ResponseBody
-    void updateSqlCI(@RequestParam long id, @RequestParam int sequence,
-                     @RequestParam String createdBy, @RequestParam String updatedBy, @RequestParam String type,
-                     @RequestParam String statement, @RequestParam Boolean active, String description) {
+    void updateSqlCI(@RequestParam long id,
+                     @RequestParam int sequence,
+                     @RequestParam String createdBy,
+                     @RequestParam String updatedBy,
+                     @RequestParam String type,
+                     @RequestParam String statement,
+                     @RequestParam Boolean active,
+                     String description) {
 
         SqlCI sqlCI = sqlCIRepository.findById(id);
         sqlCI.setActive(active);
@@ -133,9 +138,9 @@ public class SqlCIController {
     @RequestMapping("/api/sqlCI/delete")
     public
     @ResponseBody
-    void deleteById(@RequestParam Long sqlCIId) {
+    void deleteById(@RequestParam Long id) {
 
-        SqlCI sqlCI = sqlCIRepository.findById(sqlCIId);
+        SqlCI sqlCI = sqlCIRepository.findById(id);
 
         CommonUtils.validateNullObj(sqlCI, "SQL CI not found");
 

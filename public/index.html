@@ -267,6 +267,14 @@
                 <div-cell colspan="2"><input type="text" data-role="editSQLCIGroup" id="owner"/></div-cell>
             </div-row>
             <div-row>
+                <div-cell>updatedBy:</div-cell>
+                <div-cell><input type="text" data-role="editSQLCIGroup" id="updatedBy"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>updatedTs:</div-cell>
+                <div-cell><input type="text" data-role="editSQLCIGroup" id="updatedTs" disabled/></div-cell>
+            </div-row>
+            <div-row>
                 <div-cell>createdBy:</div-cell>
                 <div-cell><input type="text" data-role="editSQLCIGroup" id="createdBy"/></div-cell>
             </div-row>
@@ -289,7 +297,7 @@
         <div-table>
             <div-row>
                 <div-cell>SQL CI Group ID</div-cell>
-                <div-cell><input type="text" data-role="createSQLCI" id="groupID" disabled/></div-cell>
+                <div-cell><input type="text" data-role="createSQLCI" id="groupId" disabled/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>active</div-cell>
@@ -325,10 +333,6 @@
                 <div-cell><input type="text" data-role="createSQLCI" id="createdBy"/></div-cell>
             </div-row>
             <div-row>
-                <div-cell>createdTs</div-cell>
-                <div-cell><input type="text" data-role="createSQLCI" id="createdTs"/></div-cell>
-            </div-row>
-            <div-row>
                 <div-cell>
                     <a class="button-group" sql-ci-ws="createSQLCI" href="#">Create</a>
                 </div-cell>
@@ -343,7 +347,7 @@
         <div-table>
             <div-row>
                 <div-cell>SQL CI Group ID</div-cell>
-                <div-cell><input type="text" data-role="editSQLCI" id="groupID" disabled/></div-cell>
+                <div-cell><input type="text" data-role="editSQLCI" id="groupId" disabled/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>SQL CI ID :</div-cell>

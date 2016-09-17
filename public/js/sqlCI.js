@@ -124,7 +124,7 @@ function createSqlCIRequest(){
 		data: data,
 	    success: function (msg) {
 	    	$('[data-popup="createSQLCI"]').fadeOut(350);	    
-	        	dttable.ajax.reload();
+	        	dt_sqlci_grp.ajax.reload();
 	    },
 	    error:function(xhr, ajaxOptions, thrownError){ 
 	    	alert(xhr.status); 
