@@ -17,6 +17,7 @@
 package org.oriole.schedule;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -38,15 +39,15 @@ public class ScheduleTask{
 	
 	@Autowired
 	private DatabasePoolRepository databasePoolRepository;
-    
-    @Scheduled(fixedRate = 1000)
+
+    @Scheduled(fixedRate = 50000)
     public void executePendingDeploymentRequest() {
-    	System.out.println("[" + dateFormat.format(new Date()) + "]" + "ScheduleTask Start");
-    	List<DeployRequest> deploymentRequestList =  deploymentRequestRepository.findByStatus(DeployRequestState.SCHEDULE.name());
+        System.out.println("[" + LocalDateTime.now() + "]" + "ScheduleTask Start");
+        List<DeployRequest> deploymentRequestList =  deploymentRequestRepository.findByStatus(DeployRequestState.SCHEDULE.name());
     	
     	for(DeployRequest  deploymentRequest :deploymentRequestList){
-    		System.out.println("[" + dateFormat.format(new Date()) + "]" + deploymentRequest.getId());
-    	}
-    	System.out.println("[" + dateFormat.format(new Date()) + "]" + "ScheduleTask End");
+            System.out.println("[" + LocalDateTime.now() + "]" + deploymentRequest.getId());
+        }
+        System.out.println("[" + LocalDateTime.now() + "]" + "ScheduleTask End");
     }
 }
