@@ -29,7 +29,7 @@ $(function() {
 
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCI-add', function (e) {	
 		var id = $(this).find("a").attr('sql-ci-group');
-		$('[data-role="createSQLCI"]:input[id="sqlCIGroupId"]').val(id);
+		$('[data-role="createSQLCI"]:input[id="groupID"]').val(id);
 		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
 		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350); 
 	    e.preventDefault();		
