@@ -24,10 +24,7 @@ function commonFunction(){
  
         e.preventDefault();
     });
-    
-    $('.datepick').each(function(){
-        $(this).datepicker();
-    });
+
 }
 function initMenu(){	
 	$(".oriole-menuitem").mouseover(function() {
