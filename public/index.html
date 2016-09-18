@@ -210,11 +210,23 @@
             </div-row>
             <div-row>
                 <div-cell>Mantis Number</div-cell>
-                <div-cell><input type="text" data-role="createSQLCIGroup" id="referenceNumber"/></div-cell>
+                <div-cell>
+                    <input type="text" data-role="createSQLCIGroup" id="mantisInfoId"/>
+                    <a href="#"> <i class="fa fa-search" aria-hidden="true" sync-mantis="createSQLCIGroup"></i></a>
+                </div-cell>
+                <div-cell><span class="errorMsg" data-role="createSQLCIGroup" id="errorMsg"></span></div-cell>
             </div-row>
             <div-row>
                 <div-cell>Target Version</div-cell>
-                <div-cell><input type="text" data-role="createSQLCIGroup" id="targetVersion"/></div-cell>
+                <div-cell><input type="text" data-role="createSQLCIGroup" id="mantisInfoTargetVersion"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>Summary</div-cell>
+                <div-cell><input type="text" data-role="editSQLCIGroup" id="mantisInfoSummary"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>Summary</div-cell>
+                <div-cell><input type="text" data-role="editSQLCIGroup" id="mantisInfoSummary"/></div-cell>
             </div-row>
             <div-row>
                 <div-cell>Owner</div-cell>
@@ -254,9 +266,10 @@
                 <div-cell>Mantis Number</div-cell>
                 <div-cell>
                     <input type="text" data-role="editSQLCIGroup" id="mantisInfoId"/>
+                    <a href="#"> <i class="fa fa-search" aria-hidden="true" sync-mantis="editSQLCIGroup"></i></a>
                 </div-cell>
                 <div-cell>
-                    <a href="#"> <i class="fa fa-search" aria-hidden="true" data-role="sync-mantis"></i></a>
+                    <div-cell><span class="errorMsg" data-role="editSQLCIGroup" id="errorMsg"></span></div-cell>
                 </div-cell>
             </div-row>
             <div-row>

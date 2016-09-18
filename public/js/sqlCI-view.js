@@ -3,8 +3,8 @@ $(function() {
     	$('#sqlCIGroup').DataTable().ajax.reload();
     });
 
-    $('[data-role="sync-mantis"]').on('click', function(e)  {
-    	syncMantis();
+    $('[sync-mantis]').on('click', function(e)  {
+    	syncMantis($(this).attr('sync-mantis'));
     });
 
     $('[sql-ci-ws]').on('click', function(e)  {

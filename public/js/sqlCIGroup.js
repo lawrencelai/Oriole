@@ -1,18 +1,18 @@
-function syncMantis(){
+function syncMantis(sync_mantis){
     var data = {};
-    data['bugid'] =  $('[data-role="editSQLCIGroup"]:input[id="mantisInfoId"]').val();
+    data['bugid'] =  $('[data-role="'+sync_mantis+'"]:input[id="mantisInfoId"]').val();
 
     $.ajax(
     {
         url: "http://localhost:8080/api/mantis/getIssue",
         data: data,
         success: function (data) {
-            $('[data-role="editSQLCIGroup"]:input[id="mantisInfoTargetVersion"]').val(data.os_build);
-            $('[data-role="editSQLCIGroup"]:input[id="mantisInfoSummary"]').val(data.summary);
+            $('[data-role="'+sync_mantis+'"]#mantisInfoTargetVersion').val(data.os_build);
+            $('[data-role="'+sync_mantis+'"]#mantisInfoSummary').val(data.summary);
         },
         error:function(xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
+            var err = eval("(" + xhr.responseText + ")");
+            $('[data-role="'+sync_mantis+'"]#errorMsg').text(err.message);
         }
     });
 
@@ -20,7 +20,7 @@ function syncMantis(){
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
 	dt_sqlci_grp = $('#sqlCIGroup').DataTable({		
-		"scrollY":        "600px",
+		"scrollY":  "600px",
         "scrollCollapse": true,
 		"lengthMenu": [[10, 25, 50], [10, 25, 50]],
 		"sAjaxSource": "http://localhost:8080/api/sqlCIGroup/dt/search",
@@ -65,7 +65,6 @@ function prepareSqlCIGroup(groupid){
 	$.ajax({
 		url: "http://localhost:8080/api/sqlCIGroup/searchById?groupId="+groupid,
 		success:function(response){
-
 		    $.each(response, function(index, value) {
 		    	$('[data-role="editSQLCIGroup"]').each(function (index1,value1) {
 		    		if($(this).attr('id') == index){

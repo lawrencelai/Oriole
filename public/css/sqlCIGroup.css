@@ -15,6 +15,18 @@ textarea[id="description"]{
     height: 6em;
     resize: none;
 }
+input[id="id"]{
+	width: 40px;
+}
+input[id="owner"]{
+	width: 100px;
+}
+input[id="mantisInfoId"]{
+    width:40px;
+}
+input[id="mantisInfoSummary"]{
+    width:500px;
+}
 
 .create-SQLCI-Group {
 	font-size:12px;

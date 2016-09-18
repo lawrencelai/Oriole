@@ -7,6 +7,9 @@ body{
     width:540px;
 }
 
+.errorMsg{
+    color:red;
+}
 .sqlci-group-common{
 	margin: 40px 5px 30px 5px;
 }
