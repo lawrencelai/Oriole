@@ -1,4 +1,22 @@
+function syncMantis(){
+    var data = {};
+    data['bugid'] =  $('[data-role="editSQLCIGroup"]:input[id="mantisInfoId"]').val();
 
+    $.ajax(
+    {
+        url: "http://localhost:8080/api/mantis/getIssue",
+        data: data,
+        success: function (data) {
+            $('[data-role="editSQLCIGroup"]:input[id="mantisInfoTargetVersion"]').val(data.os_build);
+            $('[data-role="editSQLCIGroup"]:input[id="mantisInfoSummary"]').val(data.summary);
+        },
+        error:function(xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+
+}
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
 	dt_sqlci_grp = $('#sqlCIGroup').DataTable({		

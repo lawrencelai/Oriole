@@ -3,6 +3,10 @@ $(function() {
     	$('#sqlCIGroup').DataTable().ajax.reload();
     });
 
+    $('[data-role="sync-mantis"]').on('click', function(e)  {
+    	syncMantis();
+    });
+
     $('[sql-ci-ws]').on('click', function(e)  {
         var target_ws = $(this).attr('sql-ci-ws');
         if(target_ws == "createSQLCIGroup"){

@@ -11,9 +11,9 @@ td.data {font-size:9px}
 a{text-decoration: none;}
 
 textarea[id="description"]{
-	resize: none;
-	width: 40em;
-    height: 4em;
+	width: 20em;
+    height: 6em;
+    resize: none;
 }
 
 .create-SQLCI-Group {
