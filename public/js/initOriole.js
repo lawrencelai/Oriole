@@ -20,6 +20,9 @@ function commonFunction(){
     //----- CLOSE
     $('[data-popup-close]').on('click', function(e)  {
         var targeted_popup_class = jQuery(this).attr('data-popup-close');
+        if(targeted_popup_class == "editSQLCIGroup" || targeted_popup_class == "createSQLCIGroup"){
+             $('[data-role="'+targeted_popup_class+'"]#errorMsg').text("");
+        }
         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
  
         e.preventDefault();
