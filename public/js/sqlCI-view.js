@@ -3,6 +3,10 @@ $(function() {
     	$('#sqlCIGroup').DataTable().ajax.reload();
     });
 
+   $('[data-role="refresh-deploy-request-dt"]').on('click', function(e)  {
+        $('#deployRequest').DataTable().ajax.reload();
+   });
+
     $('[sync-mantis]').on('click', function(e)  {
     	syncMantis($(this).attr('sync-mantis'));
     });
