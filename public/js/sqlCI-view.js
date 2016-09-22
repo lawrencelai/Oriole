@@ -8,6 +8,8 @@ $(function() {
    });
 
     $('[sync-mantis]').on('click', function(e)  {
+        var targeted_class = $(this).attr("sync-mantis")
+        $('[data-role="'+targeted_class+'"]#errorMsg').text("");
     	syncMantis($(this).attr('sync-mantis'));
     });
 
