@@ -127,7 +127,7 @@ public class SqlCIController {
         sqlCI.setCreatedBy(createdBy);
         sqlCI.setUpdatedBy(updatedBy);
         sqlCI.setType(type);
-        sqlCI.setStatement(createdBy);
+        sqlCI.setStatement(statement);
         sqlCI.setDescription(description);
         sqlCI.setUpdatedTs(LocalDateTime.now());
 
