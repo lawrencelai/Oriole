@@ -16,74 +16,107 @@
 
 package org.oriole.document.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.soap.MTOMFeature;
-
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.oriole.document.SqlCI;
+import org.oriole.document.SqlCIGroup;
+import org.oriole.document.repository.SqlCIGroupRepository;
 import org.oriole.document.repository.SqlCIRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 @RestController
 public class SqlExportController {
-	@Autowired
-	private SqlCIRepository sqlCIRepository;
-	
-    @RequestMapping(value="/api/sql/export", method=RequestMethod.GET)
-    public void export(String key,HttpServletResponse response) throws Exception {
-    	downloadFile(response);
+    @Autowired
+    private SqlCIRepository sqlCIRepository;
+
+    @Autowired
+    private SqlCIGroupRepository sqlCIGroupRepository;
+
+    @RequestMapping(value = "/api/sql/export", method = RequestMethod.GET, produces = "application/zip")
+    public byte[] exportZip(
+            @RequestParam long groupid, String key, HttpServletResponse response) throws Exception {
+        //setting headers
+        response.setContentType("application/zip");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Content-Disposition", "attachment; filename=\"test.zip\"");
+
+        //creating byteArray stream, make it bufforable and passing this buffor to ZipOutputStream
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(byteArrayOutputStream);
+        ZipOutputStream zipOutputStream = new ZipOutputStream(bufferedOutputStream);
+
+        //simple file list, just for tests
+        ArrayList<File> files = prepareSqlFileByGroupId(groupid);
+
+        //packing files
+        for (File file : files) {
+            //new zip entry and copying inputstream with file to zipOutputStream, after all closing streams
+            zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            IOUtils.copy(fileInputStream, zipOutputStream);
+
+            fileInputStream.close();
+            zipOutputStream.closeEntry();
+        }
+
+        if (zipOutputStream != null) {
+            zipOutputStream.finish();
+            zipOutputStream.flush();
+            IOUtils.closeQuietly(zipOutputStream);
+        }
+        IOUtils.closeQuietly(bufferedOutputStream);
+        IOUtils.closeQuietly(byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
-    private void downloadFile(HttpServletResponse response) {
-        ServletOutputStream servletStream;
-        try {            
-            String fileName = "abc.sql";   
-            File file = new File(fileName);
-            if(file.exists()){
-            	file.delete();
-            }
-            OutputStream outStream = new FileOutputStream(file, true);
-            BufferedOutputStream bufferStream = new BufferedOutputStream(outStream);
-            List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(1);
-        	for(SqlCI sqlCI : sqlCIList){		   		
-        		bufferStream.write(sqlCI.getStatement().getBytes("UTF-8"));
-        		bufferStream.write(System.getProperty("line.separator").getBytes());        	
-        	} 
-            bufferStream.close();
+    private ArrayList<File> prepareSqlFileByGroupId(long groupid) {
+        SqlCIGroup sqlCIGroup = sqlCIGroupRepository.findById(groupid);
+        ArrayList<File> files = prepareSqlFile(sqlCIGroup);
+        return files;
+    }
 
-            response.setContentType("application/octet-stream");
-            response.setContentLength((int) file.length());
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-            
-            InputStream inputStream = new FileInputStream(file);
-            servletStream = response.getOutputStream();
-            byte[] bufferData = new byte[1024*1024];
-            int read = 0;
-            while ((read = inputStream.read(bufferData)) != -1) {
-                servletStream.write(bufferData, 0, read);       
-            }
-            servletStream.flush();
-            servletStream.close();
-            inputStream.close();
-            file.delete();
+    private ArrayList<File> prepareSqlFile(SqlCIGroup sqlCIGroup) {
 
+        List<SqlCI> sqlCIList = sqlCIRepository.findByGroupID(sqlCIGroup.getId());
+        ArrayList<File> fileList = new ArrayList<>(sqlCIList.size());
+        StringBuilder fileName = null;
+        int counter = 0;
+        try {
+            for (SqlCI sqlCI : sqlCIList) {
+                //prepare file and file
+                fileName = new StringBuilder(Long.toString(sqlCIGroup.getMantisInfo().getId())).append("_")
+                        .append(sqlCI.getSequence()).append("_")
+                        .append(sqlCI.getDescription()).append("_")
+                        .append(sqlCI.getType()).append(".sql");
+
+                File file = new File(fileName.toString());
+                if (file.exists()) {
+                    file.delete();
+                }
+
+                OutputStream outStream = new FileOutputStream(file, true);
+                BufferedOutputStream bufferStream = new BufferedOutputStream(outStream);
+                bufferStream.write(sqlCI.getStatement().getBytes("UTF-8"));
+                bufferStream.write(System.getProperty("line.separator").getBytes());
+                bufferStream.close();
+                fileList.add(file);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return fileList;
     }
+
 }
