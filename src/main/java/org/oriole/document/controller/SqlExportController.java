@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -39,17 +40,20 @@ import java.util.zip.ZipOutputStream;
 public class SqlExportController {
     @Autowired
     private SqlCIRepository sqlCIRepository;
-
     @Autowired
     private SqlCIGroupRepository sqlCIGroupRepository;
 
+    private List<String> fileNameList = new ArrayList<String>();
+
     @RequestMapping(value = "/api/sql/export", method = RequestMethod.GET, produces = "application/zip")
     public byte[] exportZip(
-            @RequestParam long groupid, String key, HttpServletResponse response) throws Exception {
+            @RequestParam long groupid,
+            @RequestParam String filename,
+            HttpServletResponse response) throws Exception {
         //setting headers
         response.setContentType("application/zip");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"test.zip\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + filename + ".zip\"");
 
         //creating byteArray stream, make it bufforable and passing this buffor to ZipOutputStream
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -78,6 +82,17 @@ public class SqlExportController {
         }
         IOUtils.closeQuietly(bufferedOutputStream);
         IOUtils.closeQuietly(byteArrayOutputStream);
+
+        //housekeep file
+        Iterator itrFileNameList = fileNameList.iterator();
+        while (itrFileNameList.hasNext()) {
+            File file = new File((String) itrFileNameList.next());
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
+
         return byteArrayOutputStream.toByteArray();
     }
 
@@ -105,6 +120,7 @@ public class SqlExportController {
                 if (file.exists()) {
                     file.delete();
                 }
+                fileNameList.add(fileName.toString());
 
                 OutputStream outStream = new FileOutputStream(file, true);
                 BufferedOutputStream bufferStream = new BufferedOutputStream(outStream);
