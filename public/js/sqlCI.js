@@ -93,9 +93,12 @@ function prepareEditSqlCIRequest(id){
 		    		if($(this).attr('id') == index){
 		    			if($(this).attr('id')=='active'){
 		    				$(this).bootstrapSwitch('state',value);
-		    			}else if($(this).attr('id')=='type' || $(this).attr('id')=='restrictedDatabase'){		    						
-		    				$(this).find('option[value="' +value + '"]').prop('selected', true);	    	
-		    			}else{
+		    			}else if($(this).attr('id')=='type' || $(this).attr('id')=='restrictedDatabase'){
+		    				$(this).find('option[value="' +value + '"]').prop('selected', true);
+		    			}else if($(this).attr('id')=='statement'){
+                            var editor = $(this).next('.CodeMirror').get(0).CodeMirror;
+                            editor.setValue(value);
+                        }else{
 		    				$(this).val(value);
 		    			}
 		    		}
