@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.oriole.common.LocalDateTimeDeserializer;
 import org.oriole.common.LocalDateTimeSerializer;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
