@@ -15,24 +15,40 @@ $(function() {
 	});
 
 	$('#databasePool tbody').on('click', '.database-pool-edit', function(e) {
-		var rowData = dt_dbpool.row(this).data()
-		$.each(rowData, function(index, value) {
-			var name = $('[data-role="editDatabasePool"]').find(index);
-    			if(index=='active'  || index=='restricted' ){
-    				$('[data-role="editDatabasePool"]').find(name).bootstrapSwitch('state',value);
-    			}else{
-    				$('[data-role="editDatabasePool"]').find(name).val(value);
-    			}
-			
-		});
+		var rowData = dt_dbpool.row(this).data();
+        prepareEditDatabasePoolRequest(rowData.name);
 
-		var targeted_popup_class = $(this).find("a").attr('data-popup-open');
+		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
 		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
 		e.preventDefault();
 	});
 
 });
+function prepareEditDatabasePoolRequest(name){
+	$.ajax({
+		url: "http://localhost:8080/api/resource/database/searchByName?name="+name,
+		success:function(response){
 
+		    $.each(response, function(index, value) {
+		    	$('[data-role="editDatabasePool"]').each(function () {
+		    		if($(this).attr('id') == index){
+		    			if($(this).attr('id')=='active'){
+		    				$(this).bootstrapSwitch('state',value);
+		    			}else if($(this).attr('id')=='type' || $(this).attr('id')=='restrictedDatabase'){
+		    				$(this).find('option[value="' +value + '"]').prop('selected', true);
+		    			}else{
+		    				$(this).val(value);
+		    			}
+		    		}
+		    	});
+		    });
+		},
+	    error:function(xhr, ajaxOptions, thrownError){
+	    	alert(xhr.status);
+	        alert(thrownError);
+	    }
+	});
+}
 function initDatabasePoolDataTable() {
 	dt_dbpool = $('#databasePool')
 			.DataTable(
@@ -86,10 +102,10 @@ function initDatabasePoolDataTable() {
 								{"data" : "serviceName"},
 								{"data" : "sid"},
 								{
-									"className" : 'database-pool-edit',
+									"className":"database-pool-edit",
 									"orderable" : false,
 									"data" : null,
-									"defaultContent" : '<a class="button-group" data-popup-open="editDatabasePool" href="#">Edit</a>'
+									"defaultContent":'<i class="fa fa-edit" style="font-size:24px" data-popup-open="editDatabasePool"></i>'
 								}
 
 						],

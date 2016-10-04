@@ -19,11 +19,11 @@ package org.oriole.document.controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.oriole.common.CommonEnum;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.DeployRequestState;
 import org.oriole.common.CommonEnum.MongoDeployRequest;
@@ -129,7 +129,7 @@ public class DeployRequestController {
     @ResponseBody
     List<DeployRequest> searchByDatabase(@RequestParam String targetDatabase) {
 
-        DatabasePool databasePool = databasePoolRepository.findByName(targetDatabase);
+        DatabasePool databasePool = databasePoolRepository.findByTypeAndName(CommonEnum.ResourceType.DATABASE.name(), targetDatabase);
 
         CommonUtils.validateNullObj(databasePool, "No Target Database Defined");
 

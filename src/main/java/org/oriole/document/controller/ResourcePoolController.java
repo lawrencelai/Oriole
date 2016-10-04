@@ -16,6 +16,7 @@
 
 package org.oriole.document.controller;
 
+import org.oriole.common.CommonEnum.ResourceType;
 import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.MongoDeployRequest;
 import org.oriole.common.CommonUtils;
@@ -31,6 +32,7 @@ import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -77,12 +79,12 @@ public class ResourcePoolController {
 		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
 		String sortingField = MongoDeployRequest.findMongoFieldNameByColumnNum(iSortCol_0);
 		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
-		PageRequest pageable = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
+		PageRequest pageRequest = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
 		Page<DatabasePool> page = null;
 		int iTotalRecords;
 		int iTotalDisplayRecords;
 
-		page = databasePoolRepository.findAll(pageable);
+		page = databasePoolRepository.findByType(ResourceType.DATABASE.name(), pageRequest);
 
 		iTotalRecords = (int) page.getTotalElements();
 		iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
@@ -95,7 +97,7 @@ public class ResourcePoolController {
 
 	@RequestMapping("/api/resource/database/deployableList")
 	public @ResponseBody List<JsonObject> getDeployableDatabasePools() {
-		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, false);
+		List<DatabasePool> databasePools = databasePoolRepository.findByTypeAndActiveAndRestricted(ResourceType.DATABASE.name(), true, false);
 		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
 
 		for (DatabasePool databasePool : databasePools) {
@@ -106,7 +108,7 @@ public class ResourcePoolController {
 
 	@RequestMapping("/api/resource/database/restrictedList")
 	public @ResponseBody List<JsonObject> getRestrictDatabasePoolNameList() {
-		List<DatabasePool> databasePools = databasePoolRepository.findByActiveAndRestricted(true, true);
+		List<DatabasePool> databasePools = databasePoolRepository.findByTypeAndActiveAndRestricted(ResourceType.DATABASE.name(), true, true);
 		List<JsonObject> databasePoolJObject = new ArrayList<JsonObject>();
 
 		for (DatabasePool databasePool : databasePools) {
@@ -121,8 +123,10 @@ public class ResourcePoolController {
 	}
 
 	@RequestMapping("/api/resource/database/searchByName")
-	public @ResponseBody DatabasePool getDatabasePoolByName(@RequestParam String databaseName) {
-		return databasePoolRepository.findByName(databaseName);
+	public
+	@ResponseBody
+	DatabasePool getDatabasePoolByName(@RequestParam String name) {
+		return databasePoolRepository.findByTypeAndName(ResourceType.DATABASE.name(), name);
 	}
 
 	@RequestMapping("/api/resource/database/create")
@@ -136,7 +140,7 @@ public class ResourcePoolController {
 			String serviceName, 
 			String sid) {
 
-		if (databasePoolRepository.findByName(name) != null) {
+		if (databasePoolRepository.findByTypeAndName(ResourceType.DATABASE.name(), name) != null) {
 			throw new InputDataException("Database name is defined");
 		}
 
@@ -171,7 +175,7 @@ public class ResourcePoolController {
 			String serviceName,
 			String sid) {
 
-		DatabasePool databasePool = databasePoolRepository.findByName(name);
+		DatabasePool databasePool = databasePoolRepository.findByTypeAndName(ResourceType.DATABASE.name(), name);
 
 		CommonUtils.validateNullObj(databasePool, "Database name is not exist");
 

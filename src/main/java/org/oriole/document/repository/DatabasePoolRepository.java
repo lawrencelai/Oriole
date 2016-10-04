@@ -16,17 +16,21 @@
 
 package org.oriole.document.repository;
 
-import java.util.List;
-
 import org.oriole.document.DatabasePool;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
 
 public interface DatabasePoolRepository extends MongoRepository<DatabasePool, String> {
 
-    public DatabasePool findById(long id);
-    
-    public DatabasePool findByName(String name);
-    
-    public List<DatabasePool> findByActiveAndRestricted(boolean active,boolean restricted);
+    public Page<DatabasePool> findByType(String type, Pageable pageable);
+
+    public DatabasePool findByTypeAndId(String type, long id);
+
+    public DatabasePool findByTypeAndName(String type, String name);
+
+    public List<DatabasePool> findByTypeAndActiveAndRestricted(String type, boolean active, boolean restricted);
 
 }

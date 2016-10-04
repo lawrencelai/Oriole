@@ -52,7 +52,7 @@ $(function() {
 	} );
 	
 	$('#sqlCIGroup tbody').on( 'click', '.sqlCIGroup-edit', function (e) {
-	    var rowData = dt_sqlci_grp.row(this).data() ;
+	    var rowData = dt_sqlci_grp.row(this).data();
 	    prepareSqlCIGroup(rowData.id);
 	    
 		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
