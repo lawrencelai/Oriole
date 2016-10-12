@@ -27,7 +27,7 @@ public interface MantisPoolRepository extends MongoRepository<MantisPool, String
 
     public Page<MantisPool> findByType(String type, Pageable pageable);
 
-    public List<MantisPool> findByTypeAndName(String Type, String name);
+    public MantisPool findByTypeAndName(String Type, String name);
 
     public List<MantisPool> findByTypeAndActive(String Type, boolean active);
 }

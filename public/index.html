@@ -596,6 +596,99 @@
         <a class="popup-close" data-popup-close="editDatabasePool" href="#">x</a>
     </div>
 </div>
+<div class="popup" data-popup="createMantisPool">
+    <div class="SqlCI-Inner">
+        <h2>New Mantis Pool Item</h2>
+        <div-table>
+            <div-row>
+                <div-cell>Database Name:</div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="name"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>active:</div-cell>
+                <div-cell><input type="checkbox" id="active" bootstrap-switch="mantisPool-create" data-size="mini"
+                                 data-role="createMantisPool" data-on-Text="Active" data-off-Text="Deactive"
+                                 data-on-color="success" data-off-color="warning" checked></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>host</div-cell>
+                <div-cell>port</div-cell>
+                <div-cell>serviceName</div-cell>
+                <div-cell>sid</div-cell>
+
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="createMantisPool" id="host"/></div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="port"/></div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="serviceName"/></div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="sid"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>username</div-cell>
+                <div-cell>password</div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="createMantisPool" id="username"/></div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="password"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>createdBy</div-cell>
+                <div-cell>createdTs</div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="createMantisPool" id="createdBy"/></div-cell>
+                <div-cell><input type="text" data-role="createMantisPool" id="createdTs"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><a class="button-group" database-pool-ws="createMantisPool" href="#">Create</a></div-cell>
+            </div-row>
+        </div-table>
+        <a class="popup-close" data-popup-close="createMantisPool" href="#">x</a>
+    </div>
+</div>
+<div class="popup" data-popup="editMantisPool">
+    <div class="SqlCI-Inner">
+        <h2>Edit Mantis Pool Item</h2>
+        <div-table>
+            <div-row>
+                <div-cell>Database Name:</div-cell>
+                <div-cell><input type="text" data-role="editMantisPool" id="name"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>active:</div-cell>
+                <div-cell><input type="checkbox" id="active" bootstrap-switch="mantisPool-edit" data-size="mini"
+                                 data-role="editMantisPool" data-on-Text="Active" data-off-Text="Deactive"
+                                 data-on-color="success" data-off-color="warning" checked></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>url</div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="editMantisPool" id="url"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>username</div-cell>
+                <div-cell>password</div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="editMantisPool" id="username"/></div-cell>
+                <div-cell><input type="text" data-role="editMantisPool" id="password"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell>updated By</div-cell>
+                <div-cell>updated Ts</div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><input type="text" data-role="editMantisPool" id="updatedBy"/></div-cell>
+                <div-cell><input type="text" data-role="editMantisPool" id="updatedTs"/></div-cell>
+            </div-row>
+            <div-row>
+                <div-cell><a class="button-group" database-pool-ws="editMantisPool" href="#">Edit</a></div-cell>
+            </div-row>
+        </div-table>
+        <a class="popup-close" data-popup-close="editMantisPool" href="#">x</a>
+    </div>
+</div>
 <div class="popup" data-popup="createGroupDeployRequest">
     <div class="popup-inner">
         <h2>Deploy Request By SQL CI Group</h2>

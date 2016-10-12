@@ -225,6 +225,13 @@ public class ResourcePoolController {
 		return dtPage;
 	}
 
+	@RequestMapping("/api/resource/mantis/searchByName")
+	public
+	@ResponseBody
+	MantisPool getMantisPoolByName(@RequestParam String name) {
+		return mantisPoolRepository.findByTypeAndName(ResourceType.MANTIS.name(), name);
+	}
+
     @RequestMapping("/api/resource/mantis/create")
     public
     @ResponseBody
@@ -264,19 +271,19 @@ public class ResourcePoolController {
             @RequestParam String updatedBy,
             @RequestParam String url) {
 
-		List<MantisPool> mantisPools = mantisPoolRepository.findByTypeAndName(ResourceType.MANTIS.name(), name);
+		MantisPool mantisPool = mantisPoolRepository.findByTypeAndName(ResourceType.MANTIS.name(), name);
 
-		CommonUtils.validateNullObj(mantisPools.get(0), "Mantis name is not exist");
+		CommonUtils.validateNullObj(mantisPool, "Mantis name is not exist");
 
-		mantisPools.get(0).setName(name);
-		mantisPools.get(0).setActive(active);
-		mantisPools.get(0).setUrl(url);
+		mantisPool.setName(name);
+		mantisPool.setActive(active);
+		mantisPool.setUrl(url);
 
-		mantisPools.get(0).setUsername(username);
-		mantisPools.get(0).setPassword(password);
-		mantisPools.get(0).setUpdatedBy(updatedBy);
-		mantisPools.get(0).setUpdatedTs(LocalDateTime.now());
+		mantisPool.setUsername(username);
+		mantisPool.setPassword(password);
+		mantisPool.setUpdatedBy(updatedBy);
+		mantisPool.setUpdatedTs(LocalDateTime.now());
 
-		return mantisPoolRepository.save(mantisPools.get(0));
+		return mantisPoolRepository.save(mantisPool);
 	}
 }

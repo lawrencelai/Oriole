@@ -9,9 +9,15 @@ $(function() {
 		if (target_ws == "createDatabasePool") {
 			createDatabasePoolRequest();
 		}
+		if (target_ws == "createDatabasePool") {
+        	createMantisPoolRequest();
+        }
 		if (target_ws == "editDatabasePool") {
 			editDatabasePoolRequest();
 		}
+		if (target_ws == "editMantisPool") {
+            editMantisPoolRequest();
+        }
 	});
 
 	$('#databasePool tbody').on('click', '.database-pool-edit', function(e) {
@@ -19,9 +25,18 @@ $(function() {
         prepareEditDatabasePoolRequest(rowData.name);
 
 		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
-		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);hh
 		e.preventDefault();
 	});
+
+	$('#mantisPool tbody').on('click', '.mantis-pool-edit', function(e) {
+    		var rowData = dt_mantispool.row(this).data();
+            prepareEditMantisPoolRequest(rowData.name);
+
+    		var targeted_popup_class = $(this).find("i").attr('data-popup-open');
+    		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+    		e.preventDefault();
+    	});
 
 });
 function prepareEditDatabasePoolRequest(name){
@@ -49,6 +64,33 @@ function prepareEditDatabasePoolRequest(name){
 	    }
 	});
 }
+
+function prepareEditMantisPoolRequest(name){
+	$.ajax({
+		url: "http://localhost:8080/api/resource/mantis/searchByName?name="+name,
+		success:function(response){
+
+		    $.each(response, function(index, value) {
+		    	$('[data-role="editMantisPool"]').each(function () {
+		    		if($(this).attr('id') == index){
+		    			if($(this).attr('id')=='active'){
+		    				$(this).bootstrapSwitch('state',value);
+		    			}else if($(this).attr('id')=='type'){
+		    				$(this).find('option[value="' +value + '"]').prop('selected', true);
+		    			}else{
+		    				$(this).val(value);
+		    			}
+		    		}
+		    	});
+		    });
+		},
+	    error:function(xhr, ajaxOptions, thrownError){
+	    	alert(xhr.status);
+	        alert(thrownError);
+	    }
+	});
+}
+
 function initDatabasePoolDataTable() {
 	dt_dbpool = $('#databasePool')
 			.DataTable(
