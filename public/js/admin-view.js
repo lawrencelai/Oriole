@@ -56,7 +56,7 @@ function initDatabasePoolDataTable() {
 						"lengthMenu" : [ [ 10, 25, 50 ], [ 10, 25, 50 ] ],
 						"sAjaxSource" : "http://localhost:8080/api/resource/database/dt/search",
 						 "columnDefs": [
-						                {						                   
+						                {
 						                    "render": function ( data, type, row ) {
 						                    	if(data)
 						                    		return "<i class='fa fa-circle-o-notch fa-spin' style='font-size:14px;color:green'>";
@@ -84,7 +84,8 @@ function initDatabasePoolDataTable() {
 						                { "visible": false, "targets": 10 },
 						                { "visible": false, "targets": 11 },
 						                { "visible": false, "targets": 12 },
-						                { "visible": false, "targets": 13 }					                
+						                { "visible": false, "targets": 13 },
+						                { "visible": true, "targets": 14 }
 						            ],
 						"columns" : [						        
 								{"data" : "name"},
@@ -106,6 +107,62 @@ function initDatabasePoolDataTable() {
 									"orderable" : false,
 									"data" : null,
 									"defaultContent":'<i class="fa fa-edit" style="font-size:24px" data-popup-open="editDatabasePool"></i>'
+								}
+
+						],
+						"oLanguage" : {
+							"sEmptyTable" : "Your custom message for empty table"
+						},
+						"order" : [ [ 0, 'desc' ] ],
+						"bProcessing" : true,
+						"bServerSide" : true,
+						"bDestroy" : true
+
+					});
+
+}
+
+function initMantisPoolDataTable() {
+	dt_mantispool = $('#mantisPool').DataTable(
+					{
+						"lengthMenu" : [ [ 10, 25, 50 ], [ 10, 25, 50 ] ],
+						"sAjaxSource" : "http://localhost:8080/api/resource/mantis/dt/search",
+						 "columnDefs": [
+						                {
+						                    "render": function ( data, type, row ) {
+						                    	if(data)
+						                    		return "<i class='fa fa-circle-o-notch fa-spin' style='font-size:14px;color:green'>";
+						                    	else
+						                    		return "<i class='fa fa-exclamation-circle' style='font-size:16px;color:red'>";
+						                    },
+						                    "targets": 1
+						                },
+						                { "visible": false, "targets": 2 },
+						                { "visible": false, "targets": 3 },
+						                { "visible": false, "targets": 4 },
+						                { "visible": false, "targets": 5 },
+						                { "visible": false, "targets": 6 },
+						                { "visible": false, "targets": 7 },
+						                { "visible": false, "targets": 8 },
+						                { "visible": false, "targets": 9 },
+						                { "visible": true, "targets": 10 }
+						            ],
+						"columns" : [
+								{"data" : "name"},
+								{"data" : "active"},
+								{"data" : "url"},
+								{"data" : "type"},
+								{"data" : "username"},
+								{"data" : "password"},
+								{"data" : "createdBy"},
+								{"data" : "createdTs"},
+								{"data" : "updatedBy"},
+								{"data" : "updatedTs"},
+								{
+									"className":"mantis-pool-edit",
+									"orderable" : false,
+									"data" : null,
+									"defaultContent":'<i class="fa fa-edit" style="font-size:24px" data-popup-open="editMantisPool"></i>'
 								}
 
 						],

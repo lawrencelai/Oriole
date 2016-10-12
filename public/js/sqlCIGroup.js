@@ -17,6 +17,7 @@ function syncMantis(sync_mantis){
     });
 
 }
+
 function initSqlCIGroupDataTable(){
 	//sqlCIGroup
 	dt_sqlci_grp = $('#sqlCIGroup').DataTable({		
@@ -56,9 +57,11 @@ function initSqlCIGroupDataTable(){
 		"order": [[1, 'desc']],
 		"bProcessing": true,
 		"bServerSide": true ,
-		"bDestroy": true
+		"bDestroy": true,
 
 	});
+
+
 }
 
 function prepareSqlCIGroup(groupid){

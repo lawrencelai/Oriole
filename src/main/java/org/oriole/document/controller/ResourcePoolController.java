@@ -21,6 +21,7 @@ import org.oriole.common.CommonEnum.DatabaseSequence;
 import org.oriole.common.CommonEnum.MongoDeployRequest;
 import org.oriole.common.CommonUtils;
 import org.oriole.common.JQueryDataTableObject;
+
 import org.oriole.common.JsonObject;
 import org.oriole.document.DatabasePool;
 import org.oriole.document.MantisPool;
@@ -32,7 +33,6 @@ import org.oriole.exception.InputDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -195,6 +195,36 @@ public class ResourcePoolController {
 		return databasePoolRepository.save(databasePool);
 	}
 
+	@RequestMapping(value = "/api/resource/mantis/dt/search", method = RequestMethod.GET, produces = "application/json")
+	public
+	@ResponseBody
+	JQueryDataTableObject<MantisPool> getmantisPoolForDT(@RequestParam int iDisplayStart,
+														 @RequestParam int iDisplayLength,
+														 @RequestParam int sEcho,
+														 @RequestParam int iSortCol_0,
+														 @RequestParam String sSortDir_0,
+														 @RequestParam int iSortingCols,
+														 @RequestParam String sSearch) throws IOException {
+
+		int pageNumber = (iDisplayStart + 1) / iDisplayLength;
+		String sortingField = MongoDeployRequest.findMongoFieldNameByColumnNum(iSortCol_0);
+		Sort sortPageRequest = new Sort(Sort.Direction.fromString(sSortDir_0), sortingField);
+		PageRequest pageRequest = new PageRequest(pageNumber, iDisplayLength, sortPageRequest);
+		Page<MantisPool> page = null;
+		int iTotalRecords;
+		int iTotalDisplayRecords;
+
+		page = mantisPoolRepository.findByType(ResourceType.MANTIS.name(), pageRequest);
+
+		iTotalRecords = (int) page.getTotalElements();
+		iTotalDisplayRecords = page.getTotalPages() * iDisplayLength;
+
+		JQueryDataTableObject<MantisPool> dtPage = new JQueryDataTableObject<MantisPool>(page.getContent(), iTotalRecords,
+				iTotalDisplayRecords, Integer.toString(sEcho));
+
+		return dtPage;
+	}
+
     @RequestMapping("/api/resource/mantis/create")
     public
     @ResponseBody
@@ -205,8 +235,8 @@ public class ResourcePoolController {
                                 @RequestParam String createdBy,
                                 @RequestParam String url) {
 
-        if (mantisPoolRepository.findByName(name) != null) {
-            throw new InputDataException("Mantis name is defined");
+		if (mantisPoolRepository.findByTypeAndName(ResourceType.MANTIS.name(), name) != null) {
+			throw new InputDataException("Mantis name is defined");
         }
 
         MantisPool mantisPool = new MantisPool(
@@ -234,19 +264,19 @@ public class ResourcePoolController {
             @RequestParam String updatedBy,
             @RequestParam String url) {
 
-        MantisPool mantisPool = mantisPoolRepository.findByName(name);
+		List<MantisPool> mantisPools = mantisPoolRepository.findByTypeAndName(ResourceType.MANTIS.name(), name);
 
-        CommonUtils.validateNullObj(mantisPool, "Mantis name is not exist");
+		CommonUtils.validateNullObj(mantisPools.get(0), "Mantis name is not exist");
 
-        mantisPool.setName(name);
-        mantisPool.setActive(active);
-        mantisPool.setUrl(url);
+		mantisPools.get(0).setName(name);
+		mantisPools.get(0).setActive(active);
+		mantisPools.get(0).setUrl(url);
 
-        mantisPool.setUsername(username);
-        mantisPool.setPassword(password);
-        mantisPool.setUpdatedBy(updatedBy);
-        mantisPool.setUpdatedTs(LocalDateTime.now());
+		mantisPools.get(0).setUsername(username);
+		mantisPools.get(0).setPassword(password);
+		mantisPools.get(0).setUpdatedBy(updatedBy);
+		mantisPools.get(0).setUpdatedTs(LocalDateTime.now());
 
-        return mantisPoolRepository.save(mantisPool);
-    }
+		return mantisPoolRepository.save(mantisPools.get(0));
+	}
 }

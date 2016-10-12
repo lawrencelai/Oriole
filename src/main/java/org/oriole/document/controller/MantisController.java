@@ -16,9 +16,13 @@
 
 package org.oriole.document.controller;
 
+import org.oriole.common.CommonEnum.ResourceType;
 import biz.futureware.mantis.rpc.soap.client.IssueData;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
+import org.oriole.document.MantisPool;
+import org.oriole.document.repository.MantisPoolRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,20 +30,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.List;
 
 @RestController
 public class MantisController {
 
-    private String user = "administrator";
-    private String pwd = "password";
+    private String user;
+    private String pwd;
     private MantisConnectLocator mcl;
     private MantisConnectPortType portType;
 
+    @Autowired
+    private MantisPoolRepository mantisPoolRepository;
 
     private void prepareMantisConnector() throws Exception {
-        URL url = new URL("http://127.0.0.1/mantisbt-1.3.1/api/soap/mantisconnect.php");
-        mcl = new MantisConnectLocator();
-        portType = mcl.getMantisConnectPort(url);
+        List<MantisPool> mantisPools = mantisPoolRepository.findByTypeAndActive(ResourceType.MANTIS.name(), true);
+        if (!mantisPools.isEmpty() && mantisPools.size() == 1) {
+            URL url = new URL(mantisPools.get(0).getUrl());
+            user = mantisPools.get(0).getUsername();
+            pwd = mantisPools.get(0).getPassword();
+            mcl = new MantisConnectLocator();
+            portType = mcl.getMantisConnectPort(url);
+        }
     }
 
     @RequestMapping("/api/mantis/getIssue")

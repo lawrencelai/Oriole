@@ -17,16 +17,17 @@
 package org.oriole.document.repository;
 
 import org.oriole.document.MantisPool;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
 public interface MantisPoolRepository extends MongoRepository<MantisPool, String> {
 
-    public MantisPool findById(long id);
+    public Page<MantisPool> findByType(String type, Pageable pageable);
 
-    public MantisPool findByName(String name);
+    public List<MantisPool> findByTypeAndName(String Type, String name);
 
-    public List<MantisPool> findByActive(boolean active);
-
+    public List<MantisPool> findByTypeAndActive(String Type, boolean active);
 }

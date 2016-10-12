@@ -29,6 +29,13 @@ body{
 	border: 1px solid #C0C5CE;
 }
 
+#mantispool-dt{
+	margin: 40px 40px;
+	padding: 10px 10px;
+	width:800px;
+	border: 1px solid #C0C5CE;
+}
+
 #deployrequest-dt{
 	margin:  40px 40px;
 	padding: 10px 10px;

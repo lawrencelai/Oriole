@@ -95,3 +95,9 @@ input[id="mantisInfoSummary"]{
     background: #2E5481;
     border: solid 1px #203E5F;
 }
+
+tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+}

@@ -1,6 +1,7 @@
 $(document).ready(function () {
 	var dt_sqlci_grp;
 	var dt_dbpool;
+	var dt_mantispool;
 	initMenu();
 	prepareCodeMirror('cm-create-sqlci');
 	prepareCodeMirror('cm-edit-sqlci');
@@ -44,7 +45,7 @@ function initMenu(){
 		}
 		if(menuitem=="admin-view"){
 			 initDatabasePoolDataTable();
-			 
+			 initMantisPoolDataTable();
 		}
 		if(menuitem=="sql-ci-view"){
 			initSqlCIGroupDataTable();
