@@ -64,7 +64,7 @@ function formatSQLCI (groupid,data,buttonHtml) {
 					'<td>'+val.sequence+'</td>'+
 					'<td>'+activeFlag+'</td>'+    	
 	            	'<td>'+val.type+'</td>'+
-		        	'<td>'+val.description+'</td>'+		     
+		        	'<td id="description">'+val.description+'</td>'+
 		        	'<td>'+val.updatedBy+'</td>'+        
 		        	'<td>'+val.updatedTs+'</td>'+
 		        	'<td class="sqlCI-edit"><i class="fa fa-edit" style="font-size:24px"  data-popup-open="editSQLCI" href="#"></a></td>'+	

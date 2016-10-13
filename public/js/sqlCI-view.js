@@ -91,9 +91,10 @@ $(function() {
                 $('[data-popup="' + targeted_popup_class + '"]').find('#targetDatabase').val(targeted_deploy);
                 $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
 	  		}else if(targeted_popup_class == "createDeployRequest"){
-	  			  var id = $(this).attr('ci-id');
+	  			 var id = $(this).attr('ci-id');
+	  			 var desc = $(this).closest('tr').find('#description').get(0).innerText;
 	  		     $('[data-popup="' + targeted_popup_class + '"]').find('#id').val(id);
-                // $('[data-popup="' + targeted_popup_class + '"]').find('#description').val(rowData.description);
+                 $('[data-popup="' + targeted_popup_class + '"]').find('#description').val(desc);
                  $('[data-popup="' + targeted_popup_class + '"]').find('#targetDatabase').val(targeted_deploy);
                  $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
 	  		}
