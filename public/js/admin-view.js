@@ -261,6 +261,47 @@ function editDatabasePoolRequest() {
 		}
 	});
 }
+function createMantisPoolRequest() {
+	var data = {};
+
+	$('[data-role="createMantisPool"]').each(function() {
+		data[$(this).attr('id')] = $(this).val();
+	});
+
+	$.ajax({
+		url : "http://localhost:8080/api/resource/mantis/create",
+		data : data,
+		success : function(msg) {
+			$('[data-popup="createMantisPool"]').fadeOut(350);
+			dt_dbpool.ajax.reload();
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+			alert(xhr.status);
+			alert(thrownError);
+		}
+	});
+}
+
+function editMantisPoolRequest() {
+	var data = {};
+
+	$('[data-role="editMantisPool"]').each(function() {
+		data[$(this).attr('id')] = $(this).val();
+	});
+
+	$.ajax({
+		url : "http://localhost:8080/api/resource/mantis/change",
+		data : data,
+		success : function(msg) {
+			$('[data-popup="editMantisPool"]').fadeOut(350);
+			dt_dbpool.ajax.reload();
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+			alert(xhr.status);
+			alert(thrownError);
+		}
+	});
+}
 function deployableDBPoolForCiGroup(groupid) {
 	var data = {};
 	$.ajax({
