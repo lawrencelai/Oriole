@@ -179,6 +179,7 @@ public class DeployRequestController {
                     sequenceDao.getNextSequenceId(DatabaseSequence.DEPOLYMENT_REQUEST.getSequenceName()));
 
             deploymentRequest.setSqlCiId(sqlCI.getId());
+            deploymentRequest.setDescription(description + ":" + sqlCI.getDescription());
             deploymentRequest.setTargetDatabase(targetDatabase);
             deploymentRequest.setStatus(DeployRequestState.SCHEDULE.name());
             deploymentRequest.setRequestBy(requestBy);
